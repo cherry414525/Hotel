@@ -3,6 +3,7 @@ package com.example.demo.dao;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.model.dto.BookingRoomDto;
 import com.example.demo.model.po.Booking;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.User;
