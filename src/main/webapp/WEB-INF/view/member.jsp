@@ -116,7 +116,7 @@
                   <td>${bookingRoomDtos.end_date}</td>
                   <td>${bookingRoomDtos.quantity}</td>
                   <td>${bookingRoomDtos.price }</td>
-                  <td><a href="booking?bookingId=${bookingRoomDtos.bookingId}" class="btn btn-primary manage-btn">修改</a></td>
+                  <td><a href="booking.jsp" class="btn btn-primary manage-btn">修改</a></td>
     			  <td>
 	    			  <form action="/member/delete/${bookingRoomDtos.bookingId}" method="POST" style="display: inline;">
 	    			  		<input name="_method" id="_method" type="hidden" value="DELETE" />
@@ -147,44 +147,31 @@
             <h2 class="mb-3">訂單列表</h2>
             <!-- Accordion -->
             <div id="accordion">
+            <c:forEach items="${ bookingRoomDtos }" var="bookingRoomDtos">
               <div class="card">
                 <div class="card-header" id="headingOne">
                   <h5 class="mb-0">
                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                       aria-controls="collapseOne">
-                      訂單編號：2024001 - 房型：單人房
+                      訂單編號：${bookingRoomDtos.bookingId} - 房型：${bookingRoomDtos.room.name}
                     </button>
                   </h5>
                 </div>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                   <div class="card-body">
-                    <p>入住時間：2024-06-01</p>
-                    <p>退房時間：2024-06-03</p>
-                    <p>數量：1</p>
-                    <p>金額：$200</p>
-                    <button class="btn btn-primary ">管理</button>
+                    <p>入住時間：${bookingRoomDtos.start_date}</p>
+                    <p>退房時間：${bookingRoomDtos.end_date}</p>
+                    <p>數量：${bookingRoomDtos.quantity}</p>
+                    <p>金額：${bookingRoomDtos.price }</p>
+                    <a href="booking.jsp" class="btn btn-primary manage-btn">修改</a>
+	    			  <form action="/member/delete/${bookingRoomDtos.bookingId}" method="POST" style="display: inline;">
+	    			  		<input name="_method" id="_method" type="hidden" value="DELETE" />
+					  		<button type="submit" class="btn btn-danger pure-button" >刪除</button>
+	    			  </form>
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-header" id="headingTwo">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                      aria-expanded="false" aria-controls="collapseTwo">
-                      訂單編號：2024002 - 房型：雙人房
-                    </button>
-                  </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                  <div class="card-body">
-                    <p>入住時間：2024-06-02</p>
-                    <p>退房時間：2024-06-05</p>
-                    <p>數量：2</p>
-                    <p>金額：$400</p>
-                    <button class="btn btn-primary ">管理</button>
-                  </div>
-                </div>
-              </div>
+              </c:forEach>
             </div>
           </div>
         </div>
