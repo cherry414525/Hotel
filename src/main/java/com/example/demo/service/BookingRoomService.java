@@ -16,8 +16,16 @@ public class BookingRoomService {
 	@Autowired
 	private BookingRoomDao bookingRoomDao;
 	
+	public List<BookingRoomDto> findAllBookings(){
+		return bookingRoomDao.findAllBookings();
+	}
+	
 	public List<BookingRoomDto> findAllBookingsByUserId(Integer userId) {
 		return bookingRoomDao.findAllBookingsByUserId(userId);
 	}
 
+	public Integer deleteBooking(Integer id) {
+		
+		return bookingRoomDao.deleteBooking(id);
+	}
 }

@@ -93,6 +93,8 @@
           <div class="d-none d-md-block">
             <h2 class="mb-3">訂單列表</h2>
             <table class="table">
+            <input name="_method" id="_method" type="hidden" value=${method}/>
+            
               <thead>
                 <tr>
                   <th>訂單編號</th>
@@ -101,19 +103,27 @@
                   <th>退房時間</th>
                   <th>數量</th>
                   <th>金額</th>
-                  <th>管理</th>
+                  <th>修改</th>
+                  <th>刪除</th>
                 </tr>
               </thead>
               <tbody>
-              	<c:forEach items="${ bookingRoomDtos }" var="booking">
+              	<c:forEach items="${ bookingRoomDtos }" var="bookingRoomDtos">
                 <tr>
-                  <td>${booking.bookingId}</td>
-                  <td>${booking.room.name}</td>
-                  <td>${booking.start_date}</td>
-                  <td>${booking.end_date}</td>
-                  <td>${booking.quantity}</td>
-                  <td>${booking.price }</td>
-                  <td><button class="btn btn-primary manage-btn">管理</button></td>
+                  <td>${bookingRoomDtos.bookingId}</td>
+                  <td>${bookingRoomDtos.room.name}</td>
+                  <td>${bookingRoomDtos.start_date}</td>
+                  <td>${bookingRoomDtos.end_date}</td>
+                  <td>${bookingRoomDtos.quantity}</td>
+                  <td>${bookingRoomDtos.price }</td>
+                  <td><a href="booking?bookingId=${bookingRoomDtos.bookingId}" class="btn btn-primary manage-btn">修改</a></td>
+    			  <td>
+	    			  <form action="/member/delete/${bookingRoomDtos.bookingId}" method="POST" style="display: inline;">
+	    			  		<input name="_method" id="_method" type="hidden" value="DELETE" />
+					  		<button type="submit" class="btn btn-danger pure-button" >刪除</button>
+	    			  </form>
+    			  </td>
+                  
                 </tr>
                 </c:forEach>
               </tbody>

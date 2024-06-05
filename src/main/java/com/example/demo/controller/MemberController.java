@@ -1,27 +1,18 @@
 package com.example.demo.controller;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
-import javax.swing.text.DateFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.dto.BookingRoomDto;
-import com.example.demo.model.po.Booking;
-import com.example.demo.model.po.Room;
 import com.example.demo.service.BookingRoomService;
-import com.example.demo.service.BookingService;
-import com.example.demo.service.RoomService;
 
 @Controller
 @RequestMapping("/member")
@@ -33,11 +24,30 @@ public class MemberController {
 
 	
 	@GetMapping
-	public String findAll(@RequestParam("userId") Integer userId,Model model) {
+	public String findAll(Model model) {
+		List<BookingRoomDto> bookingRoomDtos =bookingRoomService.findAllBookings();
+		model.addAttribute("bookingRoomDtos", bookingRoomDtos); // 給列表用
+		return "member";
+	}
+	
+	@GetMapping("/userId")
+	public String findAllByUserId(@RequestParam("userId") Integer userId,Model model) {
 		List<BookingRoomDto> bookingRoomDtos =bookingRoomService.findAllBookingsByUserId(userId);
 		model.addAttribute("bookingRoomDtos", bookingRoomDtos); // 給列表用
 		return "member";
 	}
+	
+	@DeleteMapping("/delete/{bookingId}")
+	public String deleteUser(@PathVariable("bookingId") Integer bookingId, Model model) {
+		
+		Integer rowcount = bookingRoomService.deleteBooking(bookingId);
+		System.out.print(rowcount);
+		String message = "刪除" + ((rowcount>0)?"成功":"失敗");
+		
+		model.addAttribute("message", message);
+		return "redirect:/member";
+	}
+	
 	/*
 	
 	@GetMapping("/findbooking")
@@ -93,15 +103,7 @@ public class MemberController {
         return "result";
     }
 	
-
-	@PostMapping("/delete")
-	public String deleteUser(@RequestParam("bookingId") Integer bookingId, Model model) {
-		
-		Integer rowcount = bookingService.deleteBooking(bookingId);
-		System.out.print(rowcount);
-		String message = "刪除" + ((rowcount>0)?"成功":"失敗");
-		model.addAttribute("message", message);
-		return "result";
-	}
-	*/
+*/
+	
+	
 }

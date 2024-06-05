@@ -26,6 +26,54 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Override
+	public List<BookingRoomDto> findAllBookings() {
+		String sql = "select "
+	            + "b.booking_id, b.user_id, b.room_id, b.quantity, b.price, b.start_date, b.end_date, b.createdate, b.updatedate, " 
+	            + "r.room_id, r.name, r.capacity, r.price "
+	            + "from booking b "
+	            + "left join room r on b.room_id = r.room_id ";
+		
+		// 自定義對應邏輯規則
+				RowMapper<BookingRoomDto> mapper = new RowMapper<>() {
+					
+					@Override
+					public BookingRoomDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// 逐筆逐項將每一個欄位資料抓出
+						Integer bookingId = rs.getInt("booking_id");
+						Integer roomId = rs.getInt("b.room_id");
+						Integer userId = rs.getInt("b.user_id");
+						Date start_date = rs.getDate("start_date");
+						Date end_date = rs.getDate("end_date");
+						Integer quantity = rs.getInt("quantity");
+						Double price = rs.getDouble("price");
+						Timestamp createDate = rs.getTimestamp("createDate");
+						String name = rs.getString("r.name");
+						
+						Integer capacity = rs.getInt("r.capacity");
+						
+						
+						// 注入資料
+						Room Room = new Room(roomId, name, price, capacity);
+						
+						// DTO
+						BookingRoomDto dto = new BookingRoomDto();
+						dto.setBookingId(bookingId);
+						dto.setRoomId(roomId);
+						dto.setUserId(userId);
+						dto.setStart_date(start_date);
+						dto.setEnd_date(end_date);
+						dto.setQuantity(quantity);
+						dto.setPrice(price);
+						dto.setCreateDate(createDate);
+						dto.setRoom(Room);
+						
+						return dto;
+					}
+				};
+				return jdbcTemplate.query(sql, mapper);
+	}
 
 	@Override
 	public List<BookingRoomDto> findAllBookingsByUserId(Integer userId) {
