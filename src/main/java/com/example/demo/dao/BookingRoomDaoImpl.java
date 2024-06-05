@@ -28,7 +28,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<BookingRoomDto> findAllBookings(Integer userId) {
+	public List<BookingRoomDto> findAllBookingsByUserId(Integer userId) {
 		//查詢所有訂單，依照user_id
 		/*
 		 * select b.booking_id, b.user_id, b.room_id, b.quantity,b.price,b.start_date, b.end_date,b.createdate,b.updatedate,

@@ -20,7 +20,7 @@ public class BookingDaoImpl implements BookingDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<Booking> findAllBookings(Integer userId) {
+	public List<Booking> findAllBookingsByUserId(Integer userId) {
 		//查詢所有訂單，依照user_id
 		String sql = "select booking_id, user_id, room_id, quantity,price,start_date, end_date,createdate,updatedate from booking where user_id = ?";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Booking.class),userId);

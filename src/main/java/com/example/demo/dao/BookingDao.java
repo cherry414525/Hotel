@@ -9,7 +9,7 @@ import com.example.demo.model.po.Room;
 import com.example.demo.model.po.User;
 
 public interface BookingDao {
-	List<Booking> findAllBookings(Integer userId);	//查詢所有訂單，依照user_id
+	List<Booking> findAllBookingsByUserId(Integer userId);	//查詢所有訂單，依照user_id
 	Optional<Booking> getBooking(Integer id);	//查詢單筆訂單，依照boooking_id
 	Integer addBooking(Booking booking);		//新增訂單
 	Integer updateBooking(Integer id,Booking booking);	//修改訂單

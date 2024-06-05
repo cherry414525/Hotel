@@ -20,8 +20,8 @@ public class BookingService {
 	@Autowired
 	private BookingDao bookingDao;
 	
-	public List<Booking> findAllBookings(Integer userId) {
-		return bookingDao.findAllBookings(userId);
+	public List<Booking> findAllBookingsByUserId(Integer userId) {
+		return bookingDao.findAllBookingsByUserId(userId);
 	}
 
 	public Optional<Booking> getBooking(Integer id) {

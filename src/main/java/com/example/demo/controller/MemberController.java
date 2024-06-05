@@ -34,7 +34,7 @@ public class MemberController {
 	
 	@GetMapping
 	public String findAll(@RequestParam("userId") Integer userId,Model model) {
-		List<BookingRoomDto> bookingRoomDtos =bookingRoomService.findAllBookings(userId);
+		List<BookingRoomDto> bookingRoomDtos =bookingRoomService.findAllBookingsByUserId(userId);
 		model.addAttribute("bookingRoomDtos", bookingRoomDtos); // 給列表用
 		return "member";
 	}
