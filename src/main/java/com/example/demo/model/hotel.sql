@@ -8,9 +8,8 @@ drop table if exists booking;
 
 create table if not exists room(
     room_id INT PRIMARY KEY,
-    name VARCHAR(50),
-    price DOUBLE,
-    capacity INT
+    type_id INT,
+    FOREIGN KEY (type_id) REFERENCES roomtype(type_id)
 );
 
 create table if not exists user(
@@ -37,4 +36,12 @@ create table if not exists booking(
     updatedate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	FOREIGN KEY (room_id) REFERENCES room(room_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
+
+create table if not exists roomtype(
+    type_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    price DOUBLE,
+    capacity INT,
+    photo VARCHAR(100)
 );
