@@ -103,34 +103,34 @@
                         </div>
                         <div id="registerForm" style="display: none;">
                             <h2 class="text-center">會員註冊</h2>
-                            <form>
+                            <form method="POST" action="/login/register">
                                 <div class="form-group">
-                                    <label for="registerName">姓名</label>
-                                    <input type="text" class="form-control" id="registerName" placeholder="輸入姓名">
+                                    <label for="name">姓名</label>
+                                    <input type="text" class="form-control" id="name" placeholder="輸入姓名">
                                 </div>
                                 <div class="form-group">
                                     <label for="registerEmail">Email</label>
-                                    <input type="email" class="form-control" id="registerEmail"
+                                    <input type="email" class="form-control" id="email"
                                         aria-describedby="emailHelp" placeholder="輸入Email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="registerBirthday">生日</label>
-                                    <input type="date" class="form-control" id="registerBirthday">
+                                    <label for="birthday">生日</label>
+                                    <input type="date" class="form-control" id="birthday">
                                 </div>
                                 <div class="form-group">
-                                    <label for="registerGender">性別</label>
-                                    <select class="form-control" id="registerGender">
+                                    <label for="gender">性別</label>
+                                    <select class="form-control" id="gender">
                                         <option value="male">男性</option>
                                         <option value="female">女性</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="registerPhone">電話</label>
-                                    <input type="tel" class="form-control" id="registerPhone" placeholder="輸入電話">
+                                    <label for="phone">電話</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="輸入電話">
                                 </div>
                                 <div class="form-group">
-                                    <label for="registerPassword">密碼</label>
-                                    <input type="password" class="form-control" id="registerPassword"
+                                    <label for="password">密碼</label>
+                                    <input type="password" class="form-control" id="password"
                                         placeholder="輸入密碼">
                                 </div>
                                 <div class="form-group">

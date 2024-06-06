@@ -11,10 +11,10 @@
         <link rel="icon" href="../hotel_img/icon-hotel.webp"> 
         <!-- Bootstrap CSS -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <!-- Bootstrap JS and jQuery -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <!-- Custom CSS -->
         <style>
             * {
@@ -162,7 +162,7 @@
                     </div>
 
                     <!-- 房型1-->
-                    <c:forEach items="${ roomtypeDtos }" var="roomtypeDtos">
+                    <c:forEach items="${ roomtypeDtos }" var="roomtypeDto">
                     <div class="row">
                         <!-- First Block -->
                         <div class="col-lg-12 col-md-12 mb-4">
@@ -170,14 +170,14 @@
                                 <div class="row no-gutters">
                                     <!-- 左半部分放置图片 -->
                                     <div class="col-md-4" style="padding: 8px;">
-                                        <img src="../hotel_img/${roomtypeDtos.photo}" class="card-img" alt="Your Image">
+                                        <img src="../hotel_img/${roomtypeDto.photo}" class="card-img" alt="Your Image">
                                     </div>
                                     <!-- 右半部分放置信息和按钮 -->
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">${roomtypeDtos.name}</h5>
+                                            <h5 class="card-title">${roomtypeDto.name}</h5>
                                             <hr>
-                                            <p class="card-text">適合人數:${roomtypeDtos.capacity}</p>
+                                            <p class="card-text">適合人數:${roomtypeDto.capacity}</p>
 
                                             <!-- 下面的容器放置输入框和订房按钮 -->
                                             <div class="container-fluid "  style="margin-top: 50px;">
@@ -194,15 +194,15 @@
                                                     </div>
                                                     <!-- 總金額 -->
                                                     <div class="col-md-3 col-sm-6 mt-2 mt-md-2 text-right" >
-                                                    	<p  id="q" ></p>
-                                                        <p class="card-text total-money">總金額: ${roomtypeDtos.price}</p>
+                                                    <input type="hidden" id="price" value="${roomtypeDto.price}">
+                                                    總金額：<input type="number" id="totalPrice" value="${roomtypeDto.price}" readonly>
                                                     </div>
                                                     <!-- 訂房按钮 -->
                                                     
     													
     													<div class="col-md-4 col-sm-12 mt-2 mt-md-0">
     														<form action="/booking" method="GET">
-    															<input type="hidden" name="roomtype" value="${roomtypeDtos.name}">
+    															<input type="hidden" name="roomtype" value="${roomtypeDto.name}">
     															
         														<button type="submit" class="btn btn-primary btn-block float-right">訂房</button>
     														</form>
@@ -301,16 +301,26 @@
 
         <script>
             $(document).ready(function () {
+            	
+            	// 漢堡圖
                 $('.navbar-nav>li>a').on('click', function () {
                     $('.navbar-collapse').collapse('hide');
                 });
+                
+                
+                // 使用window.onload确保在文档加载完成后执行
+                //window.onload = function() {
+	            //    var quantityInput = document.getElementById('quantity').value;
+	            //    document.getElementById('q').value = quantityInput;
+                //};
+                
+                $('#quantity').on('click', function () {
+                	let quantity = document.getElementById('quantity').value; // 房間
+                	let price = document.getElementById('price').value; // 價格 (每間房)
+                	let totalPrice = quantity * price;
+                	$('#totalPrice').val(totalPrice);
+                });
             });
-            // 使用window.onload确保在文档加载完成后执行
-            window.onload = function() {
-            var quantityInput = document.getElementById('quantity').value;
-            document.getElementById('q').value = quantityInput;
-            };
-        
         </script>
     </body>
 
