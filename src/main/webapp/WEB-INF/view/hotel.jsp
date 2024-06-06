@@ -193,7 +193,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- 總金額 -->
-                                                    <div class="col-md-3 col-sm-6 mt-2 mt-md-2 text-right" >
+                                                    <div class="col-md-3 col-sm-6 mt-2 mt-md-2 d-flex align-items-center text-right" >
                                                     <input type="hidden" id="price" value="${roomtypeDto.price}">
                                                     總金額：<input type="number" id="totalPrice" value="${roomtypeDto.price}" readonly>
                                                     </div>
