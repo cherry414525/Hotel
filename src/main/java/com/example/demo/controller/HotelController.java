@@ -18,29 +18,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import com.example.demo.model.po.Room;
+import com.example.demo.model.po.RoomType;
 import com.example.demo.service.RoomService;
+import com.example.demo.service.RoomTypeService;
 
 @Controller
 @RequestMapping("/hotel")
 public class HotelController {
 	
 	@Autowired
-	private RoomService  roomService;
+	private RoomTypeService  roomtypeService;
 
 	
 	@GetMapping
 	public String findAll(Model model) {
-		List<Room> roomDtos = roomService.findAllRooms();
-		model.addAttribute("roomDtos", roomDtos); // 給列表用
+		List<RoomType> roomtypeDtos = roomtypeService.findAllRoomtypes();
+		model.addAttribute("roomtypeDtos", roomtypeDtos); // 給列表用
 		
 		return "hotel";
 	}
-	
+	/*
 	@GetMapping("/findroom")
 	public String getUser(@RequestParam("roomId") Integer roomId, Model model) {
 		
 		
-		 model.addAttribute("roomDtos",roomService.getRoom(roomId));
+		 model.addAttribute("roomDtos",roomtypeService.getRoom(roomId));
 		return "result";
 	}
 	
@@ -100,4 +102,5 @@ public class HotelController {
 		model.addAttribute("message", message);
 		return "result";
 	}
+	*/
 }

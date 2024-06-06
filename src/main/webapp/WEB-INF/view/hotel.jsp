@@ -162,7 +162,7 @@
                     </div>
 
                     <!-- 房型1-->
-                    <c:forEach items="${ roomDtos }" var="roomDtos">
+                    <c:forEach items="${ roomtypeDtos }" var="roomtypeDtos">
                     <div class="row">
                         <!-- First Block -->
                         <div class="col-lg-12 col-md-12 mb-4">
@@ -175,9 +175,9 @@
                                     <!-- 右半部分放置信息和按钮 -->
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">${roomDtos.name}</h5>
+                                            <h5 class="card-title">${roomtypeDtos.name}</h5>
                                             <hr>
-                                            <p class="card-text">適合人數:${roomDtos.capacity}</p>
+                                            <p class="card-text">適合人數:${roomtypeDtos.capacity}</p>
 
                                             <!-- 下面的容器放置输入框和订房按钮 -->
                                             <div class="container-fluid "  style="margin-top: 50px;">
@@ -194,7 +194,7 @@
                                                     </div>
                                                     <!-- 總金額 -->
                                                     <div class="col-md-3 col-sm-6 mt-2 mt-md-2 text-right" >
-                                                        <p class="card-text total-money">總金額: ${roomDtos.price}</p>
+                                                        <p class="card-text total-money">總金額: ${roomtypeDtos.price}</p>
                                                     </div>
                                                     <!-- 訂房按钮 -->
                                                     <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
@@ -210,55 +210,9 @@
                         </div>
                     </div>
                     </c:forEach>
-                    <!--房型2-->
-                    <div class="row">
-                        <!-- First Block -->
-                        <div class="col-lg-12 col-md-12 mb-4">
-                            <div class="card">
-                                <div class="row no-gutters">
-                                    <!-- 左半部分放置图片 -->
-                                    <div class="col-md-4" style="padding: 8px;">
-                                        <img src="../hotel_img/main1.jpg" class="card-img" alt="Your Image">
-                                    </div>
-                                    <!-- 右半部分放置信息和按钮 -->
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">經典雙人房</h5>
-                                            <hr>
-                                            <p class="card-text">適合人數:2人</p>
-
-                                            <!-- 下面的容器放置输入框和订房按钮 -->
-                                            <div class="container-fluid "  style="margin-top: 50px;">
-                                                <div class="row justify-content-end">
-                                                    <!-- 输入框 -->
-                                                    <div class="col-md-4 col-sm-6">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">間數:</span>
-                                                            </div>
-                                                            <input type="number" class="form-control" placeholder="選擇間數"
-                                                                value="1">
-                                                        </div>
-                                                    </div>
-                                                    <!-- 總金額 -->
-                                                    <div class="col-md-3 col-sm-6 mt-2 mt-md-2 text-right" >
-                                                        <p class="card-text total-money">總金額: 1550</p>
-                                                    </div>
-                                                    <!-- 訂房按钮 -->
-                                                    <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                        <a href="booking.html" class="btn btn-primary btn-block float-right">訂房</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-
+                  
+                  </div>
+                  
             </section>
             <!-- #sec3 =================================================================== -->
             <section id="sec3">
@@ -283,7 +237,7 @@
                     <ul class="row" style="list-style: none; padding-left: 0;">
                         <h3 class="col-md-12  font-weight-bold">✓ 餐飲設施</h3>
                         <li class="col-md-3 col-sm-6"><strong>✓ 咖啡</strong></li>
-                        <li class="col-md-3 col-sm-6"><strong>v茶 / 咖啡沖泡設施</strong></li>
+                        <li class="col-md-3 col-sm-6"><strong>✓ 茶 / 咖啡沖泡設施</strong></li>
                         <li class="col-md-3 col-sm-6"><strong>✓ 公用用餐區</strong></li>
                     </ul>
 
