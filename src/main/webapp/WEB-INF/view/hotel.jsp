@@ -86,7 +86,7 @@
                                 <a class="nav-link" href="#sec4">交通資訊</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="login.html">會員中心</a>
+                                <a class="nav-link" href="/login">會員中心</a>
                             </li>
                         </ul>
                     </div>
@@ -186,14 +186,15 @@
                                                     <div class="col-md-4 col-sm-6">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">間數:</span>
+                                                                <span class="input-group-text" >間數:</span>
                                                             </div>
-                                                            <input type="number" class="form-control" placeholder="選擇間數"
-                                                                value="1">
+                                                            <input type="number" id="quantity" class="form-control" placeholder="選擇間數"
+                                                                value="1" >
                                                         </div>
                                                     </div>
                                                     <!-- 總金額 -->
                                                     <div class="col-md-3 col-sm-6 mt-2 mt-md-2 text-right" >
+                                                    	<p  id="q" ></p>
                                                         <p class="card-text total-money">總金額: ${roomtypeDtos.price}</p>
                                                     </div>
                                                     <!-- 訂房按钮 -->
@@ -304,8 +305,11 @@
                     $('.navbar-collapse').collapse('hide');
                 });
             });
-            
-            
+            // 使用window.onload确保在文档加载完成后执行
+            window.onload = function() {
+            var quantityInput = document.getElementById('quantity').value;
+            document.getElementById('q').value = quantityInput;
+            };
         
         </script>
     </body>
