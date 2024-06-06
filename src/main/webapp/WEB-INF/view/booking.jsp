@@ -94,7 +94,7 @@
             <div id="bookingForm">
               <h2 class="text-center">訂房資訊</h2>
               <!-- 表單開始 -->
-              <form method="post" action="yourAction.jsp">
+              <form method="POST" action="/booking/addbooking">
                 <div class="form-group">
                   <label for="orderNumber">訂單編號</label>
                   <input type="text" class="form-control" id="orderNumber" name="orderNumber" readonly>
@@ -104,20 +104,20 @@
                   <input type="text" class="form-control" id="roomType" name="roomType" value="${roomtype}" readonly>
                 </div>
                 <div class="form-group">
-                  <label for="checkIn">入住時間</label>
-                  <input type="date" class="form-control" id="checkIn" name="checkIn">
+                  <label for="start_date">入住時間</label>
+                  <input type="date" class="form-control"  id="start_date" name="start_date">
                 </div>
                 <div class="form-group">
-                  <label for="checkOut">退房時間</label>
-                  <input type="date" class="form-control" id="checkOut" name="checkOut">
+                  <label for="end_date">退房時間</label>
+                  <input type="date" class="form-control" id="end_date" name="end_date">
                 </div>
                 <div class="form-group">
                   <label for="quantity">數量</label>
                   <input type="number" class="form-control" id="quantity" name="quantity" placeholder="輸入數量">
                 </div>
                 <div class="form-group">
-                  <label for="amount">金額</label>
-                  <input type="text" class="form-control" id="amount" name="amount" placeholder="輸入金額">
+                  <label for="price">金額</label>
+                  <input type="text" class="form-control" id="price" name="price" placeholder="輸入金額">
                 </div>
                 <!-- 將按鈕置於同一行的不同列中 -->
                 <div class="row justify-content-end">

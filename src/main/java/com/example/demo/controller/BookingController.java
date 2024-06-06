@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.po.Booking;
+import com.example.demo.model.dto.BookingDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.service.BookingService;
 import com.example.demo.service.RoomService;
@@ -30,10 +32,49 @@ public class BookingController {
 	
 	@GetMapping
 	public String findAll(@ModelAttribute("roomtype") String roomtype,Model model) {
-		model.addAttribute("roomtype", roomtype);
+		 model.addAttribute("roomtype", roomtype);
+		 
 		return "booking";
 	}
 	
+	@PostMapping("/addbooking")
+	public String addUser(@ModelAttribute BookingDto bookingDto, Model model) {
+		
+		System.out.println(bookingDto);
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	        Date startDate = formatter.parse(bookingDto.getStart_date());
+	        Date endDate = formatter.parse(bookingDto.getEnd_date());
+	        
+	        
+			 Booking booking = new Booking();
+			 booking.setUserId(1);
+			 booking.setRoomId(201);
+			 booking.setStart_date(startDate);
+			 booking.setEnd_date(endDate);
+			 booking.setQuantity(bookingDto.getQuantity());
+			 booking.setPrice(bookingDto.getPrice());
+			 
+			 System.out.println(booking);
+			Integer rowcount = bookingService.addBooking(booking);
+			String message = "新增" + ((rowcount == 1)?"成功":"失敗");
+			System.out.print(rowcount);
+			model.addAttribute("message", message);
+		}catch (Exception e) {
+			System.out.print(e);
+			String message = "新增錯誤: ";
+			// "unique_roomId_and_bookingDate" 是在建立資料表時的表單約束條件
+			if(e.getMessage().contains("Duplicate")) {
+				message += "房間id已重複"; 
+			} else {
+				message += e.getMessage();
+			}
+			
+			model.addAttribute("message", message);
+		}
+		
+		return "booking";
+	}
 	
 	/*
 	@GetMapping

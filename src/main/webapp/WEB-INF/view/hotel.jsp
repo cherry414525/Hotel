@@ -202,6 +202,7 @@
     													<div class="col-md-4 col-sm-12 mt-2 mt-md-0">
     														<form action="/booking" method="GET">
     															<input type="hidden" name="roomtype" value="${roomtypeDtos.name}">
+    															
         														<button type="submit" class="btn btn-primary btn-block float-right">訂房</button>
     														</form>
     													</div>
@@ -303,6 +304,9 @@
                     $('.navbar-collapse').collapse('hide');
                 });
             });
+            
+            
+        
         </script>
     </body>
 

@@ -30,13 +30,13 @@ public class BookingService {
 	
 	public Integer addBooking(Booking booking) {
 		
-		booking.setBooking_id(2003);
+		/*booking.setBooking_id(2003);
 		booking.setRoomId(203);
 		booking.setUserId(1);
 		booking.setQuantity(1);
 		booking.setPrice(5000.0);
 		booking.setStart_date(new Date());
-		booking.setEnd_date(new Date());
+		booking.setEnd_date(new Date());*/
 		return bookingDao.addBooking(booking);
 		
 	}
