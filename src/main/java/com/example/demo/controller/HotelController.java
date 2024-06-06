@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -33,8 +36,16 @@ public class HotelController {
 	@GetMapping
 	public String findAll(Model model) {
 		List<RoomType> roomtypeDtos = roomtypeService.findAllRoomtypes();
-		model.addAttribute("roomtypeDtos", roomtypeDtos); // 給列表用
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String todayString = sdf.format(new Date());
+		// 明天的日期
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.add(Calendar.DAY_OF_YEAR, 1); // 加1天
+	    String tomorrowString = sdf.format(calendar.getTime());
 		
+		model.addAttribute("roomtypeDtos", roomtypeDtos); // 給列表用
+		model.addAttribute("today", todayString);
+		model.addAttribute("tomorrow", tomorrowString);
 		return "hotel";
 	}
 	/*

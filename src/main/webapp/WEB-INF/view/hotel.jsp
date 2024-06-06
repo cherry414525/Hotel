@@ -150,11 +150,11 @@
                     <div class="row mb-4 justify-content-end">
                         <div class="col-md-4 d-flex align-items-center justify-content-around">
                             <label for="check_in_date">入住日期: </label>
-                            <input type="date" id="check_in_date" class="form-control" style="width: 70%;" required>
+                            <input type="date" id="check_in_date" class="form-control" style="width: 70%;" value="${today}" required>
                         </div>
                         <div class="col-md-4 d-flex align-items-center justify-content-around">
                             <label for="check_out_date">退房日期: </label>
-                            <input type="date" id="check_out_date" class="form-control" style="width: 70%;" required>
+                            <input type="date" id="check_out_date" class="form-control" style="width: 70%;" value="${tomorrow}" required>
                         </div>
                         <div class="col-md-2 align-self-end text-right">
                             <button type="button" class="btn btn-primary" style="width: 85%; "> 搜尋</button>
@@ -197,9 +197,20 @@
                                                         <p class="card-text total-money">總金額: ${roomtypeDtos.price}</p>
                                                     </div>
                                                     <!-- 訂房按钮 -->
+                                                    
+    													
+    													<div class="col-md-4 col-sm-12 mt-2 mt-md-0">
+    														<form action="/booking" method="GET">
+    															<input type="hidden" name="roomtype" value="${roomtypeDtos.name}">
+        														<button type="submit" class="btn btn-primary btn-block float-right">訂房</button>
+    														</form>
+    													</div>
+													
+                                                    <!--  
                                                     <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
                                                         <a href="/booking" class="btn btn-primary btn-block float-right">訂房</a>
                                                     </div>
+                                                    -->
                                                 </div>
                                             </div>
                                         </div>

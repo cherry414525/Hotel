@@ -97,11 +97,11 @@
               <form method="post" action="yourAction.jsp">
                 <div class="form-group">
                   <label for="orderNumber">訂單編號</label>
-                  <input type="text" class="form-control" id="orderNumber" name="orderNumber" placeholder="輸入訂單編號">
+                  <input type="text" class="form-control" id="orderNumber" name="orderNumber" readonly>
                 </div>
                 <div class="form-group">
                   <label for="roomType">房型</label>
-                  <input type="text" class="form-control" id="roomType" name="roomType" placeholder="輸入房型">
+                  <input type="text" class="form-control" id="roomType" name="roomType" value="${roomtype}" readonly>
                 </div>
                 <div class="form-group">
                   <label for="checkIn">入住時間</label>

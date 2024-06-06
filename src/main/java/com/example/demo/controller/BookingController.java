@@ -29,8 +29,8 @@ public class BookingController {
 	private BookingService bookingService;
 	
 	@GetMapping
-	public String findAll(Model model) {
-		
+	public String findAll(@ModelAttribute("roomtype") String roomtype,Model model) {
+		model.addAttribute("roomtype", roomtype);
 		return "booking";
 	}
 	
