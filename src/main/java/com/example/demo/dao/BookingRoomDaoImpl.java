@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import com.example.demo.model.dto.BookingRoomDto;
 import com.example.demo.model.po.Booking;
 import com.example.demo.model.po.Room;
+import com.example.demo.model.po.RoomType;
 import com.example.demo.model.po.User;
 
 @Repository
@@ -29,11 +30,13 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	
 	@Override
 	public List<BookingRoomDto> findAllBookings() {
+		
 		String sql = "select "
 	            + "b.booking_id, b.user_id, b.room_id, b.quantity, b.price, b.start_date, b.end_date, b.createdate, b.updatedate, " 
-	            + "r.room_id, r.name, r.capacity, r.price "
+	            + "r.room_id,r.type_id, t.name, t.capacity, t.price,t.photo "
 	            + "from booking b "
-	            + "left join room r on b.room_id = r.room_id ";
+	            + "left join room r on b.room_id = r.room_id "
+	            + "left join roomtype t on r.type_id=t.type_id ";
 		
 		// 自定義對應邏輯規則
 				RowMapper<BookingRoomDto> mapper = new RowMapper<>() {
@@ -49,13 +52,18 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						Integer quantity = rs.getInt("quantity");
 						Double price = rs.getDouble("price");
 						Timestamp createDate = rs.getTimestamp("createDate");
-						String name = rs.getString("r.name");
 						
-						Integer capacity = rs.getInt("r.capacity");
+						Integer typeId = rs.getInt("r.type_id");
+						String name = rs.getString("t.name");
+						Integer capacity = rs.getInt("t.capacity");
+						Double rprice = rs.getDouble("t.price");
+						String photo = rs.getString("t.photo");
 						
 						
 						// 注入資料
-						Room Room = new Room(roomId, name, price, capacity);
+						Room Room = new Room(roomId, typeId);
+						RoomType RoomType = new RoomType(typeId, name, rprice, capacity, photo);
+						
 						
 						// DTO
 						BookingRoomDto dto = new BookingRoomDto();
@@ -68,10 +76,12 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						dto.setPrice(price);
 						dto.setCreateDate(createDate);
 						dto.setRoom(Room);
-						
+						dto.setRoomType(RoomType);
+						System.out.print(dto);
 						return dto;
 					}
 				};
+				
 				return jdbcTemplate.query(sql, mapper);
 	}
 
@@ -79,17 +89,20 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	public List<BookingRoomDto> findAllBookingsByUserId(Integer userId) {
 		//查詢所有訂單，依照user_id
 		/*
-		 * select b.booking_id, b.user_id, b.room_id, b.quantity,b.price,b.start_date, b.end_date,b.createdate,b.updatedate,
-			r.room_id, r.name, r.capacity 
-			from booking b
+		 * select 
+			b.booking_id, b.user_id, b.room_id, b.quantity, b.price, b.start_date, b.end_date, b.createdate, b.updatedate, 
+			r.room_id,r.type_id, t.name, t.capacity, t.price 
+			from booking b 
 			left join room r on b.room_id = r.room_id
-			where user_id = 1;
+			left join roomtype t on r.type_id=t.type_id;
+		 
 		*/
 		String sql = "select "
 	            + "b.booking_id, b.user_id, b.room_id, b.quantity, b.price, b.start_date, b.end_date, b.createdate, b.updatedate, " 
-	            + "r.room_id, r.name, r.capacity, r.price "
+	            + "r.room_id,r.type_id, t.name, t.capacity, t.price,t.photo "
 	            + "from booking b "
 	            + "left join room r on b.room_id = r.room_id "
+	            + "left join roomtype t on r.type_id=t.type_id "
 	            + "where user_id = ?";
 		
 		// 自定義對應邏輯規則
@@ -106,13 +119,18 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						Integer quantity = rs.getInt("quantity");
 						Double price = rs.getDouble("price");
 						Timestamp createDate = rs.getTimestamp("createDate");
-						String name = rs.getString("r.name");
 						
-						Integer capacity = rs.getInt("r.capacity");
+						Integer typeId = rs.getInt("t.type_id");
+						String name = rs.getString("t.name");
+						Integer capacity = rs.getInt("t.capacity");
+						Double rprice = rs.getDouble("t.price");
+						String photo = rs.getString("t.photo");
 						
 						
 						// 注入資料
-						Room Room = new Room(roomId, name, price, capacity);
+						Room Room = new Room(roomId, typeId);
+						RoomType RoomType = new RoomType(typeId, name, rprice, capacity, photo);
+						
 						
 						// DTO
 						BookingRoomDto dto = new BookingRoomDto();
@@ -125,6 +143,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						dto.setPrice(price);
 						dto.setCreateDate(createDate);
 						dto.setRoom(Room);
+						dto.setRoomType(RoomType);
 						
 						return dto;
 					}

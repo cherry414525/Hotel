@@ -29,9 +29,7 @@ public class RoomService {
 	public Integer addRoom(Room room) {
 		
 		room.setRoom_id(203);
-		room.setName("經典雙人房");
-		room.setPrice(5000.0);
-		room.setCapacity(2);
+		room.setType_id(1);
 		return roomDao.addRoom(room);
 		
 	}
@@ -39,9 +37,7 @@ public class RoomService {
 	public Integer updateRoom(Room room) {
 		
 		room.setRoom_id(202);
-		room.setName("經典雙人房");
-		room.setPrice(5500.0);
-		room.setCapacity(2);
+		room.setType_id(2);
 		return roomDao.updateRoom(room.getRoom_id(), room);
 	}
 	

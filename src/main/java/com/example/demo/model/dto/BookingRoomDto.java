@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import com.example.demo.model.po.Room;
+import com.example.demo.model.po.RoomType;
 import com.example.demo.model.po.User;
 
 import lombok.AllArgsConstructor;
@@ -28,6 +29,8 @@ public class BookingRoomDto {
 		
 		//關聯欄位(多對一)
 		private Room room;
+		private RoomType roomType;
+		
 		
 
 }

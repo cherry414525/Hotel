@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Room {
-	private Integer room_id;
-	private Integer type_id;	//房型編號 
-	
+public class RoomType {
+	private Integer type_id;
+	private String name;	//房型
+	private double price;	//每晚單價
+	private int capacity;	//可住人數
+	private String photo;	//房型照片
 }

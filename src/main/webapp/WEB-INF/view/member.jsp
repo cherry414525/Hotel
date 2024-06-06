@@ -111,7 +111,7 @@
               	<c:forEach items="${ bookingRoomDtos }" var="bookingRoomDtos">
                 <tr>
                   <td>${bookingRoomDtos.bookingId}</td>
-                  <td>${bookingRoomDtos.room.name}</td>
+                  <td>${bookingRoomDtos.roomType.name}</td>
                   <td>${bookingRoomDtos.start_date}</td>
                   <td>${bookingRoomDtos.end_date}</td>
                   <td>${bookingRoomDtos.quantity}</td>
@@ -153,7 +153,7 @@
                   <h5 class="mb-0">
                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                       aria-controls="collapseOne">
-                      訂單編號：${bookingRoomDtos.bookingId} - 房型：${bookingRoomDtos.room.name}
+                      訂單編號：${bookingRoomDtos.bookingId} - 房型：${bookingRoomDtos.roomType.name}
                     </button>
                   </h5>
                 </div>

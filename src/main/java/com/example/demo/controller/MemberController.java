@@ -26,6 +26,7 @@ public class MemberController {
 	@GetMapping
 	public String findAll(Model model) {
 		List<BookingRoomDto> bookingRoomDtos =bookingRoomService.findAllBookings();
+		System.out.print(bookingRoomDtos);
 		model.addAttribute("bookingRoomDtos", bookingRoomDtos); // 給列表用
 		return "member";
 	}

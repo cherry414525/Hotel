@@ -19,38 +19,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import com.example.demo.model.po.Room;
+import com.example.demo.model.po.RoomType;
 import com.example.demo.service.RoomService;
+import com.example.demo.service.RoomTypeService;
 
 @Controller
-@RequestMapping("/room")
-public class RoomController {
+@RequestMapping("/roomtype")
+public class RoomTypeController {
 	
 	@Autowired
-	private RoomService  roomService;
+	private RoomTypeService  roomtypeService;
 
 	
 	@GetMapping
 	public String findAll(Model model) {
-		List<Room> roomDtos = roomService.findAllRooms();
+		List<RoomType> roomDtos = roomtypeService.findAllRoomtypes();
 		model.addAttribute("roomDtos", roomDtos); // 給列表用
 		
 		return "result";
 	}
 	
 	@GetMapping("/findroom")
-	public String getUser(@RequestParam("roomId") Integer roomId, Model model) {
+	public String getUser(@RequestParam("typeId") Integer typeId, Model model) {
 		
 		
-		 model.addAttribute("roomDtos",roomService.getRoom(roomId));
+		 model.addAttribute("roomDtos",roomtypeService.getRoomtype(typeId));
 		return "result";
 	}
 	
 	@PostMapping("/addroom")
-	public String addUser(@ModelAttribute Room room, Model model) {
+	public String addUser(@ModelAttribute RoomType roomtype, Model model) {
 		
 		try {
 			
-			Integer rowcount = roomService.addRoom(room);
+			Integer rowcount = roomtypeService.addRoomtype(roomtype);
 			String message = "新增" + ((rowcount == 1)?"成功":"失敗");
 			System.out.print(rowcount);
 			model.addAttribute("message", message);
@@ -72,14 +74,14 @@ public class RoomController {
 	
 
 	@PostMapping("/update")
-    public String updateUser(@ModelAttribute Room room, Model model) {
+    public String updateUser(@ModelAttribute RoomType roomtype, Model model) {
         try {
         	
-        	System.out.println(room);
+        	System.out.println(roomtype);
             // 調用服務層方法更新用戶信息
-            roomService.updateRoom(room);
+            roomtypeService.updateRoomtype(roomtype);
             String message = "更新成功";
-            model.addAttribute("room",room);
+            model.addAttribute("room",roomtype);
             model.addAttribute("message", message);
             model.addAttribute("_method","PUT");
         } catch (Exception e) {
@@ -93,9 +95,9 @@ public class RoomController {
 	
 
 	@PostMapping("/delete")
-	public String deleteUser(@RequestParam("roomId") Integer roomId, Model model) {
+	public String deleteUser(@RequestParam("typeId") Integer typeId, Model model) {
 		
-		Integer rowcount = roomService.deleteRoom(roomId);
+		Integer rowcount = roomtypeService.deleteRoomtype(typeId);
 		System.out.print(rowcount);
 		String message = "刪除" + ((rowcount>0)?"成功":"失敗");
 		model.addAttribute("message", message);

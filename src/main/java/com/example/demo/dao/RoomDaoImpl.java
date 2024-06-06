@@ -20,13 +20,13 @@ public class RoomDaoImpl implements RoomDao {
 
 	@Override
 	public List<Room> findAllRooms() {
-		String sql = "select room_id, name,price,capacity from room";
+		String sql = "select room_id, type_id from room";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Room.class));
 	}
 
 	@Override
 	public Optional<Room> getRoom(Integer id) {
-		String sql = "select room_id, name,price,capacity from room where room_id=?";
+		String sql = "select room_id, type_id from room where room_id=?";
 		try {
 			
 			Room room = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Room.class), id);
@@ -40,10 +40,10 @@ public class RoomDaoImpl implements RoomDao {
 
 	@Override
 	public Integer addRoom(Room room) {
-		String sql = "INSERT INTO room (room_id, name,price,capacity) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO room (room_id, type_id) VALUES (?, ?)";
         
         // 執行 SQL 新增語句
-        int rowcount = jdbcTemplate.update(sql,room.getRoom_id(),room.getName(),room.getPrice(),room.getCapacity());
+        int rowcount = jdbcTemplate.update(sql,room.getRoom_id(),room.getType_id());
         
         return rowcount;
 	}
@@ -51,8 +51,8 @@ public class RoomDaoImpl implements RoomDao {
 	@Override
 	public Integer updateRoom(Integer id, Room room) {
 		System.out.println(room.toString());
-		String sql = "update room set name = ?, price = ?, capacity = ?  where room_id = ?";
-		int rowcount = jdbcTemplate.update(sql, room.getName(),room.getPrice(),room.getCapacity(), id);
+		String sql = "update room set type_id=?  where room_id = ?";
+		int rowcount = jdbcTemplate.update(sql, room.getType_id(), id);
 		return rowcount;
 	}
 
