@@ -170,7 +170,7 @@
                                 <div class="row no-gutters">
                                     <!-- 左半部分放置图片 -->
                                     <div class="col-md-4" style="padding: 8px;">
-                                        <img src="../hotel_img/main1.jpg" class="card-img" alt="Your Image">
+                                        <img src="../hotel_img/${roomtypeDtos.photo}" class="card-img" alt="Your Image">
                                     </div>
                                     <!-- 右半部分放置信息和按钮 -->
                                     <div class="col-md-8">
@@ -198,7 +198,7 @@
                                                     </div>
                                                     <!-- 訂房按钮 -->
                                                     <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                        <a href="booking.html" class="btn btn-primary btn-block float-right">訂房</a>
+                                                        <a href="/booking" class="btn btn-primary btn-block float-right">訂房</a>
                                                     </div>
                                                 </div>
                                             </div>

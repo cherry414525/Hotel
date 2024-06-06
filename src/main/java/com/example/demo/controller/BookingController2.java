@@ -22,25 +22,18 @@ import com.example.demo.service.BookingService;
 import com.example.demo.service.RoomService;
 
 @Controller
-@RequestMapping("/booking")
-public class BookingController {
+@RequestMapping("/booking2")
+public class BookingController2 {
 	
 	@Autowired
 	private BookingService bookingService;
+
 	
-	@GetMapping
-	public String findAll(Model model) {
-		
-		return "booking";
-	}
-	
-	
-	/*
 	@GetMapping
 	public String findAll(@RequestParam("userId") Integer userId,Model model) {
 		List<Booking> bookingDtos = bookingService.findAllBookingsByUserId(userId);
 		model.addAttribute("bookingDtos", bookingDtos); // 給列表用
-		return "booking";
+		return "result";
 	}
 	
 	
@@ -107,5 +100,4 @@ public class BookingController {
 		model.addAttribute("message", message);
 		return "result";
 	}
-	*/
 }
