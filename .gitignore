@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Explicitly include .jsp files
+!*.jsp
+!**/*.jsp
