@@ -79,6 +79,10 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#">會員中心</a>
                 </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">登出</a>
+                </li>
               </ul>
             </div>
           </div>

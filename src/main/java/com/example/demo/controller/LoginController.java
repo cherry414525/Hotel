@@ -142,4 +142,14 @@ public class LoginController {
 		
 		return "redirect:/register";
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+	    // 清除 session 中的登入信息
+	    session.removeAttribute("loggedInUser");
+	    // 將登入狀態設置為 false
+	    session.setAttribute("loginStatus", false);
+	    // 重定向到登入頁面
+	    return "redirect:/hotel";
+	}
 }

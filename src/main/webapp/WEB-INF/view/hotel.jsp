@@ -86,7 +86,7 @@
                                 <a class="nav-link" href="#sec4">交通資訊</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/login">會員中心</a>
+                                <a class="nav-link" href="/member">會員中心</a>
                             </li>
                         </ul>
                     </div>
