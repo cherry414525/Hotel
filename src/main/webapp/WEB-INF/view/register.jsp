@@ -82,27 +82,52 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6 ">
-                        <div id="loginForm">
-                            <h2 class="text-center">會員登入</h2>
-                            <form>
+                       
+                        <div id="registerForm" >
+                            <h2 class="text-center">會員註冊</h2>
+                            <form method="POST" action="/register">
                                 <div class="form-group">
-                                    <label for="loginEmail">Email address</label>
-                                    <input type="email" class="form-control" id="loginEmail"
-                                        aria-describedby="emailHelp" placeholder="Enter email">
+                                    <label for="name">姓名</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="輸入姓名">
                                 </div>
                                 <div class="form-group">
-                                    <label for="loginPassword">Password</label>
-                                    <input type="password" class="form-control" id="loginPassword"
-                                        placeholder="Password">
+                                    <label for="registerEmail">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        aria-describedby="emailHelp" placeholder="輸入Email">
                                 </div>
-                                <a href="./member.jsp" class="btn btn-primary btn-block">
-                                    <button type="submit">登入</button>
-                                </a>
+                                <div class="form-group">
+                                    <label for="birthday">生日</label>
+                                    <input type="date" class="form-control" id="birthday" name="birthday">
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">性別</label>
+                                    <select class="form-control" id="gender" name="gender">
+                                        <option value="male">男性</option>
+                                        <option value="female">女性</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">電話</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="輸入電話">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">密碼</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="輸入密碼">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">確認密碼</label>
+                                    <input type="password" class="form-control" id="confirmPassword"
+                                        placeholder="再次輸入密碼">
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block">會員註冊</button>
                             </form>
-                            <a href="/register" class="btn btn-info btn-block mt-3">註冊</a>
+                            <a href="/login" class="btn btn-info btn-block mt-3">登入</a>
                             
                         </div>
-                       
+                    </div>
+                </div>
+            </div>
         </main>
         <footer class="bg-light">
             <div class="container ">
@@ -128,7 +153,7 @@
             });
         });
 
-        
+       
 
     </script>
 </body>

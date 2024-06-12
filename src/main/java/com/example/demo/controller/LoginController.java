@@ -27,17 +27,23 @@ import com.example.demo.service.RoomService;
 import com.example.demo.service.UserService;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping
 public class LoginController {
 	
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping
+	@GetMapping("/login")
 	public String login(Model model) {
 		
 		 
 		return "login";
+	}
+	
+	@GetMapping("/register")
+	public String register(Model model) {
+		model.addAttribute("user", new User());
+		return "register";
 	}
 	
 	@PostMapping("/register")

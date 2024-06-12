@@ -36,6 +36,12 @@ public class UserController {
 		return "result";
 	}
 	
+	@GetMapping("/register")
+	public String register(Model model) {
+		model.addAttribute("user", new User());
+		return "register";
+	}
+	
 	@GetMapping("/login")
 	public String getUser(@RequestParam("userId") Integer userId, Model model) {
 		
