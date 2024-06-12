@@ -157,7 +157,7 @@
                             <input type="date" id="check_out_date" class="form-control" style="width: 70%;" value="${tomorrow}" required>
                         </div>
                         <div class="col-md-2 align-self-end text-right">
-                            <button type="button" class="btn btn-primary" style="width: 85%; "> 搜尋</button>
+                            <button type="button" id="search" class="btn btn-primary" style="width: 85%; "  > 搜尋</button>
                         </div>
                     </div>
 
@@ -178,41 +178,33 @@
                                             <h5 class="card-title">${roomtypeDto.name}</h5>
                                             <hr>
                                             <p class="card-text">適合人數:${roomtypeDto.capacity}</p>
+                                            <small>剩餘房間數: ${availabilityMap[roomtypeDto.type_id]}</small>
 
                                             <!-- 下面的容器放置输入框和订房按钮 -->
                                             <div class="container-fluid "  style="margin-top: 50px;">
                                                 <div class="row justify-content-end">
-                                                    <!-- 输入框 -->
-                                                    <div class="col-md-4 col-sm-6">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text" >間數:</span>
-                                                            </div>
-                                                            <input type="number" id="quantity" class="form-control" placeholder="選擇間數"
-                                                                value="1" >
-                                                        </div>
-                                                    </div>
+                                                    
+                                                    
+                                                   
                                                     <!-- 總金額 -->
-                                                    <div class="col-md-3 col-sm-6 mt-2 mt-md-2 d-flex align-items-center text-right" >
+                                                    <div class="col-md-5 col-sm-7 mt-2 mt-md-2 d-flex align-items-center justify-content-end " >
                                                     <input type="hidden" id="price" value="${roomtypeDto.price}">
-                                                    總金額：<input type="number" id="totalPrice" value="${roomtypeDto.price}" readonly>
+                                                    總金額：<input type="number" id="totalPrice" value="${roomtypeDto.price}" readonly class="form-control w-50">
                                                     </div>
                                                     <!-- 訂房按钮 -->
                                                     
     													
     													<div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-    														<form action="/booking" method="GET">
-    															<input type="hidden" name="roomtype" value="${roomtypeDto.name}">
-    															
-        														<button type="submit" class="btn btn-primary btn-block float-right">訂房</button>
-    														</form>
+                                                            <form action="/booking" method="GET">
+                                                                <input type="hidden" name="roomtype" value="${roomtypeDto.name}">
+                                                                <input type="hidden" name="start_date">
+                                                                <input type="hidden" name="end_date">
+                                                                <input type="hidden" name="totalPrice">
+                                                                <button type="submit" class="btn btn-primary btn-block float-right bookingForm">訂房</button>
+                                                            </form>
     													</div>
 													
-                                                    <!--  
-                                                    <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                        <a href="/booking" class="btn btn-primary btn-block float-right">訂房</a>
-                                                    </div>
-                                                    -->
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -300,6 +292,22 @@
 
 
         <script>
+             var stayDuration; // 全局變數
+            // 計算日期天數的函式
+            function calculateDate() {
+                        var checkInDate = new Date(document.getElementById('check_in_date').value);
+                        var checkOutDate = new Date(document.getElementById('check_out_date').value);
+
+                        // 計算時間差，以天數為單位
+                        var timeDiff = Math.abs(checkOutDate.getTime() - checkInDate.getTime());
+                        stayDuration = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                        // 在控制台打印入住到退房的天數
+                        console.log("入住到退房的天數: " + stayDuration);
+
+                        
+                    }
+
             $(document).ready(function () {
             	
             	// 漢堡圖
@@ -308,18 +316,43 @@
                 });
                 
                 
-                // 使用window.onload确保在文档加载完成后执行
-                //window.onload = function() {
-	            //    var quantityInput = document.getElementById('quantity').value;
-	            //    document.getElementById('q').value = quantityInput;
-                //};
                 
-                $('#quantity').on('click', function () {
-                	let quantity = document.getElementById('quantity').value; // 房間
-                	let price = document.getElementById('price').value; // 價格 (每間房)
-                	let totalPrice = quantity * price;
-                	$('#totalPrice').val(totalPrice);
+         
+                                    
+                // 訂房按鈕點擊事件
+                $('.bookingForm').on('click', function (event) {
+                    event.preventDefault(); // 防止默認的表單提交行為
+
+                    var card = $(this).closest('.card');  // 找到與按鈕相關聯的最近的 .card 元素
+                    var totalPrice = card.find('#totalPrice').val();  // 獲取該卡片內部的 #totalPrice 元素的值
+
+                    var checkInDate = document.getElementById('check_in_date').value;  // 獲取全局的入住日期
+                    var checkOutDate = document.getElementById('check_out_date').value;  // 獲取全局的退房日期
+
+                    // 將日期和總價設置到表單的隱藏字段
+                    card.find('input[name="start_date"]').val(checkInDate);
+                    card.find('input[name="end_date"]').val(checkOutDate);
+                    card.find('input[name="totalPrice"]').val(totalPrice);
+
+                    card.find('form').submit();  // 提交表單
                 });
+                    
+                    
+                
+                    // 入住日期和退房日期的輸入框值發生變化時計算總價
+                    $('#search').on('click', function () {
+                        calculateDate();
+                        console.log(stayDuration);
+                        $('.card').each(function () {
+                            var price = parseFloat($(this).find('#price').val());
+                            var totalPrice = price * stayDuration;
+                            $(this).find('#totalPrice').val(totalPrice.toFixed(2)); // 将结果保留两位小数
+                        });
+                        
+                    });
+
+                    // 初始加載時日期
+                    calculateDate();
             });
         </script>
     </body>

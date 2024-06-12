@@ -16,8 +16,7 @@ public class UserDto {
 	private Integer user_id;
 	private String name;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd") // 日期格式
-	private Date birthday;
+	private String birthday;
 	private String gender;
 	private String phone;
 	private String email;

@@ -72,11 +72,11 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="hotel.html">首頁</a>
+                <a class="nav-link" href="/hotel">首頁</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="member.html">會員中心</a>
+                <a class="nav-link" href="/member">會員中心</a>
               </li>
             </ul>
           </div>
@@ -105,19 +105,19 @@
                 </div>
                 <div class="form-group">
                   <label for="start_date">入住時間</label>
-                  <input type="date" class="form-control"  id="start_date" name="start_date">
+                  <input type="date" class="form-control"  id="start_date" name="start_date" value="${start_date}">
                 </div>
                 <div class="form-group">
                   <label for="end_date">退房時間</label>
-                  <input type="date" class="form-control" id="end_date" name="end_date">
+                  <input type="date" class="form-control" id="end_date" name="end_date" value="${end_date}">
                 </div>
-                <div class="form-group">
+               <!-- <div class="form-group">
                   <label for="quantity">數量</label>
-                  <input type="number" class="form-control" id="quantity" name="quantity" placeholder="輸入數量">
-                </div>
+                  <input type="number" class="form-control" id="quantity" name="quantity" value="${quantity}" readonly>
+                </div>-->
                 <div class="form-group">
                   <label for="price">金額</label>
-                  <input type="text" class="form-control" id="price" name="price" placeholder="輸入金額">
+                  <input type="text" class="form-control" id="price" name="price" value="${totalPrice}" readonly>
                 </div>
                 <!-- 將按鈕置於同一行的不同列中 -->
                 <div class="row justify-content-end">
@@ -128,7 +128,7 @@
                   </div>
                   <!-- 回上頁按鈕 -->
                   <div class="col-auto">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <a href="/hotel" class="btn btn-secondary">取消</a>
                   </div>
                 </div>
               </form>

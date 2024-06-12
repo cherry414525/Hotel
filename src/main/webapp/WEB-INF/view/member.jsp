@@ -73,7 +73,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="hotel.html">首頁</a>
+                  <a class="nav-link" href="/hotel">首頁</a>
                 </li>
 
                 <li class="nav-item">

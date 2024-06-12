@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.RoomDao;
 import com.example.demo.dao.UserDao;
+import com.example.demo.model.dto.RoomAvailabilityDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.User;
 
@@ -22,6 +23,14 @@ public class RoomService {
 		return roomDao.findAllRooms();
 	}
 
+	public Integer findRoomsBydateAndType(String start_date, String end_date, Integer type_id) {
+		return roomDao.findRoomsBydateAndType(start_date, end_date, type_id);
+	}
+	
+	public List<RoomAvailabilityDto> findRoomsBydate(String todayString, String tomorrowString) {
+		return roomDao.findRoomsBydate(todayString, tomorrowString);
+	}
+	
 	public Optional<Room> getRoom(Integer id) {
 		return roomDao.getRoom(id);
 	}

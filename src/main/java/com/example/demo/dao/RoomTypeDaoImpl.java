@@ -19,7 +19,16 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-
+	@Override
+	public Integer findRoomtypebyid(String name) {
+		String sql = "select type_id from roomtype where name = ?";
+	    try {
+	        return jdbcTemplate.queryForObject(sql, Integer.class, name);
+	    } catch (Exception e) {
+	        // 處理沒有找到結果的情況，根據需求返回 null 或者拋出異常
+	        return null;
+	    }
+	}
 	
 
 	@Override

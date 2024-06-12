@@ -20,6 +20,10 @@ public class RoomTypeService {
 	@Autowired
 	private RoomTypeDao roomtypeDao;
 	
+	public Integer findRoomtypebyid(String name) {
+		return roomtypeDao.findRoomtypebyid(name);
+	}
+	
 	public List<RoomType> findAllRoomtypes() {
 		return roomtypeDao.findAllRoomtypes();
 	}

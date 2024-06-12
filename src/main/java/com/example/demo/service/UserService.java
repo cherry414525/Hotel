@@ -26,7 +26,7 @@ public class UserService {
 	}
 	
 	public Integer addUser(User user) {
-		
+		/*
 		user.setUser_id(5);
 		user.setName("John");
 		user.setBirthday(new Date()); // 假設這裡是設定生日日期的地方
@@ -35,6 +35,7 @@ public class UserService {
 		user.setEmail("john@example.com");
 		user.setSalt("some_salt");
 		user.setPassword("some_password");
+		*/
 		return userDao.addUser(user);
 		
 	}

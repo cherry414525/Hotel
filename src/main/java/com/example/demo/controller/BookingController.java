@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,6 +23,7 @@ import com.example.demo.model.dto.BookingDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.service.BookingService;
 import com.example.demo.service.RoomService;
+import com.example.demo.service.RoomTypeService;
 
 @Controller
 @RequestMapping("/booking")
@@ -29,31 +31,48 @@ public class BookingController {
 	
 	@Autowired
 	private BookingService bookingService;
+	@Autowired
+	private RoomTypeService roomtypeService;
+	@Autowired
+	private RoomService roomService;
 	
 	@GetMapping
-	public String findAll(@ModelAttribute("roomtype") String roomtype,Model model) {
+	public String findAll(@ModelAttribute("roomtype") String roomtype,
+            @RequestParam("totalPrice") double totalPrice,
+            @RequestParam("start_date") String startDate,
+            @RequestParam("end_date") String endDate,Model model) {
+		
 		 model.addAttribute("roomtype", roomtype);
-		 
+		  model.addAttribute("totalPrice", totalPrice);
+		  model.addAttribute("start_date", startDate);
+		  model.addAttribute("end_date", endDate);
+		  System.out.println(roomtype);
+		  System.out.println(totalPrice);
+		  System.out.println(startDate);
+		  System.out.println(endDate);
 		return "booking";
 	}
 	
 	@PostMapping("/addbooking")
-	public String addUser(@ModelAttribute BookingDto bookingDto, Model model) {
+	public String addUser(@RequestParam("roomType") String roomType,
+			@RequestParam("start_date") String startDateStr,
+		    @RequestParam("end_date") String endDateStr,
+		    @RequestParam("price") double price, Model model) {
 		
-		System.out.println(bookingDto);
+		//System.out.println(bookingDto);
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-	        Date startDate = formatter.parse(bookingDto.getStart_date());
-	        Date endDate = formatter.parse(bookingDto.getEnd_date());
+	        Date startDate = formatter.parse(startDateStr);
+	        Date endDate = formatter.parse(endDateStr);
 	        
-	        
+	        Integer roomid = roomService.findRoomsBydateAndType(startDateStr, endDateStr, roomtypeService.findRoomtypebyid(roomType));
+	        System.out.println(roomtypeService.findRoomtypebyid(roomType));
 			 Booking booking = new Booking();
 			 booking.setUserId(1);
-			 booking.setRoomId(201);
+			 booking.setRoomId(roomid);
 			 booking.setStart_date(startDate);
 			 booking.setEnd_date(endDate);
-			 booking.setQuantity(bookingDto.getQuantity());
-			 booking.setPrice(bookingDto.getPrice());
+			 booking.setPrice(price);
 			 
 			 System.out.println(booking);
 			Integer rowcount = bookingService.addBooking(booking);

@@ -67,7 +67,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="hotel.jsp">首頁</a>
+                                <a class="nav-link" href="/hotel">首頁</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">會員中心</a>
@@ -106,31 +106,31 @@
                             <form method="POST" action="/login/register">
                                 <div class="form-group">
                                     <label for="name">姓名</label>
-                                    <input type="text" class="form-control" id="name" placeholder="輸入姓名">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="輸入姓名">
                                 </div>
                                 <div class="form-group">
                                     <label for="registerEmail">Email</label>
-                                    <input type="email" class="form-control" id="email"
+                                    <input type="email" class="form-control" id="email" name="email"
                                         aria-describedby="emailHelp" placeholder="輸入Email">
                                 </div>
                                 <div class="form-group">
                                     <label for="birthday">生日</label>
-                                    <input type="date" class="form-control" id="birthday">
+                                    <input type="date" class="form-control" id="birthday" name="birthday">
                                 </div>
                                 <div class="form-group">
                                     <label for="gender">性別</label>
-                                    <select class="form-control" id="gender">
+                                    <select class="form-control" id="gender" name="gender">
                                         <option value="male">男性</option>
                                         <option value="female">女性</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">電話</label>
-                                    <input type="tel" class="form-control" id="phone" placeholder="輸入電話">
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="輸入電話">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">密碼</label>
-                                    <input type="password" class="form-control" id="password"
+                                    <input type="password" class="form-control" id="password" name="password"
                                         placeholder="輸入密碼">
                                 </div>
                                 <div class="form-group">

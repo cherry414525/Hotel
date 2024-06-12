@@ -46,7 +46,17 @@ public class LoginController {
 		System.out.println(userDto);
 		try {
  
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	        Date startDate = formatter.parse(userDto.getBirthday());
+	        
 			 User user = new User();
+			 user.setName(userDto.getName());
+			 user.setBirthday(startDate);
+			 user.setGender(userDto.getGender());
+			 user.setPhone(userDto.getPhone());
+			 user.setEmail(userDto.getEmail());
+			 user.setSalt(userDto.getSalt());
+			 user.setPassword(userDto.getPassword());
 			 
 			 System.out.println(user);
 			Integer rowcount = userService.addUser(user);
