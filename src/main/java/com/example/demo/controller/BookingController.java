@@ -21,9 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.model.po.Booking;
 import com.example.demo.model.dto.BookingDto;
 import com.example.demo.model.po.Room;
+import com.example.demo.model.po.User;
 import com.example.demo.service.BookingService;
 import com.example.demo.service.RoomService;
 import com.example.demo.service.RoomTypeService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/booking")
@@ -40,8 +44,16 @@ public class BookingController {
 	public String findAll(@ModelAttribute("roomtype") String roomtype,
             @RequestParam("totalPrice") double totalPrice,
             @RequestParam("start_date") String startDate,
-            @RequestParam("end_date") String endDate,Model model) {
+            @RequestParam("end_date") String endDate,Model model, HttpServletRequest request) {
 		
+		// 從 HttpServletRequest 中獲取 Session
+	    HttpSession session = request.getSession(false);
+	    // 檢查 Session 中是否存在登入狀態和使用者資訊
+	    if (session != null && session.getAttribute("loginStatus") != null && (Boolean) session.getAttribute("loginStatus")) {
+	        // 使用者已登入
+	        // 獲取登入的使用者資訊
+	        User loggedInUser = (User) session.getAttribute("loggedInUser");
+	        model.addAttribute("loggedInUser", loggedInUser);
 		 model.addAttribute("roomtype", roomtype);
 		  model.addAttribute("totalPrice", totalPrice);
 		  model.addAttribute("start_date", startDate);
@@ -51,24 +63,33 @@ public class BookingController {
 		  System.out.println(startDate);
 		  System.out.println(endDate);
 		return "booking";
+		
+	    }else {
+	        // 使用者未登入，導向登入頁面或執行其他操作
+	        return "redirect:/login";
+	    }
 	}
 	
 	@PostMapping("/addbooking")
 	public String addUser(@RequestParam("roomType") String roomType,
 			@RequestParam("start_date") String startDateStr,
 		    @RequestParam("end_date") String endDateStr,
-		    @RequestParam("price") double price, Model model) {
+		    @RequestParam("price") double price, Model model, HttpServletRequest request) {
 		
+		// 從 HttpServletRequest 中獲取 Session
+	    HttpSession session = request.getSession(false);
+	    User loggedInUser = (User) session.getAttribute("loggedInUser");
 		//System.out.println(bookingDto);
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        Date startDate = formatter.parse(startDateStr);
 	        Date endDate = formatter.parse(endDateStr);
 	        
+	        
 	        Integer roomid = roomService.findRoomsBydateAndType(startDateStr, endDateStr, roomtypeService.findRoomtypebyid(roomType));
 	        System.out.println(roomtypeService.findRoomtypebyid(roomType));
 			 Booking booking = new Booking();
-			 booking.setUserId(1);
+			 booking.setUserId(loggedInUser.getUser_id());
 			 booking.setRoomId(roomid);
 			 booking.setStart_date(startDate);
 			 booking.setEnd_date(endDate);

@@ -96,8 +96,8 @@
               <!-- 表單開始 -->
               <form method="POST" action="/booking/addbooking">
                 <div class="form-group">
-                  <label for="orderNumber">訂單編號</label>
-                  <input type="text" class="form-control" id="orderNumber" name="orderNumber" readonly>
+                  <label for="username">會員姓名</label>
+                  <input type="text" class="form-control" id="name" name="name" value="${loggedInUser.name}" readonly>
                 </div>
                 <div class="form-group">
                   <label for="roomType">房型</label>
