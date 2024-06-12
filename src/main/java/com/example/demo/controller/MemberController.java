@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.dto.BookingRoomDto;
+import com.example.demo.model.po.User;
 import com.example.demo.service.BookingRoomService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/member")
@@ -24,11 +28,27 @@ public class MemberController {
 
 	
 	@GetMapping
-	public String findAll(Model model) {
-		List<BookingRoomDto> bookingRoomDtos =bookingRoomService.findAllBookings();
-		System.out.print(bookingRoomDtos);
-		model.addAttribute("bookingRoomDtos", bookingRoomDtos); // 給列表用
-		return "member";
+	public String findAll(Model model, HttpServletRequest request) {
+		// 從 HttpServletRequest 中獲取 Session
+	    HttpSession session = request.getSession(false);
+	 // 檢查 Session 中是否存在登入狀態和使用者資訊
+	    if (session != null && session.getAttribute("loginStatus") != null && (Boolean) session.getAttribute("loginStatus")) {
+	        // 使用者已登入
+	        // 獲取登入的使用者資訊
+	        User loggedInUser = (User) session.getAttribute("loggedInUser");
+	        
+	        // 在這裡執行相應的業務處理
+	        List<BookingRoomDto> bookingRoomDtos = bookingRoomService.findAllBookingsByUserId(loggedInUser.getUser_id());
+	        model.addAttribute("bookingRoomDtos", bookingRoomDtos);
+	        
+	        return "member";
+	    } else {
+	        // 使用者未登入，導向登入頁面或執行其他操作
+	        return "redirect:/login";
+	    }
+	    
+		
+		
 	}
 	
 	@GetMapping("/userId")

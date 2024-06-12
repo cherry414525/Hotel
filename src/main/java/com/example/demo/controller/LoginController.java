@@ -126,7 +126,7 @@ public class LoginController {
 			model.addAttribute("message", message);
 			// 注册成功后，设置登录状态为 true
 			session.setAttribute("loginStatus", true);
-			return "redirect:/member";
+			return "redirect:/login";
 		}catch (Exception e) {
 			System.out.print(e);
 			String message = "新增錯誤: ";

@@ -108,6 +108,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 		// 自定義對應邏輯規則
 				RowMapper<BookingRoomDto> mapper = new RowMapper<>() {
 					
+
 					@Override
 					public BookingRoomDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 						// 逐筆逐項將每一個欄位資料抓出
@@ -120,7 +121,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						Double price = rs.getDouble("price");
 						Timestamp createDate = rs.getTimestamp("createDate");
 						
-						Integer typeId = rs.getInt("t.type_id");
+						Integer typeId = rs.getInt("r.type_id");
 						String name = rs.getString("t.name");
 						Integer capacity = rs.getInt("t.capacity");
 						Double rprice = rs.getDouble("t.price");
@@ -144,7 +145,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						dto.setCreateDate(createDate);
 						dto.setRoom(Room);
 						dto.setRoomType(RoomType);
-						
+						System.out.print(dto);
 						return dto;
 					}
 				};
