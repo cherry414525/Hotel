@@ -84,21 +84,19 @@
                     <div class="col-md-6 ">
                         <div id="loginForm">
                             <h2 class="text-center">會員登入</h2>
-                            <form>
-                                <div class="form-group">
-                                    <label for="loginEmail">Email address</label>
-                                    <input type="email" class="form-control" id="loginEmail"
-                                        aria-describedby="emailHelp" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="loginPassword">Password</label>
-                                    <input type="password" class="form-control" id="loginPassword"
-                                        placeholder="Password">
-                                </div>
-                                <a href="./member.jsp" class="btn btn-primary btn-block">
-                                    <button type="submit">登入</button>
-                                </a>
-                            </form>
+                            <form action="/login" method="post">
+							    <div class="form-group">
+							        <label for="loginEmail">Email address</label><small style="color:red"> ${error}</small>
+							        <input type="email" class="form-control" id="loginEmail" name="email"
+							            aria-describedby="emailHelp" placeholder="Enter email">
+							    </div>
+							    <div class="form-group">
+							        <label for="loginPassword">Password</label>
+							        <input type="password" class="form-control" id="loginPassword" name="password"
+							            placeholder="Password">
+							    </div>
+							    <button type="submit" class="btn btn-primary btn-block">登入</button>
+							</form>
                             <a href="/register" class="btn btn-info btn-block mt-3">註冊</a>
                             
                         </div>

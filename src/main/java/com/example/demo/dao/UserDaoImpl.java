@@ -71,5 +71,16 @@ public class UserDaoImpl implements UserDao {
 		}
 		return null;
 	}
+
+	@Override
+	public Optional<User> getUserByEmail(String email) {
+		 String sql = "SELECT user_id, name, birthday, gender, phone, email, salt, password FROM user WHERE email=?";
+		    List<User> users = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), email);
+		    if (!users.isEmpty()) {
+		        return Optional.of(users.get(0));
+		    } else {
+		        return Optional.empty();
+		    }
+	}
 	
 }

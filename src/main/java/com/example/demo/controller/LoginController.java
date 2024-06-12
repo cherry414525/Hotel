@@ -26,6 +26,8 @@ import com.example.demo.service.BookingService;
 import com.example.demo.service.RoomService;
 import com.example.demo.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping
 public class LoginController {
@@ -39,6 +41,39 @@ public class LoginController {
 		 
 		return "login";
 	}
+	@PostMapping("/login")
+	public String loginUser(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session) {
+	    try {
+	    	System.out.println(email+" "+password);
+	        // 根據郵箱查找使用者
+	        Optional<User> existingUser = userService.getUserByEmail(email);
+	        if (existingUser.isPresent()) {
+	            User user = existingUser.get();
+	            
+	            System.out.print(user.getPassword());
+	            // 驗證密碼是否正確
+	            if (user.getPassword().equals(password)) {
+	                // 密碼正確，將使用者設置為已登入狀態
+	                session.setAttribute("loggedInUser", user);
+	                session.setAttribute("loginStatus", true);
+	                return "redirect:/member"; // 登入成功，重定向到會員中心
+	            } else {
+	                // 密碼不正確，返回登入頁面，顯示錯誤消息
+	                model.addAttribute("error", "密碼不正確");
+	                return "login";
+	            }
+	        } else {
+	            // 使用者不存在，返回登入頁面，顯示錯誤消息
+	            model.addAttribute("error", "使用者不存在");
+	            return "login";
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // 發生異常，返回登入頁面，顯示錯誤消息
+	        model.addAttribute("error", "登入時發生錯誤");
+	        return "login";
+	    }
+	}
 	
 	@GetMapping("/register")
 	public String register(Model model) {
@@ -47,11 +82,31 @@ public class LoginController {
 	}
 	
 	@PostMapping("/register")
-	public String addUser(@ModelAttribute UserDto userDto, Model model) {
+	public String addUser(@ModelAttribute UserDto userDto, Model model, HttpSession session) throws Exception{
 		
 		System.out.println(userDto);
 		try {
- 
+			// 檢查郵件是否已存在
+			Optional<User> existingUser = userService.getUserByEmail(userDto.getEmail());
+			if (existingUser.isPresent()) {
+				// 用户已存在，设置登录状态为 false
+				session.setAttribute("loginStatus", false);
+				model.addAttribute("userDto",userDto);
+				model.addAttribute("error1", "此郵箱已被註冊，請重新註冊。");
+				return "/register"; // 返回注册页面，显示错误消息
+			}
+			System.out.print(userDto.getConfirmPassword());
+			System.out.print(userDto.getPassword());
+			// 如果邮箱未被使用且密码长度符合要求，则执行注册逻辑
+			if (userDto.getPassword().length() < 6) {
+				model.addAttribute("error2", "密碼長度不得少於6碼。");
+				return "/register"; // 返回注册页面，显示错误消息
+			}else if(!userDto.getConfirmPassword().equals(userDto.getPassword())) {
+				model.addAttribute("error2", "確認密碼不相同");
+				return "/register"; // 返回注册页面，显示错误消息
+			}
+
+			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        Date startDate = formatter.parse(userDto.getBirthday());
 	        
@@ -61,7 +116,7 @@ public class LoginController {
 			 user.setGender(userDto.getGender());
 			 user.setPhone(userDto.getPhone());
 			 user.setEmail(userDto.getEmail());
-			 user.setSalt(userDto.getSalt());
+			 user.setSalt(null);
 			 user.setPassword(userDto.getPassword());
 			 
 			 System.out.println(user);
@@ -69,6 +124,8 @@ public class LoginController {
 			String message = "新增" + ((rowcount == 1)?"成功":"失敗");
 			System.out.print(rowcount);
 			model.addAttribute("message", message);
+			// 注册成功后，设置登录状态为 true
+			session.setAttribute("loginStatus", true);
 			return "redirect:/member";
 		}catch (Exception e) {
 			System.out.print(e);
@@ -83,6 +140,6 @@ public class LoginController {
 			model.addAttribute("message", message);
 		}
 		
-		return "login";
+		return "redirect:/register";
 	}
 }

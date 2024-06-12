@@ -88,36 +88,36 @@
                             <form method="POST" action="/register">
                                 <div class="form-group">
                                     <label for="name">姓名</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="輸入姓名">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="輸入姓名" value="${userDto.name }">
                                 </div>
                                 <div class="form-group">
-                                    <label for="registerEmail">Email</label>
+                                    <label for="registerEmail">Email</label> <small style="color:red"> ${error1}</small>
                                     <input type="email" class="form-control" id="email" name="email"
-                                        aria-describedby="emailHelp" placeholder="輸入Email">
+                                        aria-describedby="emailHelp" placeholder="輸入Email" value="${userDto.email }">
                                 </div>
                                 <div class="form-group">
                                     <label for="birthday">生日</label>
-                                    <input type="date" class="form-control" id="birthday" name="birthday">
+                                    <input type="date" class="form-control" id="birthday" name="birthday" value="${userDto.birthday }">
                                 </div>
                                 <div class="form-group">
                                     <label for="gender">性別</label>
-                                    <select class="form-control" id="gender" name="gender">
+                                    <select class="form-control" id="gender" name="gender" value="${userDto.gender }">
                                         <option value="male">男性</option>
                                         <option value="female">女性</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">電話</label>
-                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="輸入電話">
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="輸入電話" value="${userDto.phone }">
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">密碼</label>
+                                    <label for="password">密碼</label><small style="color:red"> ${error2}</small>
                                     <input type="password" class="form-control" id="password" name="password"
                                         placeholder="輸入密碼">
                                 </div>
                                 <div class="form-group">
                                     <label for="confirmPassword">確認密碼</label>
-                                    <input type="password" class="form-control" id="confirmPassword"
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
                                         placeholder="再次輸入密碼">
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block">會員註冊</button>

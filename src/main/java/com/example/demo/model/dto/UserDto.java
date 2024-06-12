@@ -20,7 +20,7 @@ public class UserDto {
 	private String gender;
 	private String phone;
 	private String email;
-	private String salt;
+	private String confirmPassword;
 	private String password;
 	
 	

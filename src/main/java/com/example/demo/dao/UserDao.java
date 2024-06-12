@@ -9,6 +9,7 @@ import com.example.demo.model.po.User;
 public interface UserDao {
 	List<User> findAllUsers();
 	Optional<User> getUser(Integer id);
+	Optional<User> getUserByEmail(String email);
 	Integer addUser(User user);
 	Integer updateUser(Integer id,User user);
 	Integer deleteUser(Integer id);
