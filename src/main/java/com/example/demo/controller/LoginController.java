@@ -52,7 +52,7 @@ public class LoginController {
 	            
 	            System.out.print(user.getPassword());
 	            // 驗證密碼是否正確
-	            if (user.getPassword().equals(password)) {
+	            if (SaltedPasswordHasher.verifyPassword(password, user.getSalt(), user.getPassword())) {
 	                // 密碼正確，將使用者設置為已登入狀態
 	                session.setAttribute("loggedInUser", user);
 	                session.setAttribute("loginStatus", true);
@@ -110,14 +110,17 @@ public class LoginController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        Date startDate = formatter.parse(userDto.getBirthday());
 	        
+	        String salt = SaltedPasswordHasher.generateSalt();
+	        String hashedPassword = SaltedPasswordHasher.hashPassword(userDto.getPassword(), salt);
+	        
 			 User user = new User();
 			 user.setName(userDto.getName());
 			 user.setBirthday(startDate);
 			 user.setGender(userDto.getGender());
 			 user.setPhone(userDto.getPhone());
 			 user.setEmail(userDto.getEmail());
-			 user.setSalt(null);
-			 user.setPassword(userDto.getPassword());
+			 user.setSalt(salt);
+			 user.setPassword(hashedPassword);
 			 
 			 System.out.println(user);
 			Integer rowcount = userService.addUser(user);
