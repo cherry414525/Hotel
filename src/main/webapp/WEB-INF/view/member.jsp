@@ -104,8 +104,7 @@
                   <th>訂單編號</th>
                   <th>房型</th>
                   <th>入住時間</th>
-                  <th>退房時間</th>
-                  <th>數量</th>
+                  <th>退房時間</th>   
                   <th>金額</th>
                   <th>修改</th>
                   <th>刪除</th>
@@ -118,7 +117,6 @@
                   <td>${bookingRoomDtos.roomType.name}</td>
                   <td>${bookingRoomDtos.start_date}</td>
                   <td>${bookingRoomDtos.end_date}</td>
-                  <td>${bookingRoomDtos.quantity}</td>
                   <td>${bookingRoomDtos.price }</td>
                   <td><a href="booking.jsp" class="btn btn-primary manage-btn">修改</a></td>
     			  <td>
@@ -133,17 +131,22 @@
               </tbody>
             </table>
             <!-- Pagination -->
-            <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <!-- 這裡填入分頁 -->
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav>
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+			      <a class="page-link" href="?page=${currentPage - 1}" tabindex="-1" aria-disabled="${currentPage == 0}">Previous</a>
+			    </li>
+			    <!-- Bootstrap 分頁組件 -->
+			    <c:forEach var="pageNumber" begin="0" end="${totalPages - 1}">
+			      <li class="page-item ${pageNumber == currentPage ? 'active' : ''}">
+			        <a class="page-link" href="?page=${pageNumber}">${pageNumber + 1}</a>
+			      </li>
+			    </c:forEach>
+			    <li class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
+			      <a class="page-link" href="?page=${currentPage + 1}">Next</a>
+			    </li>
+			  </ul>
+			</nav>
           </div>
 
           <!-- 手機版訂單列表 -->

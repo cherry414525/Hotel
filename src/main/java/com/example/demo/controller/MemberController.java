@@ -28,7 +28,7 @@ public class MemberController {
 
 	
 	@GetMapping
-	public String findAll(Model model, HttpServletRequest request) {
+	public String findAll(Model model, HttpServletRequest request,@RequestParam(name = "page", defaultValue = "0") int page) {
 		// 從 HttpServletRequest 中獲取 Session
 	    HttpSession session = request.getSession(false);
 	 // 檢查 Session 中是否存在登入狀態和使用者資訊
@@ -36,10 +36,24 @@ public class MemberController {
 	        // 使用者已登入
 	        // 獲取登入的使用者資訊
 	        User loggedInUser = (User) session.getAttribute("loggedInUser");
-	        
+	              
 	        // 在這裡執行相應的業務處理
 	        List<BookingRoomDto> bookingRoomDtos = bookingRoomService.findAllBookingsByUserId(loggedInUser.getUser_id());
-	        model.addAttribute("bookingRoomDtos", bookingRoomDtos);
+	        
+	        // 計算分頁所需的起始索引和結束索引
+	        int startIndex = page * 10;
+	        int endIndex = Math.min(startIndex +10, bookingRoomDtos.size());
+	        
+	        // 截取當前頁的資料
+	        List<BookingRoomDto> currentPageBookings = bookingRoomDtos.subList(startIndex, endIndex);
+	        
+	        // 計算總記錄數和總頁數
+	        int totalRecords = bookingRoomDtos.size();
+	        int totalPages = (int) Math.ceil((double) totalRecords / 10);
+	        
+	        model.addAttribute("currentPage", page);
+	        model.addAttribute("totalPages", totalPages);
+	        model.addAttribute("bookingRoomDtos", currentPageBookings);
 	        
 	        return "member";
 	    } else {
