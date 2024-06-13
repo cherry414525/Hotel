@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,15 @@ public class MemberController {
 	              
 	        // 在這裡執行相應的業務處理
 	        List<BookingRoomDto> bookingRoomDtos = bookingRoomService.findAllBookingsByUserId(loggedInUser.getUser_id());
+	        
+	        // 檢查是否有資料
+	        if (bookingRoomDtos.isEmpty()) {
+	            // 如果沒有資料，直接返回空列表
+	            model.addAttribute("currentPage", 0);
+	            model.addAttribute("totalPages", 0);
+	            model.addAttribute("bookingRoomDtos", new ArrayList<>());
+	            return "member";
+	        }
 	        
 	        // 計算分頁所需的起始索引和結束索引
 	        int startIndex = page * 10;

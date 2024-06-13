@@ -137,11 +137,15 @@
 			      <a class="page-link" href="?page=${currentPage - 1}" tabindex="-1" aria-disabled="${currentPage == 0}">Previous</a>
 			    </li>
 			    <!-- Bootstrap 分頁組件 -->
-			    <c:forEach var="pageNumber" begin="0" end="${totalPages - 1}">
-			      <li class="page-item ${pageNumber == currentPage ? 'active' : ''}">
-			        <a class="page-link" href="?page=${pageNumber}">${pageNumber + 1}</a>
-			      </li>
-			    </c:forEach>
+			    <c:choose>
+			      <c:when test="${totalPages > 0}">
+			        <c:forEach var="pageNumber" begin="0" end="${totalPages - 1}">
+			          <li class="page-item ${pageNumber == currentPage ? 'active' : ''}">
+			            <a class="page-link" href="?page=${pageNumber}">${pageNumber + 1}</a>
+			          </li>
+			        </c:forEach>
+			      </c:when>
+			    </c:choose>
 			    <li class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
 			      <a class="page-link" href="?page=${currentPage + 1}">Next</a>
 			    </li>
