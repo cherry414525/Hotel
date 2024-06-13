@@ -168,7 +168,6 @@
                   <div class="card-body">
                     <p>入住時間：${bookingRoomDtos.start_date}</p>
                     <p>退房時間：${bookingRoomDtos.end_date}</p>
-                    <p>數量：${bookingRoomDtos.quantity}</p>
                     <p>金額：${bookingRoomDtos.price }</p>
                     <a href="booking.jsp" class="btn btn-primary manage-btn">修改</a>
 	    			  <form action="/member/delete/${bookingRoomDtos.bookingId}" method="POST" style="display: inline;">

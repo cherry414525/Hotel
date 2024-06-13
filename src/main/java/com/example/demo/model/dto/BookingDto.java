@@ -16,7 +16,6 @@ public class BookingDto{
 	private Integer booking_id;	
 	private Integer roomId;
 	private Integer userId;
-	private Integer quantity;	//訂房數量
 	private double price;	//總金額
 	private String  start_date; //入住日期
 	private String  end_date;	//退房日期

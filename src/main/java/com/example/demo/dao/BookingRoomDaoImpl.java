@@ -32,7 +32,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	public List<BookingRoomDto> findAllBookings() {
 		
 		String sql = "select "
-	            + "b.booking_id, b.user_id, b.room_id, b.quantity, b.price, b.start_date, b.end_date, b.createdate, b.updatedate, " 
+	            + "b.booking_id, b.user_id, b.room_id, b.status, b.price, b.start_date, b.end_date, b.createdate, b.updatedate, " 
 	            + "r.room_id,r.type_id, t.name, t.capacity, t.price,t.photo "
 	            + "from booking b "
 	            + "left join room r on b.room_id = r.room_id "
@@ -49,7 +49,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						Integer userId = rs.getInt("b.user_id");
 						Date start_date = rs.getDate("start_date");
 						Date end_date = rs.getDate("end_date");
-						Integer quantity = rs.getInt("quantity");
+						
 						Double price = rs.getDouble("price");
 						Timestamp createDate = rs.getTimestamp("createDate");
 						
@@ -72,7 +72,6 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						dto.setUserId(userId);
 						dto.setStart_date(start_date);
 						dto.setEnd_date(end_date);
-						dto.setQuantity(quantity);
 						dto.setPrice(price);
 						dto.setCreateDate(createDate);
 						dto.setRoom(Room);
@@ -98,7 +97,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 		 
 		*/
 		String sql = "select "
-	            + "b.booking_id, b.user_id, b.room_id, b.quantity, b.price, b.start_date, b.end_date, b.createdate, b.updatedate, " 
+	            + "b.booking_id, b.user_id, b.room_id, b.status, b.price, b.start_date, b.end_date, b.createdate, b.updatedate, " 
 	            + "r.room_id,r.type_id, t.name, t.capacity, t.price,t.photo "
 	            + "from booking b "
 	            + "left join room r on b.room_id = r.room_id "
@@ -116,8 +115,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						Integer roomId = rs.getInt("b.room_id");
 						Integer userId = rs.getInt("b.user_id");
 						Date start_date = rs.getDate("start_date");
-						Date end_date = rs.getDate("end_date");
-						Integer quantity = rs.getInt("quantity");
+						Date end_date = rs.getDate("end_date");					
 						Double price = rs.getDouble("price");
 						Timestamp createDate = rs.getTimestamp("createDate");
 						
@@ -139,8 +137,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 						dto.setRoomId(roomId);
 						dto.setUserId(userId);
 						dto.setStart_date(start_date);
-						dto.setEnd_date(end_date);
-						dto.setQuantity(quantity);
+						dto.setEnd_date(end_date);						
 						dto.setPrice(price);
 						dto.setCreateDate(createDate);
 						dto.setRoom(Room);
@@ -157,7 +154,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	@Override
 	public Optional<Booking> getBooking(Integer id) {
 		//查詢單筆訂單，依照boooking_id
-		String sql = "select booking_id, user_id, room_id, quantity,price,start_date, end_date,createdate,updatedate from booking where booking_id = ?";
+		String sql = "select booking_id, user_id, room_id, status,price,start_date, end_date,createdate,updatedate from booking where booking_id = ?";
 		try {
 			
 			Booking booking = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Booking.class), id);
@@ -171,10 +168,10 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 
 	@Override
 	public Integer addBooking(Booking booking) {
-		String sql = "INSERT INTO booking (booking_id,user_id, room_id, quantity,price,start_date, end_date) VALUES (?, ?, ?, ?,?,?,?)";
+		String sql = "INSERT INTO booking (booking_id,user_id, room_id,price,start_date, end_date,status) VALUES (?, ?, ?, ?,?,?,?)";
         
         // 執行 SQL 新增語句
-        int rowcount = jdbcTemplate.update(sql,booking.getBooking_id(),booking.getUserId(),booking.getRoomId(),booking.getQuantity(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date());
+        int rowcount = jdbcTemplate.update(sql,booking.getBooking_id(),booking.getUserId(),booking.getRoomId(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date(),booking.getStatus());
         
         return rowcount;
 	}
@@ -182,8 +179,8 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	@Override
 	public Integer updateBooking(Integer id, Booking booking) {
 		
-		String sql = "update booking set quantity=?,price = ?,start_date= ?, end_date = ?  where booking_id = ?";
-		int rowcount = jdbcTemplate.update(sql, booking.getQuantity(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date(), id);
+		String sql = "update booking set price = ?,start_date= ?, end_date = ?  ,status = ? where booking_id = ?";
+		int rowcount = jdbcTemplate.update(sql,booking.getPrice(),booking.getStart_date(),booking.getEnd_date(),booking.getStatus(), id);
 		return rowcount;
 	}
 

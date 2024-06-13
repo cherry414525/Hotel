@@ -45,7 +45,7 @@ public class BookingService {
 		
 		
 		booking.setBooking_id(2001);
-		booking.setQuantity(1);
+		booking.setStatus("已確認");
 		booking.setPrice(5000.0);
 		booking.setStart_date(new Date());
 		booking.setEnd_date(new Date());

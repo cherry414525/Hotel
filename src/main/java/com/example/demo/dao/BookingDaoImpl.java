@@ -44,10 +44,10 @@ public class BookingDaoImpl implements BookingDao {
 
 	@Override
 	public Integer addBooking(Booking booking) {
-		String sql = "INSERT INTO booking (booking_id,user_id, room_id, quantity,price,start_date, end_date) VALUES (?, ?, ?, ?,?,?,?)";
+		String sql = "INSERT INTO booking (booking_id,user_id, room_id, status,price,start_date, end_date) VALUES (?, ?, ?, ?,?,?,?)";
         
         // 執行 SQL 新增語句
-        int rowcount = jdbcTemplate.update(sql,booking.getBooking_id(),booking.getUserId(),booking.getRoomId(),booking.getQuantity(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date());
+        int rowcount = jdbcTemplate.update(sql,booking.getBooking_id(),booking.getUserId(),booking.getRoomId(),booking.getStatus(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date());
         
         return rowcount;
 	}
@@ -55,8 +55,8 @@ public class BookingDaoImpl implements BookingDao {
 	@Override
 	public Integer updateBooking(Integer id, Booking booking) {
 		
-		String sql = "update booking set quantity=?,price = ?,start_date= ?, end_date = ?  where booking_id = ?";
-		int rowcount = jdbcTemplate.update(sql, booking.getQuantity(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date(), id);
+		String sql = "update booking set status=?,price = ?,start_date= ?, end_date = ?  where booking_id = ?";
+		int rowcount = jdbcTemplate.update(sql, booking.getStatus(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date(), id);
 		return rowcount;
 	}
 
