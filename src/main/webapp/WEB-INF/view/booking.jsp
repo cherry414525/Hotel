@@ -40,12 +40,16 @@
 
       /*background-color: #FFFEFB;*/
       font-family: Arial, sans-serif;
+       min-height: 120vh;
+	  display: flex;
+	  flex-direction: column;
     }
 
     .wrapper {
-      min-height: 80vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      flex: 1;
     }
 
     /* 調整主要內容區域 */
@@ -105,11 +109,11 @@
                 </div>
                 <div class="form-group">
                   <label for="start_date">入住時間</label>
-                  <input type="date" class="form-control"  id="start_date" name="start_date" value="${start_date}">
+                  <input type="date" class="form-control"  id="start_date" name="start_date" value="${start_date}" readonly>
                 </div>
                 <div class="form-group">
                   <label for="end_date">退房時間</label>
-                  <input type="date" class="form-control" id="end_date" name="end_date" value="${end_date}">
+                  <input type="date" class="form-control" id="end_date" name="end_date" value="${end_date}" readonly>
                 </div>
                <!-- <div class="form-group">
                   <label for="quantity">數量</label>
@@ -124,7 +128,7 @@
 
                   <!-- 修改按鈕 -->
                   <div class="col-auto">
-                    <button type="submit" class="btn btn-primary">新增</button>
+                    <button type="submit" class="btn btn-primary">確認訂房</button>
                   </div>
                   <!-- 回上頁按鈕 -->
                   <div class="col-auto">
