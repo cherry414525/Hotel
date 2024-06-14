@@ -11,7 +11,7 @@ import com.example.demo.model.po.User;
 public interface RoomDao {
 	Integer findRoomsBydateAndType(String start_date, String end_date, Integer type_id) ;
 	List<Room> findAllRooms();
-	Optional<Room> getRoom(Integer id);	//查詢單筆房間資料
+	Room getRoom(Integer id);	//查詢單筆房間資料
 	Integer addRoom(Room room);		//新增房間
 	Integer updateRoom(Integer id,Room room);	//修改房間
 	Integer deleteRoom(Integer id);		//刪除房間

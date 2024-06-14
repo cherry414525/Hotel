@@ -31,7 +31,7 @@ public class RoomService {
 		return roomDao.findRoomsBydate(todayString, tomorrowString);
 	}
 	
-	public Optional<Room> getRoom(Integer id) {
+	public Room getRoom(Integer id) {
 		return roomDao.getRoom(id);
 	}
 	

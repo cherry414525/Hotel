@@ -108,17 +108,17 @@ public class RoomDaoImpl implements RoomDao {
 	}
 	
 	@Override
-	public Optional<Room> getRoom(Integer id) {
+	public Room getRoom(Integer id) {
 		String sql = "select room_id, type_id from room where room_id=?";
 		try {
 			
 			Room room = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Room.class), id);
 			System.out.print(room);
-			return Optional.of(room);
+			return room;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Optional.of(null);
+		return null;
 	}
 
 	@Override

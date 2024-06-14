@@ -38,17 +38,17 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
 	}
 
 	@Override
-	public Optional<RoomType> getRoomtype(Integer id) {
+	public RoomType getRoomtype(Integer id) {
 		String sql = "select type_id,name,price,capacity,photo from roomtype where type_id=?";
 		try {
 			
 			RoomType roomtype = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(RoomType.class), id);
 			System.out.print(roomtype);
-			return Optional.of(roomtype);
+			return roomtype;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Optional.of(null);
+		return null;
 	}
 
 	@Override

@@ -40,7 +40,7 @@
 
       /*background-color: #FFFEFB;*/
       font-family: Arial, sans-serif;
-       min-height: 120vh;
+       min-height: 100vh;
 	  display: flex;
 	  flex-direction: column;
     }
@@ -109,11 +109,11 @@
                 </div>
                 <div class="form-group">
                   <label for="start_date">入住時間</label>
-                  <input type="date" class="form-control"  id="start_date" name="start_date" value="${start_date}" readonly>
+                  <input type="date" class="form-control"  id="start_date" name="start_date" value="${start_date}" >
                 </div>
                 <div class="form-group">
                   <label for="end_date">退房時間</label>
-                  <input type="date" class="form-control" id="end_date" name="end_date" value="${end_date}" readonly>
+                  <input type="date" class="form-control" id="end_date" name="end_date" value="${end_date}" >
                 </div>
                <!-- <div class="form-group">
                   <label for="quantity">數量</label>
@@ -175,7 +175,15 @@
       });
     });
 
-
+ 	// 如果是新增操作，将输入框设置为只读
+    if (!${update}) {
+    	start_date.readOnly = true;
+    	end_date.readOnly = true;
+    } else {
+        // 如果是修改操作，保持输入框为可编辑状态
+        start_date.readOnly = false;
+        end_date.readOnly = false;
+    }
   </script>
 
 </body>

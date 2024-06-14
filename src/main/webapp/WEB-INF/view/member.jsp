@@ -41,12 +41,16 @@
 
         /*background-color: #FFFEFB;*/
         font-family: Arial, sans-serif;
+        min-height: 80vh;
+	  	display: flex;
+	  	flex-direction: column;
       }
 
       .wrapper {
         min-height: 80vh;
-        display: flex;
-        flex-direction: column;
+      	display: flex;
+      	flex-direction: column;
+      	flex: 1;
       }
 
       /* 調整主要內容區域 */
@@ -118,7 +122,7 @@
                   <td>${bookingRoomDtos.start_date}</td>
                   <td>${bookingRoomDtos.end_date}</td>
                   <td>${bookingRoomDtos.price }</td>
-                  <td><a href="booking.jsp" class="btn btn-primary manage-btn">修改</a></td>
+                  <td><a href="/member/update/${bookingRoomDtos.bookingId}" class="btn btn-primary manage-btn">修改</a></td>
     			  <td>
 	    			  <form action="/member/delete/${bookingRoomDtos.bookingId}" method="POST" style="display: inline;">
 	    			  		<input name="_method" id="_method" type="hidden" value="DELETE" />
@@ -173,7 +177,7 @@
                     <p>入住時間：${bookingRoomDtos.start_date}</p>
                     <p>退房時間：${bookingRoomDtos.end_date}</p>
                     <p>金額：${bookingRoomDtos.price }</p>
-                    <a href="booking.jsp" class="btn btn-primary manage-btn">修改</a>
+                    <a href="/member/update/${bookingRoomDtos.bookingId}" class="btn btn-primary manage-btn">修改</a>
 	    			  <form action="/member/delete/${bookingRoomDtos.bookingId}" method="POST" style="display: inline;">
 	    			  		<input name="_method" id="_method" type="hidden" value="DELETE" />
 					  		<button type="submit" class="btn btn-danger pure-button" >刪除</button>
@@ -213,7 +217,7 @@
         });
       });
 
-      
+   	
     </script>
 
   </body>

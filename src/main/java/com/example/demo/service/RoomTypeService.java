@@ -28,7 +28,7 @@ public class RoomTypeService {
 		return roomtypeDao.findAllRoomtypes();
 	}
 
-	public Optional<RoomType> getRoomtype(Integer id) {
+	public RoomType getRoomtype(Integer id) {
 		return roomtypeDao.getRoomtype(id);
 	}
 	
