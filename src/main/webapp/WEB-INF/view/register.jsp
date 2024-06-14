@@ -56,7 +56,7 @@
             <nav class="navbar navbar-expand-lg  navbar-light bg-light">
                 <div class="container">
                     <a class="navbar-brand" href="#">
-                        <h1> ABC Hotel</h1>
+                        <h1> Starry Hotel</h1>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -131,14 +131,14 @@
         </main>
         <footer class="bg-light">
             <div class="container ">
-                <h3>ABC Hotel</h3>
+                <h3>Starry Hotel</h3>
                 <hr>
                 <p>
                 <div><img src="../hotel_img/icon-map.webp" style="width: 1em; height: 1em;"> 地址: 10491台北市中山區民生東路三段
                 </div>
                 <p>
                 <div><img src="../hotel_img/icon-mail.webp" style="width: 1em; height: 1em;"> Email:
-                    abcdefg1234@gmail.com</div>
+                    Starry1234@gmail.com</div>
                 <p>
                 <div><img src="../hotel_img/icon-phone.webp" style="width: 1em; height: 1em;"> 電話: 0987654321</div>
                 <p>

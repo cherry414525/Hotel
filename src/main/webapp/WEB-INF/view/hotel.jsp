@@ -63,7 +63,7 @@
             <nav class="navbar navbar-expand-lg  navbar-light bg-light">
                 <div class="container">
                     <a class="navbar-brand" href="#">
-                        <h1> ABC Hotel</h1>
+                        <h1> Starry Hotel</h1>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -119,19 +119,19 @@
                 <div class="container mt-4">
                     <h1>飯店介紹</h1><br>
                     <!--<img src="./hotel_img/images.jpg" style="min-width: 50%; height: auto;">-->
-                    <h2>❋歡迎來到 ABC 飯店</h2>
+                    <h2>❋歡迎來到 Starry 飯店</h2>
                     <div class="feature">
 
-                        <p>ABC 飯店位於城市中心繁華地帶，交通便捷，距離主要景點和商業區都很近，是商務旅客和觀光客的理想下榻之地。飯店擁有多樣化的客房選擇，從奢華的豪華客房到寬敞的套房，滿足不同客人的需求。
+                        <p>Starry 飯店位於城市中心繁華地帶，交通便捷，距離主要景點和商業區都很近，是商務旅客和觀光客的理想下榻之地。飯店擁有多樣化的客房選擇，從奢華的豪華客房到寬敞的套房，滿足不同客人的需求。
                         </p>
-                        <p>無論您是前來商務會議還是度假放鬆，ABC 飯店都能為您提供舒適的住宿環境和專業的服務。我們致力於為每一位賓客打造一個溫馨、舒適的家外之家，讓您在旅途中感受到溫暖和安心。</p>
+                        <p>無論您是前來商務會議還是度假放鬆，Starry 飯店都能為您提供舒適的住宿環境和專業的服務。我們致力於為每一位賓客打造一個溫馨、舒適的家外之家，讓您在旅途中感受到溫暖和安心。</p>
                     </div>
                     <div class="feature">
                         <h2>❋飯店特色</h2>
                         <ul>
-                            <li><strong>優雅設計：</strong> ABC 飯店擁有優雅時尚的室內設計，融合了現代與傳統的元素，營造出舒適而精緻的氛圍。</li>
+                            <li><strong>優雅設計：</strong> Starry 飯店擁有優雅時尚的室內設計，融合了現代與傳統的元素，營造出舒適而精緻的氛圍。</li>
                             <li><strong>豪華設施：</strong> 飯店提供一系列設施，包括室內恆溫游泳池、健身中心、水療中心和商務中心，滿足各種賓客的需求。</li>
-                            <li><strong>美食饗宴：</strong> ABC 飯店擁有多家餐廳和酒吧，供應國際美食和精緻的本地菜餚，讓您品嚐各種美味佳餚。</li>
+                            <li><strong>美食饗宴：</strong> Starry 飯店擁有多家餐廳和酒吧，供應國際美食和精緻的本地菜餚，讓您品嚐各種美味佳餚。</li>
                             <li><strong>專業服務：</strong> 飯店以其熱情周到的服務而聞名，員工經過專業培訓，隨時為賓客提供幫助，確保每一位賓客都能享受到完美的住宿體驗。</li>
                         </ul>
                     </div>
@@ -277,13 +277,13 @@
         </main>
         <footer class="bg-light">
             <div class="container ">
-                <h3>ABC Hotel</h3>
+                <h3>Starry Hotel</h3>
                 <hr>
                 <p>
                 <div><img src="../hotel_img/icon-map.webp" style="width: 1em; height: 1em;"> 地址: 10491台北市中山區民生東路三段</div>
                 <p>
                 <div><img src="../hotel_img/icon-mail.webp" style="width: 1em; height: 1em;"> Email:
-                    abcdefg1234@gmail.com</div>
+                    Starry1234@gmail.com</div>
                 <p>
                 <div><img src="../hotel_img/icon-phone.webp" style="width: 1em; height: 1em;"> 電話: 0987654321</div>
                 <p>
