@@ -44,17 +44,23 @@ public class RoomDaoImpl implements RoomDao {
     			)
 			)
 			GROUP BY r.type_id;
+		 	*
+			*	SELECT r.type_id, COUNT(r.room_id) as total,  COUNT(r.room_id) - COALESCE(COUNT(b.room_id), 0) AS available_rooms
+				FROM room r
+				LEFT JOIN booking b ON b.room_id = r.room_id
+				    AND (
+				        (b.start_date <= '2024-06-15' AND b.end_date >= '2024-06-14' AND b.status <> '已取消')
+				        -- 給定的日期區間
+				    )
+				GROUP BY r.type_id;	
+			
 		 * 
 		 */
-		String sql = "select r.type_id, COUNT(r.room_id) AS available_rooms "
+		String sql = "SELECT r.type_id, COUNT(r.room_id) as total,  COUNT(r.room_id) - COALESCE(COUNT(b.room_id), 0) AS available_rooms "
 				+"FROM room r "
-				+ "WHERE NOT EXISTS ( "
-				+ "SELECT 1 "
-				+ "FROM booking b "
-				+ "WHERE b.room_id = r.room_id "
+				+ "LEFT JOIN booking b ON b.room_id = r.room_id "
 				+ "AND ( "
-				+ "	(b.start_date < ? AND b.end_date > ? and b.status<>'已取消') "
-				+ ") "
+				+ "(b.start_date < ? AND b.end_date > ? AND b.status <> '已取消') "
 				+ ") "
 				+ "GROUP BY r.type_id ";
 		

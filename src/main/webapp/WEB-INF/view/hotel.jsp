@@ -52,6 +52,9 @@
                 font-weight: bolder;
                 font-feature-settings: "smcp", "zero";
             }
+            
+            
+			
         </style>
 
     </head>
@@ -178,7 +181,8 @@
                                             <h5 class="card-title">${roomtypeDto.name}</h5>
                                             <hr>
                                             <p class="card-text">適合人數:${roomtypeDto.capacity}</p>
-                                            <small>剩餘房間數: ${availabilityMap[roomtypeDto.type_id]}</small>
+                                              <small >剩餘房間數: ${availabilityMap[roomtypeDto.type_id]}</small> 
+                                            
 
                                             <!-- 下面的容器放置输入框和订房按钮 -->
                                             <div class="container-fluid "  style="margin-top: 50px;">
@@ -307,7 +311,8 @@
 
                         
                     }
-
+			
+            
             $(document).ready(function () {
             	
             	// 漢堡圖
@@ -317,8 +322,7 @@
                 
                 
                 
-         
-                                    
+                             
                 // 訂房按鈕點擊事件
                 $('.bookingForm').on('click', function (event) {
                     event.preventDefault(); // 防止默認的表單提交行為
@@ -355,6 +359,9 @@
                         var price = parseFloat($(this).find('#price').val());
                         var totalPrice = price * stayDuration;
                         $(this).find('#totalPrice').val(totalPrice.toFixed(2)); // 将结果保留两位小数
+                        
+                        
+                             
                     });
             });
         </script>
