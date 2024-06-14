@@ -53,7 +53,7 @@ public class RoomDaoImpl implements RoomDao {
 				+ "FROM booking b "
 				+ "WHERE b.room_id = r.room_id "
 				+ "AND ( "
-				+ "	(b.start_date <= ? AND b.end_date >= ? and b.status<>'已取消') "
+				+ "	(b.start_date < ? AND b.end_date > ? and b.status<>'已取消') "
 				+ ") "
 				+ ") "
 				+ "GROUP BY r.type_id ";
@@ -92,7 +92,7 @@ public class RoomDaoImpl implements RoomDao {
 				+ "FROM booking b "
 				+ "WHERE b.room_id = r.room_id "
 				+ "AND ( "
-				+ "	(b.start_date <= ? AND b.end_date >= ? and b.status<>'已取消') "
+				+ "	(b.start_date < ? AND b.end_date > ? and b.status<>'已取消') "
 				+ ") "
 				+ ") "
 				+ "AND type_id=? "
