@@ -28,6 +28,9 @@ import com.example.demo.service.BookingRoomService;
 import com.example.demo.service.RoomService;
 import com.example.demo.service.RoomTypeService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/hotel")
 public class HotelController {
@@ -43,7 +46,10 @@ public class HotelController {
 	
 	@GetMapping
 	public String findAll(@RequestParam(name = "checkInDate", required = false) String checkInDate,
-            @RequestParam(name = "checkOutDate", required = false) String checkOutDate,Model model) {
+            @RequestParam(name = "checkOutDate", required = false) String checkOutDate,Model model, HttpServletRequest request) {
+		// 從 HttpServletRequest 中獲取 Session
+	    HttpSession session = request.getSession(false);
+		
 		List<RoomType> roomtypeDtos = roomtypeService.findAllRoomtypes();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		 
@@ -73,6 +79,14 @@ public class HotelController {
 		model.addAttribute("roomtypeDtos", roomtypeDtos); // 給列表用
 		model.addAttribute("today", todayString);
 		model.addAttribute("tomorrow", tomorrowString);
+		boolean loginStatus ;
+		if(session == null ) {
+			loginStatus = false;
+		}else {
+			loginStatus = true;
+		}
+		model.addAttribute("loginStatus", loginStatus);
+		
 		return "hotel";
 	}
 	

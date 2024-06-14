@@ -11,6 +11,7 @@
         <link rel="icon" href="../hotel_img/icon-hotel.webp"> 
         <!-- Bootstrap CSS -->
 	    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
 	    <!-- Bootstrap JS 和 jQuery -->
 	    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -325,20 +326,29 @@
                              
                 // 訂房按鈕點擊事件
                 $('.bookingForm').on('click', function (event) {
-                    event.preventDefault(); // 防止默認的表單提交行為
-
-                    var card = $(this).closest('.card');  // 找到與按鈕相關聯的最近的 .card 元素
-                    var totalPrice = card.find('#totalPrice').val();  // 獲取該卡片內部的 #totalPrice 元素的值
-
-                    var checkInDate = document.getElementById('check_in_date').value;  // 獲取全局的入住日期
-                    var checkOutDate = document.getElementById('check_out_date').value;  // 獲取全局的退房日期
-
-                    // 將日期和總價設置到表單的隱藏字段
-                    card.find('input[name="start_date"]').val(checkInDate);
-                    card.find('input[name="end_date"]').val(checkOutDate);
-                    card.find('input[name="totalPrice"]').val(totalPrice);
-
-                    card.find('form').submit();  // 提交表單
+                	
+                	var isLoggedIn = ${loginStatus};
+                	if (!isLoggedIn) {
+						
+	                    event.preventDefault(); // 防止默認的表單提交行為
+	                    alert('請先登入才能訂房');
+                    } else {
+                	
+	                    event.preventDefault(); // 防止默認的表單提交行為
+	
+	                    var card = $(this).closest('.card');  // 找到與按鈕相關聯的最近的 .card 元素
+	                    var totalPrice = card.find('#totalPrice').val();  // 獲取該卡片內部的 #totalPrice 元素的值
+	
+	                    var checkInDate = document.getElementById('check_in_date').value;  // 獲取全局的入住日期
+	                    var checkOutDate = document.getElementById('check_out_date').value;  // 獲取全局的退房日期
+	
+	                    // 將日期和總價設置到表單的隱藏字段
+	                    card.find('input[name="start_date"]').val(checkInDate);
+	                    card.find('input[name="end_date"]').val(checkOutDate);
+	                    card.find('input[name="totalPrice"]').val(totalPrice);
+	
+	                    card.find('form').submit();  // 提交表單
+                    }
                 });
                     
                     
