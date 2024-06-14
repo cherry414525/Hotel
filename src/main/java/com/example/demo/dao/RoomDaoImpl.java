@@ -39,7 +39,7 @@ public class RoomDaoImpl implements RoomDao {
     		FROM booking b
     		WHERE b.room_id = r.room_id
     		AND (
-        		(b.start_date <= '2024-06-07' AND b.end_date >= '2024-06-06')
+        		(b.start_date <= '2024-06-07' AND b.end_date >= '2024-06-06' and b.status<>'已取消')
         	-- 給定的日期區間
     			)
 			)
@@ -53,7 +53,7 @@ public class RoomDaoImpl implements RoomDao {
 				+ "FROM booking b "
 				+ "WHERE b.room_id = r.room_id "
 				+ "AND ( "
-				+ "	(b.start_date <= ? AND b.end_date >= ?) "
+				+ "	(b.start_date <= ? AND b.end_date >= ? and b.status<>'已取消') "
 				+ ") "
 				+ ") "
 				+ "GROUP BY r.type_id ";
@@ -79,7 +79,7 @@ public class RoomDaoImpl implements RoomDao {
 			    FROM booking b
 			    WHERE b.room_id = r.room_id
 			    AND (
-			        (b.start_date <= '2024-06-12' AND b.end_date >= '2024-06-11')
+			        (b.start_date <= '2024-06-12' AND b.end_date >= '2024-06-11' and b.status<>'已取消')
 			        -- 給定的日期區間
 			    )
 			) AND type_id=1
@@ -92,7 +92,7 @@ public class RoomDaoImpl implements RoomDao {
 				+ "FROM booking b "
 				+ "WHERE b.room_id = r.room_id "
 				+ "AND ( "
-				+ "	(b.start_date <= ? AND b.end_date >= ?) "
+				+ "	(b.start_date <= ? AND b.end_date >= ? and b.status<>'已取消') "
 				+ ") "
 				+ ") "
 				+ "AND type_id=? "

@@ -94,6 +94,7 @@ public class BookingController {
 			 booking.setStart_date(startDate);
 			 booking.setEnd_date(endDate);
 			 booking.setPrice(price);
+			 booking.setStatus("已訂房");
 			 
 			 System.out.println(booking);
 			Integer rowcount = bookingService.addBooking(booking);

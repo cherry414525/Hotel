@@ -102,7 +102,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	            + "from booking b "
 	            + "left join room r on b.room_id = r.room_id "
 	            + "left join roomtype t on r.type_id=t.type_id "
-	            + "where user_id = ?";
+	            + "where user_id = ? and status <> '已取消' ";
 		
 		// 自定義對應邏輯規則
 				RowMapper<BookingRoomDto> mapper = new RowMapper<>() {
@@ -186,8 +186,8 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 
 	@Override
 	public Integer deleteBooking(Integer id) {
-		String sql = "delete from booking where booking_id = ?";
-		int rowcount = jdbcTemplate.update(sql, id);
+		String sql = "update booking set status =? where booking_id = ?";
+		int rowcount = jdbcTemplate.update(sql, "已取消",id);
 		System.out.println(rowcount);
 		if(rowcount == 1) {
 			System.out.println(id);
