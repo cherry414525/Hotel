@@ -58,6 +58,7 @@ public class BookingController {
 		  model.addAttribute("totalPrice", totalPrice);
 		  model.addAttribute("start_date", startDate);
 		  model.addAttribute("end_date", endDate);
+		  model.addAttribute("update", false);
 		  System.out.println(roomtype);
 		  System.out.println(totalPrice);
 		  System.out.println(startDate);
@@ -115,6 +116,26 @@ public class BookingController {
 			model.addAttribute("message", message);
 		}
 		
+		return "booking";
+	}
+	
+	
+	@PostMapping("/update")
+	public String updateUser(@ModelAttribute Booking booking, Model model) {
+		try {
+			
+			// 調用服務層方法更新用戶信息
+			bookingService.updateBooking(booking);
+			String message = "更新成功";
+			model.addAttribute("booking", booking);
+			model.addAttribute("message", message);
+			model.addAttribute("_method","PUT");
+		} catch (Exception e) {
+			// 如果更新失敗，捕獲異常並將錯誤消息返回給前端
+			String errorMessage = "更新失敗: " + e.getMessage();
+			model.addAttribute("errorMessage", errorMessage);
+		}
+		// 返回結果頁面
 		return "booking";
 	}
 	

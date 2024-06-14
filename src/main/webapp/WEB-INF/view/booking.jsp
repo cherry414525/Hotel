@@ -109,11 +109,11 @@
                 </div>
                 <div class="form-group">
                   <label for="start_date">入住時間</label>
-                  <input type="date" class="form-control"  id="start_date" name="start_date" value="${start_date}" >
+                  <input type="date" class="form-control"  id="start_date" name="start_date" value="${start_date}" onchange="calculateDate()">
                 </div>
                 <div class="form-group">
                   <label for="end_date">退房時間</label>
-                  <input type="date" class="form-control" id="end_date" name="end_date" value="${end_date}" >
+                  <input type="date" class="form-control" id="end_date" name="end_date" value="${end_date}" onchange="calculateDate()">
                 </div>
                <!-- <div class="form-group">
                   <label for="quantity">數量</label>
@@ -128,11 +128,11 @@
 
                   <!-- 修改按鈕 -->
                   <div class="col-auto">
-                    <button type="submit" class="btn btn-primary">確認訂房</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">確認訂房</button>
                   </div>
                   <!-- 回上頁按鈕 -->
                   <div class="col-auto">
-                    <a href="/hotel" class="btn btn-secondary">取消</a>
+                    <a href="/hotel"  id="cancelBtn" class="btn btn-secondary">取消</a>
                   </div>
                 </div>
               </form>
@@ -168,21 +168,51 @@
 
 
   <script>
-
+		  
+  
     $(document).ready(function () {
       $('.navbar-nav>li>a').on('click', function () {
         $('.navbar-collapse').collapse('hide');
       });
+      
+      calculateDate();
     });
 
  	// 如果是新增操作，将输入框设置为只读
     if (!${update}) {
     	start_date.readOnly = true;
     	end_date.readOnly = true;
+    	$('#submitBtn').text('確認訂房');
+    	 $(this).attr('action', '/booking/addbooking');
+    	 $('#cancelBtn').attr('href', '/hotel');
+
     } else {
         // 如果是修改操作，保持输入框为可编辑状态
+        var stayDuration; // 全局變數
+		  // 計算日期天數的函式
+		  function calculateDate() {
+		              var checkInDate = new Date(document.getElementById('start_date').value);
+		              var checkOutDate = new Date(document.getElementById('end_date').value);
+		
+		              // 計算時間差，以天數為單位
+		              var timeDiff = Math.abs(checkOutDate.getTime() - checkInDate.getTime());
+		              stayDuration = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		
+		              // 在控制台打印入住到退房的天數
+		              console.log("入住到退房的天數: " + stayDuration);
+				
+		              var price = parseFloat(${roomtypePrice});
+		              console.log("price: " + price);
+                      var totalPrice = price * stayDuration;
+					  console.log("totalPrice: " + totalPrice);
+					  $('#price').val(totalPrice.toFixed(2));
+              
+          }
         start_date.readOnly = false;
         end_date.readOnly = false;
+        $(this).attr('action', '/booking/updatebooking');
+        $('#submitBtn').text('確認修改');
+        $('#cancelBtn').attr('href', '/member');
     }
   </script>
 

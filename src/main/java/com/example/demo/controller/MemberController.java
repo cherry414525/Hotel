@@ -117,9 +117,11 @@ public class MemberController {
 		Room room =roomService.getRoom(booking.getRoomId());
 		RoomType roomtype =roomtypeService.getRoomtype(room.getType_id());
 		model.addAttribute("roomtype", roomtype.getName());
+		model.addAttribute("roomtypePrice", roomtype.getPrice());
 		model.addAttribute("start_date", sdf.format(booking.getStart_date()));
 		model.addAttribute("end_date", sdf.format(booking.getEnd_date()));
 		model.addAttribute("totalPrice", booking.getPrice());
+		model.addAttribute("booking", booking);
 		return "/booking";
 	}
 	
