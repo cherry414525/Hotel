@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -120,16 +121,12 @@ public class BookingController {
 	}
 	
 	
-	@PostMapping("/update")
-	public String updateUser(@ModelAttribute Booking booking, Model model) {
+	@PutMapping("/updatebooking")
+	public String updateUser( Model model ) {
 		try {
-			
+			System.out.println("update");
 			// 調用服務層方法更新用戶信息
-			bookingService.updateBooking(booking);
-			String message = "更新成功";
-			model.addAttribute("booking", booking);
-			model.addAttribute("message", message);
-			model.addAttribute("_method","PUT");
+			
 		} catch (Exception e) {
 			// 如果更新失敗，捕獲異常並將錯誤消息返回給前端
 			String errorMessage = "更新失敗: " + e.getMessage();

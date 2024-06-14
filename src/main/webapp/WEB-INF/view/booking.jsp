@@ -176,6 +176,11 @@
       });
       
       calculateDate();
+      
+      
+      $('form').attr('action', function () {
+    	    return !${update} ? '/booking/addbooking' : '/booking/updatebooking';
+    	  });
     });
 
  	// 如果是新增操作，将输入框设置为只读
@@ -183,7 +188,7 @@
     	start_date.readOnly = true;
     	end_date.readOnly = true;
     	$('#submitBtn').text('確認訂房');
-    	 $(this).attr('action', '/booking/addbooking');
+    	 
     	 $('#cancelBtn').attr('href', '/hotel');
 
     } else {
@@ -210,7 +215,7 @@
           }
         start_date.readOnly = false;
         end_date.readOnly = false;
-        $(this).attr('action', '/booking/updatebooking');
+        
         $('#submitBtn').text('確認修改');
         $('#cancelBtn').attr('href', '/member');
     }
