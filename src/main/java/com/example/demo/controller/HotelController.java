@@ -42,15 +42,26 @@ public class HotelController {
 
 	
 	@GetMapping
-	public String findAll(Model model) {
+	public String findAll(@RequestParam(name = "checkInDate", required = false) String checkInDate,
+            @RequestParam(name = "checkOutDate", required = false) String checkOutDate,Model model) {
 		List<RoomType> roomtypeDtos = roomtypeService.findAllRoomtypes();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String todayString = sdf.format(new Date());
-		// 明天的日期
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.add(Calendar.DAY_OF_YEAR, 1); // 加1天
-	    String tomorrowString = sdf.format(calendar.getTime());
+		 
+		String todayString;
+		String tomorrowString;
+		System.out.println(checkInDate);
+		System.out.println(checkOutDate);
+		if (checkInDate == null || checkOutDate == null) {
+			 todayString = sdf.format(new Date());
+			// 明天的日期
+		    Calendar calendar = Calendar.getInstance();
+		    calendar.add(Calendar.DAY_OF_YEAR, 1); // 加1天
+		    tomorrowString = sdf.format(calendar.getTime());
 	    
+		 }else {
+			 todayString=checkInDate;
+			 tomorrowString=checkOutDate;
+		 }
 	    //依照日期查詢剩餘房間數
 	   List<RoomAvailabilityDto> roomAvailabilityDto = roomService.findRoomsBydate(todayString, tomorrowString);
 	   // 将 roomAvailabilityDto 转换为 Map<typeId, availableRooms> 以便在 JSP 中使用
@@ -64,70 +75,5 @@ public class HotelController {
 		model.addAttribute("tomorrow", tomorrowString);
 		return "hotel";
 	}
-	/*
-	@GetMapping("/findroom")
-	public String getUser(@RequestParam("roomId") Integer roomId, Model model) {
-		
-		
-		 model.addAttribute("roomDtos",roomtypeService.getRoom(roomId));
-		return "result";
-	}
 	
-	@PostMapping("/addroom")
-	public String addUser(@ModelAttribute Room room, Model model) {
-		
-		try {
-			
-			Integer rowcount = roomService.addRoom(room);
-			String message = "新增" + ((rowcount == 1)?"成功":"失敗");
-			System.out.print(rowcount);
-			model.addAttribute("message", message);
-		}catch (Exception e) {
-			System.out.print(e);
-			String message = "新增錯誤: ";
-			// "unique_roomId_and_bookingDate" 是在建立資料表時的表單約束條件
-			if(e.getMessage().contains("Duplicate")) {
-				message += "房間id已重複"; 
-			} else {
-				message += e.getMessage();
-			}
-			
-			model.addAttribute("message", message);
-		}
-		
-		return "result";
-	}
-	
-
-	@PostMapping("/update")
-    public String updateUser(@ModelAttribute Room room, Model model) {
-        try {
-        	
-        	System.out.println(room);
-            // 調用服務層方法更新用戶信息
-            roomService.updateRoom(room);
-            String message = "更新成功";
-            model.addAttribute("room",room);
-            model.addAttribute("message", message);
-            model.addAttribute("_method","PUT");
-        } catch (Exception e) {
-            // 如果更新失敗，捕獲異常並將錯誤消息返回給前端
-            String errorMessage = "更新失敗: " + e.getMessage();
-            model.addAttribute("errorMessage", errorMessage);
-        }
-        // 返回結果頁面
-        return "result";
-    }
-	
-
-	@PostMapping("/delete")
-	public String deleteUser(@RequestParam("roomId") Integer roomId, Model model) {
-		
-		Integer rowcount = roomService.deleteRoom(roomId);
-		System.out.print(rowcount);
-		String message = "刪除" + ((rowcount>0)?"成功":"失敗");
-		model.addAttribute("message", message);
-		return "result";
-	}
-	*/
 }

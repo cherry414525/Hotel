@@ -349,10 +349,21 @@
                             $(this).find('#totalPrice').val(totalPrice.toFixed(2)); // 将结果保留两位小数
                         });
                         
+                        // 获取入住日期和退房日期
+                        var checkInDate = document.getElementById('check_in_date').value;
+                        var checkOutDate = document.getElementById('check_out_date').value;
+
+                        // 重新加载页面并传递入住日期和退房日期参数
+                        window.location.href = "/hotel?checkInDate=" + checkInDate + "&checkOutDate=" + checkOutDate;
                     });
 
                     // 初始加載時日期
                     calculateDate();
+                    $('.card').each(function () {
+                        var price = parseFloat($(this).find('#price').val());
+                        var totalPrice = price * stayDuration;
+                        $(this).find('#totalPrice').val(totalPrice.toFixed(2)); // 将结果保留两位小数
+                    });
             });
         </script>
     </body>
