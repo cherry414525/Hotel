@@ -341,15 +341,7 @@
                 
                     // 入住日期和退房日期的輸入框值發生變化時計算總價
                     $('#search').on('click', function () {
-                        calculateDate();
-                        console.log(stayDuration);
-                        $('.card').each(function () {
-                            var price = parseFloat($(this).find('#price').val());
-                            var totalPrice = price * stayDuration;
-                            $(this).find('#totalPrice').val(totalPrice.toFixed(2)); // 将结果保留两位小数
-                        });
-                        
-                        // 获取入住日期和退房日期
+                     // 获取入住日期和退房日期
                         var checkInDate = document.getElementById('check_in_date').value;
                         var checkOutDate = document.getElementById('check_out_date').value;
 
