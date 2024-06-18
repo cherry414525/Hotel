@@ -241,10 +241,21 @@
             } else {
               // 提交表單
               $('#hiddenSubmitButton').click();
-              
-              
+         
             }
           });
+          
+          // 檢查是否有成功訊息，顯示相應的 alert
+          var passwordChangeSuccess = "${sessionScope.passwordChangeSuccess}";
+          if (passwordChangeSuccess !== "") {
+              alert(passwordChangeSuccess);
+              // 清除成功訊息，避免下次刷新時再次顯示
+          	${sessionScope.passwordChangeSuccess = ""};
+          	// 導航到登入頁面
+          	window.location.href = "/login";
+          }
+
+          
 
         });
       </script>

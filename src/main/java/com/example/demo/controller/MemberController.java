@@ -168,8 +168,11 @@ public class MemberController {
 		user.setSalt(salt);
 		user.setPassword(hashedPassword);
 		userService.updateUserPassword(passwordDto.getUser_id(),user);
+		
+		 // 密碼更新成功
+	    session.setAttribute("passwordChangeSuccess", "密碼更新成功！請重新登入。");
 		session.removeAttribute("error2");
-		return "redirect:/login";
+		return "redirect:/member/user";
 	}
 	
 	@GetMapping("/userId")
