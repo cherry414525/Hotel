@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,7 @@ import com.example.demo.model.po.Booking;
 import com.example.demo.model.dto.BookingDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.User;
+import com.example.demo.service.BookingRoomService;
 import com.example.demo.service.BookingService;
 import com.example.demo.service.RoomService;
 import com.example.demo.service.RoomTypeService;
@@ -36,6 +39,9 @@ public class BookingController {
 	
 	@Autowired
 	private BookingService bookingService;
+	
+	@Autowired
+	private BookingRoomService bookingRoomService;
 	@Autowired
 	private RoomTypeService roomtypeService;
 	@Autowired
@@ -121,20 +127,26 @@ public class BookingController {
 	}
 	
 	
-	@PutMapping("/updatebooking")
-	public String updateUser( Model model ) {
-		try {
-			System.out.println("update");
-			// 調用服務層方法更新用戶信息
-			
-		} catch (Exception e) {
-			// 如果更新失敗，捕獲異常並將錯誤消息返回給前端
-			String errorMessage = "更新失敗: " + e.getMessage();
-			model.addAttribute("errorMessage", errorMessage);
-		}
-		// 返回結果頁面
-		return "booking";
-	}
+	 // PUT 請求，用於更新預訂
+    @PutMapping("/updatebooking/{bookingId}")
+    public String updateBooking(@PathVariable("bookingId") Integer bookingid,@RequestParam("start_date") String startDateStr,
+		    @RequestParam("end_date") String endDateStr,
+		    @RequestParam("price") double price, Model model, HttpServletRequest request) throws ParseException {
+        
+    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = formatter.parse(startDateStr);
+		Date endDate = formatter.parse(endDateStr);
+    	
+    	Booking booking=new Booking();
+		booking.setBooking_id(bookingid);
+		booking.setStart_date(startDate);
+		booking.setEnd_date(endDate);
+		booking.setPrice(price);
+		
+		bookingRoomService.updateBooking(bookingid,booking);
+        
+        return "redirect:/hotel"; 
+    }
 	
 	/*
 	@GetMapping

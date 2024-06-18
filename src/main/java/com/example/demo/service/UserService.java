@@ -21,7 +21,7 @@ public class UserService {
 		return userDao.findAllUsers();
 	}
 
-	public Optional<User> getUser(Integer id) {
+	public User getUser(Integer id) {
 		return userDao.getUser(id);
 	}
 	
@@ -42,15 +42,8 @@ public class UserService {
 
 	public Integer updateUser(User user) {
 		
-		user.setUser_id(5);
-		user.setName("John");
-		user.setBirthday(new Date()); // 假設這裡是設定生日日期的地方
-		user.setGender("male");
-		user.setPhone("123456");
-		user.setEmail("john@example.com");
-		user.setSalt("some_salt");
-		user.setPassword("some_password");
-		System.out.println(user);
+		
+		
 		return userDao.updateUser(user.getUser_id(), user);
 	}
 	
@@ -63,5 +56,8 @@ public class UserService {
 		return userDao.getUserByEmail(email);
 	}
 	
+	public Integer updateUserPassword(Integer id,User user) {
+		return userDao.updateUserPassword(id, user);
+	}
 	
 }

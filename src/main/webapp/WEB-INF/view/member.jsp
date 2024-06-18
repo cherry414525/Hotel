@@ -80,10 +80,18 @@
                   <a class="nav-link" href="/hotel">首頁</a>
                 </li>
 
-                <li class="nav-item">
-                  <a class="nav-link" href="#">會員中心</a>
+                 <!-- 使用 Bootstrap Dropdown 组件 -->
+                 <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    會員中心
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/member">我的訂單</a>
+                    <a class="dropdown-item" href="/member/user">我的資料</a>
+                  </div>
                 </li>
-                
+
                 <li class="nav-item">
                   <a class="nav-link" href="/logout">登出</a>
                 </li>
@@ -212,9 +220,14 @@
     <script>
 
       $(document).ready(function () {
-        $('.navbar-nav>li>a').on('click', function () {
-          $('.navbar-collapse').collapse('hide');
+        
+        $('.navbar-nav>li>a').on('click', function (e) {
+          if (!$(e.target).hasClass('dropdown-toggle')) {
+            $('.navbar-collapse').collapse('hide');
+          }
         });
+        
+        
       });
 
    	

@@ -179,8 +179,8 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	@Override
 	public Integer updateBooking(Integer id, Booking booking) {
 		
-		String sql = "update booking set price = ?,start_date= ?, end_date = ?  ,status = ? where booking_id = ?";
-		int rowcount = jdbcTemplate.update(sql,booking.getPrice(),booking.getStart_date(),booking.getEnd_date(),booking.getStatus(), id);
+		String sql = "update booking set price = ?,start_date= ?, end_date = ?   where booking_id = ?";
+		int rowcount = jdbcTemplate.update(sql,booking.getPrice(),booking.getStart_date(),booking.getEnd_date(), id);
 		return rowcount;
 	}
 

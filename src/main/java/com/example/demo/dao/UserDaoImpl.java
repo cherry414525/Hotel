@@ -25,15 +25,15 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Optional<User> getUser(Integer id) {
+	public User getUser(Integer id) {
 		String sql = "select user_id, name,birthday,gender,phone,email from user where user_id=?";
 		try {
 			User user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), id);
-			return Optional.of(user);
+			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Optional.of(null);
+		return null;
 	}
 
 	@Override
@@ -59,6 +59,12 @@ public class UserDaoImpl implements UserDao {
 	
 	}
 
+	@Override
+	public Integer updateUserPassword(Integer id, User user) {
+		String sql = "update user set salt = ?, password = ? where user_id = ?";
+		int rowcount = jdbcTemplate.update(sql,user.getSalt() ,user.getPassword(), id);
+		return rowcount;
+	}
 	
 	@Override
 	public Integer deleteUser(Integer id) {

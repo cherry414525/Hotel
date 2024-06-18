@@ -99,6 +99,7 @@
               <h2 class="text-center">訂房資訊</h2>
               <!-- 表單開始 -->
               <form method="POST" action="/booking/addbooking">
+                <input type="hidden" name="_method" value="POST">
                 <div class="form-group">
                   <label for="username">會員姓名</label>
                   <input type="text" class="form-control" id="name" name="name" value="${loggedInUser.name}" readonly>
@@ -178,9 +179,12 @@
       calculateDate();
       
       
-      $('form').attr('action', function () {
-    	    return !${update} ? '/booking/addbooking' : '/booking/updatebooking';
-    	  });
+      // 如果是修改操作，設置表單的 action 為更新路徑
+        if (${update}) {
+            $('form').attr('action', '/booking/updatebooking/${bookingId}');
+            var methodInput = document.querySelector('input[name="_method"]');
+            methodInput.value = 'PUT';
+        }
     });
 
  	// 如果是新增操作，将输入框设置为只读
