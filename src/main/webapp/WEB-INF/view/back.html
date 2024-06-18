@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Hotel後台管理</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom CSS -->
+    <style>
+        * {
+            font-family: Georgia, serif;
+        }
+
+        /* sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f8f9fa;
+            padding-top: 25px; /* 留出空間給 navbar */
+            z-index: 1000;
+            overflow-x: hidden;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+       .sidebar h1{
+        padding: 10px 20px;
+            display: block;
+            text-align: left; /* 將文字置左 */
+            font-weight: bold;
+       }
+
+        .sidebar .nav-link {
+            padding: 10px 20px;
+            display: block;
+            text-align: left; /* 將文字置左 */
+            font-weight: bold;
+            color: #333;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+            color:#333;
+            text-decoration: none;
+        }
+
+        /* main */
+        .main-content {
+            margin-left: 250px; /* 與 sidebar 的寬度相同 */
+            padding: 10px;
+        }
+
+        h1 {
+            font-weight: bolder;
+            font-feature-settings: "smcp", "zero";
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h1>Starry</h1>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="#sec1">房間管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#sec2">會員管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#sec3">訂單管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">登出</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+          
+        </header>
+
+        <!-- Main Content Area -->
+        <main>
+            <!-- #sec1 =================================================================== -->
+            <section id="sec1">
+                <!-- 房間管理-->
+                <div class="container mt-4">
+                    <h1>房間管理</h1>
+                    <!-- 房間管理內容 -->
+                </div>
+            </section>
+
+            
+        </main>
+    </div>
+</body>
+
+</html>

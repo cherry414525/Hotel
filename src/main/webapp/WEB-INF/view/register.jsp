@@ -47,6 +47,10 @@
         .main-content {
             flex: 1;
         }
+        h1 {
+                font-weight: bolder;
+                font-feature-settings: "smcp", "zero";
+            }
     </style>
 </head>
 <body>
