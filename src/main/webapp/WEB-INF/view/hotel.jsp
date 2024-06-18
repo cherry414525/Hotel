@@ -334,21 +334,28 @@
 	                    event.preventDefault(); // 防止默認的表單提交行為
 	                    alert('請先登入才能訂房');
                     } else {
-                	
-	                    event.preventDefault(); // 防止默認的表單提交行為
-	
-	                    var card = $(this).closest('.card');  // 找到與按鈕相關聯的最近的 .card 元素
-	                    var totalPrice = card.find('#totalPrice').val();  // 獲取該卡片內部的 #totalPrice 元素的值
-	
-	                    var checkInDate = document.getElementById('check_in_date').value;  // 獲取全局的入住日期
-	                    var checkOutDate = document.getElementById('check_out_date').value;  // 獲取全局的退房日期
-	
-	                    // 將日期和總價設置到表單的隱藏字段
-	                    card.find('input[name="start_date"]').val(checkInDate);
-	                    card.find('input[name="end_date"]').val(checkOutDate);
-	                    card.find('input[name="totalPrice"]').val(totalPrice);
-	
-	                    card.find('form').submit();  // 提交表單
+                    	 var card = $(this).closest('.card');  // 找到與按鈕相關聯的最近的 .card 元素
+                         var remainingRooms = parseInt(card.find('small').text().split(":")[1].trim());  // 獲取剩餘房間數
+                         
+                         if (remainingRooms === 0) {
+                             event.preventDefault(); // 防止默認的表單提交行為
+                             alert('抱歉，該房型已無剩餘房間，請選擇其他房型或日期。');
+                         } else {
+			                    event.preventDefault(); // 防止默認的表單提交行為
+			
+			                    var card = $(this).closest('.card');  // 找到與按鈕相關聯的最近的 .card 元素
+			                    var totalPrice = card.find('#totalPrice').val();  // 獲取該卡片內部的 #totalPrice 元素的值
+			
+			                    var checkInDate = document.getElementById('check_in_date').value;  // 獲取全局的入住日期
+			                    var checkOutDate = document.getElementById('check_out_date').value;  // 獲取全局的退房日期
+			
+			                    // 將日期和總價設置到表單的隱藏字段
+			                    card.find('input[name="start_date"]').val(checkInDate);
+			                    card.find('input[name="end_date"]').val(checkOutDate);
+			                    card.find('input[name="totalPrice"]').val(totalPrice);
+			
+			                    card.find('form').submit();  // 提交表單
+                         }
                     }
                 });
                     
