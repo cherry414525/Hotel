@@ -95,6 +95,9 @@
 							        <input type="password" class="form-control" id="loginPassword" name="password"
 							            placeholder="Password">
 							    </div>
+							     <div class="text-right">
+							    	<small><a href="/forgot-password">忘記密碼?</a></small>
+							    </div>
 							    <button type="submit" class="btn btn-primary btn-block">登入</button>
 							</form>
                             <a href="/register" class="btn btn-info btn-block mt-3">註冊</a>
