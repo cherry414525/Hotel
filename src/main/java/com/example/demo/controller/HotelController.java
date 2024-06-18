@@ -79,13 +79,14 @@ public class HotelController {
 		model.addAttribute("roomtypeDtos", roomtypeDtos); // 給列表用
 		model.addAttribute("today", todayString);
 		model.addAttribute("tomorrow", tomorrowString);
-		boolean loginStatus ;
-		if(session == null ) {
-			loginStatus = false;
+		boolean login ;
+		System.out.println(session);
+		if(session != null && session.getAttribute("loginStatus") != null && (Boolean) session.getAttribute("loginStatus")) {
+			login = true;
 		}else {
-			loginStatus = true;
+			login = false;
 		}
-		model.addAttribute("loginStatus", loginStatus);
+		model.addAttribute("loginStatus", login);
 		
 		return "hotel";
 	}

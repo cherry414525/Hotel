@@ -328,6 +328,7 @@
                 $('.bookingForm').on('click', function (event) {
                 	
                 	var isLoggedIn = ${loginStatus};
+                	console.log(isLoggedIn);
                 	if (!isLoggedIn) {
 						
 	                    event.preventDefault(); // 防止默認的表單提交行為

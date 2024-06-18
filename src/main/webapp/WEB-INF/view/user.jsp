@@ -103,7 +103,7 @@
                 <div class="card border-primary">
                   <div class="card-body">
                     <h2 class="text-center">會員資料</h2>
-                    <form method="POST" action="/member/user/update">
+                    <form id="memberForm" method="POST" action="/member/user/update">
                       <input type="hidden" name="_method" value="PUT">
                       <input type="hidden" name="user_id" value="${user.user_id}">
                       <div class="form-group">
@@ -225,7 +225,7 @@
               $(this).text('確認修改');
             } else {
               // 提交表單
-              $('form').submit();
+               $('#memberForm').submit();
               alert('修改完成');
             }
           });
