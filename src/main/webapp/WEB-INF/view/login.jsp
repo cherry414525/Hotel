@@ -77,7 +77,8 @@
                 </div>
             </nav>
         </header>
-        <!-- Main Content Area -->
+        
+       <!-- Main Content Area -->
         <main class="main-content align-content-center" style="margin: 85px;">
             <div class="container">
                 <div class="row justify-content-center">
@@ -86,24 +87,26 @@
                             <h2 class="text-center">會員登入</h2>
                             <form action="/login" method="post">
 							    <div class="form-group">
-							        <label for="loginEmail">Email address</label><small style="color:red"> ${error}</small>
+							        <label for="loginEmail">Email 地址</label><small style="color:red"> ${error}</small>
 							        <input type="email" class="form-control" id="loginEmail" name="email"
-							            aria-describedby="emailHelp" placeholder="Enter email">
+							            aria-describedby="emailHelp" placeholder="請輸入 Email">
 							    </div>
 							    <div class="form-group">
-							        <label for="loginPassword">Password</label>
+							        <label for="loginPassword">密碼</label>
 							        <input type="password" class="form-control" id="loginPassword" name="password"
-							            placeholder="Password">
+							            placeholder="請輸入密碼">
 							    </div>
 							     <div class="text-right">
-							    	<small><a href="/forgot-password">忘記密碼?</a></small>
+							    	<small><a href="#" data-toggle="modal" data-target="#forgotPasswordModal">忘記密碼?</a></small>
 							    </div>
 							    <button type="submit" class="btn btn-primary btn-block">登入</button>
 							</form>
                             <a href="/register" class="btn btn-info btn-block mt-3">註冊</a>
                             
                         </div>
-                       
+                    </div>
+                </div>
+            </div>
         </main>
         <footer class="bg-light">
             <div class="container ">
@@ -121,7 +124,32 @@
             </div>
         </footer>
     </div>
-
+	
+	<!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">忘記密碼</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+               <div class="modal-body">
+	                <form action="/forgotPassword" method="GET">
+	                    <div class="form-group">
+	                        <label for="forgotPasswordEmail">Email 地址</label>
+	                        <input type="email" class="form-control" id="forgotPasswordEmail" name="email" placeholder="輸入註冊時使用的 Email">
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+	                        <button type="submit" class="btn btn-primary">寄送</button>
+	                    </div>
+	                </form>
+            	</div>
+            </div>
+        </div>
+    </div>
     <script>
         $(document).ready(function () {
             $('.navbar-nav>li>a').on('click', function () {

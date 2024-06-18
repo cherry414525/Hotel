@@ -25,30 +25,29 @@ public class SSLEmail {
 	   Use Authentication: Yes
 	   Port for SSL: 465
 	 */
-	public static void main(String[] args) {
-		final String fromEmail = "xxx@gmail.com"; //requires valid gmail id
-		final String password = "xxx"; // 應用程式密碼
-		final String toEmail = "xxx@yahoo.com.tw"; // can be any email id 
-		
-		System.out.println("SSLEmail Start");
-		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
-		props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
-		props.put("mail.smtp.socketFactory.class",
-				"javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
-		props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
-		props.put("mail.smtp.port", "465"); //SMTP Port
-		
-		Authenticator auth = new Authenticator() {
-			//override the getPasswordAuthentication method
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(fromEmail, password);
-			}
-		};
-		
-		Session session = Session.getDefaultInstance(props, auth);
-		System.out.println("Session created");
-		EmailUtil.sendEmail(session, toEmail,"SSLEmail Testing Subject", "SSLEmail Testing Body");
-	}
+	 public static void sendEmail(String toEmail) {
+	        final String fromEmail = "abcdefg8756@gmail.com"; // 你的 Gmail 地址
+	        final String password = "hpyi alxu dsrh apyz"; // 你的 Gmail 应用程序密码
+
+	        System.out.println("SSLEmail Start");
+	        Properties props = new Properties();
+	        props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP 服务器地址
+	        props.put("mail.smtp.socketFactory.port", "465"); // SSL 端口
+	        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); // SSL Factory 类
+	        props.put("mail.smtp.auth", "true"); // 启用 SMTP 身份验证
+	        props.put("mail.smtp.port", "465"); // SMTP 端口
+
+	        Authenticator auth = new Authenticator() {
+	            protected PasswordAuthentication getPasswordAuthentication() {
+	                return new PasswordAuthentication(fromEmail, password);
+	            }
+	        };
+
+	        Session session = Session.getDefaultInstance(props, auth);
+	        System.out.println("Session created");
+
+	        // 调用 EmailUtil 类中的 sendEmail 方法发送邮件
+	        EmailUtil.sendEmail(session, toEmail, "Starry Hotel 會員密碼重設", "您的預設密碼已更改為123456"+"，登入後請重設密碼。");
+	    }
 
 }

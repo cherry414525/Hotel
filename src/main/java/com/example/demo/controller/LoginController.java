@@ -156,4 +156,26 @@ public class LoginController {
 	    // 重定向到登入頁面
 	    return "redirect:/hotel";
 	}
+	
+	@GetMapping("/forgotPassword")
+	public String forgotPassword(@RequestParam("email") String email, Model model) {
+		System.out.println(email);
+		
+		SSLEmail.sendEmail(email);
+		 Optional<User> existingUser = userService.getUserByEmail(email);
+	        if (existingUser.isPresent()) {
+	            User user = existingUser.get();
+	            String salt = SaltedPasswordHasher.generateSalt();
+		        String hashedPassword = SaltedPasswordHasher.hashPassword("123456", salt);
+	            user.setSalt(salt);
+	            user.setPassword(hashedPassword);
+		        
+	            userService.updateUserPassword(user.getUser_id(),user);
+	            model.addAttribute("message", "密碼已發送至您的郵箱");
+	            
+	        }
+		return "redirect:/login";
+	}
+	
+	
 }
