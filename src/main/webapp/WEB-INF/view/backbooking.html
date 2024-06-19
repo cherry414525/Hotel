@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Hotel後台管理</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入 Bootstrap JS 和 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            font-family: Georgia, serif;
+        }
+
+        /* 自訂 CSS */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            /* 調整 sidebar 寬度 */
+        }
+
+        .sidebar h1 {
+            padding: 10px 20px;
+            display: block;
+            text-align: left;
+            /* 將文字置左 */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .nav-link {
+            padding: 10px 20px;
+            display: block;
+            text-align: left;
+            /* 將文字置左 */
+            font-weight: bold;
+            color: #333;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            /* 將主要內容區域 margin-left 設為 sidebar 的寬度 */
+            padding: 20px;
+        }
+
+        .custom-border {
+            border: 2px solid #1f2730;
+            /* 藍色實線邊框 */
+            border-radius: 0.5rem;
+            /* 圓角 */
+            padding: 1rem;
+            /* 內邊距 */
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                /* 在小型設備上讓 sidebar 佔滿整個寬度 */
+                position: static;
+                /* 移除固定定位 */
+                padding-top: 15px;
+                /* 調整 padding */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 導航選項卡 -->
+    <div class="sidebar">
+        <h1>Starry</h1>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="backroom.html">房間管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="backuser.html">會員管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="backbooking.html">訂單管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">登出</a>
+            </li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- 主要內容 -->
+                <div class="col-12 col-md-9 main-content">
+                    <header class="pt-3">
+                        <h1 class="text-center">訂單管理系統</h1>
+                    </header>
+
+                    <div class="container">
+                        <ul class=" nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#order-management">訂單管理</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 分頁內容 -->
+                    <div class="tab-content">
+
+                        <!-- #sec3 - 訂單列表 -->
+                        <div class="tab-pane fade show active pt-3" id="order-management">
+                            <!-- 搜尋欄位 -->
+                            <div class="container mt-3">
+                                <div class="border rounded p-4">
+                                    <div class="row mb-4">
+                                        <div class="col-md-2">
+                                            <label for="orderId" class="form-label">訂單編號:</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="orderId"
+                                                class="form-control form-control-sm mb-3" placeholder="訂單編號">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-2">
+                                            <label for="memberId" class="form-label">會員編號:</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="memberId"
+                                                class="form-control form-control-sm mb-3" placeholder="會員編號">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5"></div> <!-- 空白占位 -->
+                                        <div class="col-md-3">
+                                            <button class="btn btn-primary btn-block">搜尋</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container mt-3">
+                                <div class="shadow p-3 mb-5 bg-white rounded"> <!-- 使用 Bootstrap 的陰影和圓角類別 -->
+                                    <div class="table-responsive">
+                                        <h2>訂單列表</h2>
+                                        <table class="table table-bordered">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">訂單編號</th>
+                                                    <th scope="col">房號</th>
+                                                    <th scope="col">會員姓名</th>
+                                                    <th scope="col">總金額</th>
+                                                    <th scope="col">入住日期</th>
+                                                    <th scope="col">退房日期</th>
+                                                    <th scope="col">訂單狀態</th>
+                                                    <th scope="col">修改</th>
+                                                    <th scope="col">刪除</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>101</td>
+                                                    <td>王小明</td>
+                                                    <td>$2000</td>
+                                                    <td>2024-07-01</td>
+                                                    <td>2024-07-05</td>
+                                                    <td>已完成</td>
+                                                    <td>
+                                                        <button class="btn btn-info btn-sm" data-toggle="modal"
+                                                            data-target="#editOrderModal">修改</button>
+                                                    </td>
+                                                    <td><button class="btn btn-danger btn-sm">刪除</button></td>
+                                                </tr>
+                                                <!-- 其他訂單項目將在這裡列出 -->
+                                            </tbody>
+                                        </table>
+                                        <!-- 如果需要，添加用於新增訂單的按鈕 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 修改訂單的模態框 -->
+    <div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" aria-labelledby="editOrderModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editOrderModalLabel">修改訂單資料</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="orderId">訂單編號</label>
+                            <input type="number" class="form-control" id="orderId" value="1" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomNumber">房號</label>
+                            <input type="text" class="form-control" id="roomNumber" value="101">
+                        </div>
+                        <div class="form-group">
+                            <label for="memberName">會員姓名</label>
+                            <input type="text" class="form-control" id="memberName" value="王小明">
+                        </div>
+                        <div class="form-group">
+                            <label for="totalAmount">總金額</label>
+                            <input type="text" class="form-control" id="totalAmount" value="$2000">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkInDate">入住日期</label>
+                            <input type="date" class="form-control" id="checkInDate" value="2024-07-01">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkOutDate">退房日期</label>
+                            <input type="date" class="form-control" id="checkOutDate" value="2024-07-05">
+                        </div>
+                        <div class="form-group">
+                            <label for="orderStatus">訂單狀態</label>
+                            <select class="form-control" id="orderStatus">
+                                <option value="已完成">已完成</option>
+                                <option value="未完成">未完成</option>
+                                <option value="取消">取消</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">保存修改</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
