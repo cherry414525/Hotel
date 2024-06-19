@@ -29,7 +29,7 @@ $(document).ready(function() {
 
         fetchRoomTypeNames();  // 取得房型名稱
         
-        
+     //--------------------------------------------------------------   
        // 獲取所有房間資料的函數
     function fetchRooms() {
         fetch('/api/rooms')  // 發送 GET 請求到 /api/rooms
@@ -55,4 +55,42 @@ $(document).ready(function() {
     }
 
     fetchRooms();  // 取得房間資料
+    
+    //--------------------------------------------------------------
+    // 搜尋按鈕點擊事件
+    $('#searchButton').click(function(e) {
+        e.preventDefault(); // 防止默認的表單提交行為
+
+        // 獲取房間編號和房型值
+        var roomNumber = $('#roomNumber').val();
+        var roomType = $('#roomType').val();
+
+        // 建立要發送的數據對象
+        var formData = {
+            roomNumber: roomNumber,
+            roomType: roomType
+        };
+
+        // 設置 Fetch 請求的選項
+        var requestOptions = {
+            method: 'POST', // 使用 POST 方法
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData) // 將數據對象轉為 JSON 字符串
+        };
+
+        // 發送 Fetch 請求
+        fetch('/api/search', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                // 成功處理返回的數據
+                console.log('搜尋成功:', data);
+                // 可以根據返回的數據更新前端的房間列表或其他操作
+            })
+            .catch(error => {
+                // 處理錯誤情況
+                console.error('搜尋失敗:', error);
+            });
+    });
 });

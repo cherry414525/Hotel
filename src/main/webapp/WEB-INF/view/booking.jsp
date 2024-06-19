@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>會員中心</title>
-  <link rel="icon" href="../hotel_img/icon-hotel.webp">
+  <link rel="icon" href="http://localhost:8086/hotel_img/icon-hotel.webp">
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap JS 和 jQuery -->
@@ -158,13 +158,13 @@
         <h3>Starry Hotel</h3>
         <hr>
         <p>
-          <div><img src="../hotel_img/icon-map.webp" style="width: 1em; height: 1em;"> 地址: 10491台北市中山區民生東路三段
+          <div><img src="http://localhost:8086/hotel_img/icon-map.webp" style="width: 1em; height: 1em;"> 地址: 10491台北市中山區民生東路三段
           </div>
         <p>
-          <div><img src="../hotel_img/icon-mail.webp" style="width: 1em; height: 1em;"> Email:
+          <div><img src="http://localhost:8086//hotel_img/icon-mail.webp" style="width: 1em; height: 1em;"> Email:
             Starry1234@gmail.com</div>
         <p>
-          <div><img src="../hotel_img/icon-phone.webp" style="width: 1em; height: 1em;"> 電話: 0987654321</div>
+          <div><img src="http://localhost:8086/hotel_img/icon-phone.webp" style="width: 1em; height: 1em;"> 電話: 0987654321</div>
         <p>
       </div>
     </footer>

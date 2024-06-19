@@ -9,12 +9,14 @@ import java.util.Optional;
 import javax.swing.text.DateFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,12 +59,16 @@ public class BackRoomController {
 		
 	}
 
-	@GetMapping("/types")
-    public List<RoomType> findAllRoomTypeNames() {
-		List<RoomType> roomType = roomtypeService.findAllRoomtypes();
-		System.out.print(roomType);
-        return roomType;
+	@PostMapping("/search")
+    public List<Room> searchRooms(@RequestBody SearchRequest searchRequest) {
+        // 從請求中獲取房間編號和房型
+        String roomNumber = searchRequest.getRoomNumber();
+        String roomType = searchRequest.getRoomType();
+
+        List<Room> rooms = roomService.findAllRooms();
+
+        // 返回符合條件的房間列表
+        return rooms;
     }
-	
 	
 }
