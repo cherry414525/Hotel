@@ -1,6 +1,35 @@
 // 當文件加載完成後執行渲染操作
 $(document).ready(function() {
-    
+    // 獲取所有房型名稱的函數
+        function fetchRoomTypeNames() {
+            fetch('/api/types')  // 發送 GET 請求到 /api/rooms/types
+                .then(response => response.json())  // 解析 JSON 格式的回應
+                .then(roomTypes => {
+                    // 清空現有的房型選項
+                    $('#roomType').empty();
+                    
+                     // 添加一個空選項
+	                $('#roomType').append($('<option>', {
+	                    value: '',
+	                    text: '請選擇房型'
+	                }));
+	                
+	                // 將每個房型名稱添加到下拉選單中
+	                roomTypes.forEach(roomType => {
+	                    $('#roomType').append($('<option>', {
+	                        value: roomType.name,
+	                        text: roomType.name
+	                    }));
+	                }); 
+                })
+                .catch(error => {
+                    console.error('取得房型名稱時發生錯誤:', error);
+                });
+        }
+
+        fetchRoomTypeNames();  // 取得房型名稱
+        
+        
        // 獲取所有房間資料的函數
     function fetchRooms() {
         fetch('/api/rooms')  // 發送 GET 請求到 /api/rooms

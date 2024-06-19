@@ -43,7 +43,7 @@ public class BackRoomController {
 	        for (Room room : rooms) {
 	            // 根據 room 的 type_id 找到對應的 RoomType
 	            RoomType roomType = roomtypeService.getRoomtype(room.getType_id());
-	            System.out.print(roomType);
+	            
 	            // 建立 RoomDTO 對象，將 Room 的資料和 RoomType 的 name 放入
 	            RoomDto roomDto = new RoomDto();
 	            roomDto.setRoom_id(room.getRoom_id());
@@ -57,4 +57,12 @@ public class BackRoomController {
 		
 	}
 
+	@GetMapping("/types")
+    public List<RoomType> findAllRoomTypeNames() {
+		List<RoomType> roomType = roomtypeService.findAllRoomtypes();
+		System.out.print(roomType);
+        return roomType;
+    }
+	
+	
 }
