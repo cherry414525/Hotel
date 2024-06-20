@@ -37,8 +37,7 @@ public class RoomService {
 	
 	public Integer addRoom(Room room) {
 		
-		room.setRoom_id(203);
-		room.setType_id(1);
+		
 		return roomDao.addRoom(room);
 		
 	}

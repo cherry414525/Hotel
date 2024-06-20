@@ -249,8 +249,8 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="inputRoomNumber">房間編號</label>
-                            <input type="number" class="form-control" id="inputRoomNumber" placeholder="房間編號">
+                            <label for="addRoomNumber">房間編號</label>
+                            <input type="number" class="form-control" id="addRoomNumber" placeholder="房間編號">
                         </div>
                         <div class="form-group">
                             <label for="addroomType">房型</label>
@@ -261,12 +261,45 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">新增</button>
+                    <button id="addroomButton" class="btn btn-primary">新增</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Modal - 修改房間 -->
+	<div class="modal fade" id="editRoomModal" tabindex="-1" role="dialog" aria-labelledby="editRoomModalLabel"
+	    aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="editRoomModalLabel">修改房間</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <form>
+	                    <div class="form-group">
+	                        <label for="editRoomNumber">房間編號</label>
+	                        <input type="number" class="form-control" id="editRoomNumber" placeholder="房間編號">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="editRoomType">房型</label>
+	                        <select class="form-control" id="editRoomType">
+	                            <!-- 下拉選單選項會在 JavaScript 中動態填充 -->
+	                        </select>
+	                    </div>
+	                </form>
+	            </div>
+	            <div class="modal-footer">
+	                <button id="editRoomButton" class="btn btn-primary">修改</button>
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	    
     <!-- Modal - 新增房型 -->
     <div class="modal fade" id="addRoomTypeModal" tabindex="-1" role="dialog" aria-labelledby="addRoomTypeModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
