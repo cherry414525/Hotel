@@ -44,8 +44,7 @@ public class RoomService {
 
 	public Integer updateRoom(Room room) {
 		
-		room.setRoom_id(202);
-		room.setType_id(2);
+		
 		return roomDao.updateRoom(room.getRoom_id(), room);
 	}
 	

@@ -214,6 +214,53 @@ $(document).ready(function() {
 			        alert('獲取房間信息失敗！請檢查網絡連接或重試。');
 			    });
 		});
-	 
+	 	
+	 	$('#editRoomButton').on('click', function(e) {
+			// 獲取輸入的房間編號和房型
+		    var roomNumber = document.getElementById('editRoomNumber').value;
+		    var roomType = document.getElementById('editRoomType').value;
+			console.log("roomNumber"+roomNumber);
+			console.log("roomType"+roomType);
+		    // 構建要發送的資料物件
+		    var formData = {
+		        roomNumber: roomNumber,
+		        roomType: roomType
+		    };
+
+		    // 發送 POST 請求
+        	fetch('/api/updateRoom', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData) // 將資料物件轉為 JSON 字串
+            })
+            .then(response => {
+                if (response.ok) {
+                    // 如果响應狀態碼為 200-299，解析 JSON 數據
+                    return response.text(); // 返回文本數據
+                } else {
+                    // 如果响應狀態碼不在 200-299 範圍內，拋出錯誤
+                    throw new Error('修改房間失敗');
+                }
+            })
+            .then(message => {
+                // 根據後端返回的訊息來判斷成功或失敗
+                if (message.startsWith('修改房間成功')) {
+                    console.log('修改房間成功:', message);
+                    alert('修改房間成功！');
+                    $('#editRoomModal').modal('hide'); // 關閉模態框
+                    fetchRooms(); // 重新加載房間資料
+                } else {
+                    throw new Error('修改房間失敗');
+                }
+            })
+            .catch(error => {
+                // 處理錯誤情況
+                console.error('修改房間失敗:', error);
+                alert('修改房間失敗！請檢查網絡連接或重試。');
+            });
+			
+	 	});
 	 
 });

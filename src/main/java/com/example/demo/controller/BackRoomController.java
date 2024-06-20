@@ -160,4 +160,23 @@ public class BackRoomController {
 	        }
 	    }
 	
+	 	@PutMapping("/updateRoom")
+	 	public String updateRoom(@RequestBody Map<String, String> request) {
+	 		try {
+		 		 // 從 request 中獲取房間編號和房型名稱
+		        String room_id = request.get("roomNumber");
+		        String type_name = request.get("roomType");
+		        Integer roomType = roomtypeService.findRoomtypebyid(type_name);
+		        
+		        Room room = new Room();
+		        room.setRoom_id(Integer.parseInt(room_id)); 
+		        room.setType_id(roomType); // 設置房型 ID
+		        
+		 		roomService.updateRoom(room);
+		 		
+		 		return "修改房間成功";
+	 		} catch (Exception e) {
+	 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "修改房間失敗: " + e.getMessage(), e);
+	 		}
+	 	}
 }
