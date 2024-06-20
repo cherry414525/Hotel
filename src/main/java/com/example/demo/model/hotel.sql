@@ -39,7 +39,7 @@ create table if not exists booking(
 );
 
 create table if not exists roomtype(
-    type_id INT PRIMARY KEY,
+    type_id INT auto_increment PRIMARY KEY,
     name VARCHAR(50),
     price DOUBLE,
     capacity INT,

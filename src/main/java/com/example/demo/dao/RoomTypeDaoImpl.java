@@ -53,12 +53,16 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
 
 	@Override
 	public Integer addRoomType(RoomType roomtype) {
-		String sql = "INSERT INTO roomtype (type_id,name,price,capacity,photo) VALUES (?,?,?,?,?)";
-        
-        // 執行 SQL 新增語句
-        int rowcount = jdbcTemplate.update(sql,roomtype.getType_id(),roomtype.getName(),roomtype.getPrice(),roomtype.getCapacity(),roomtype.getPhoto());
-        
-        return rowcount;
+		String sql = "INSERT INTO roomtype (name,price,capacity,photo) VALUES (?,?,?,?)";
+		try {
+			// 執行 SQL 新增語句
+			int rowcount = jdbcTemplate.update(sql,roomtype.getName(),roomtype.getPrice(),roomtype.getCapacity(),roomtype.getPhoto());
+			return rowcount;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+        return null;
 	}
 	
 
@@ -82,6 +86,12 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
 		return null;
 	}
 
-	
+	@Override
+	public Integer GroupTypebyid(Integer id) {
+		
+		String sql = "SELECT count(*) as total FROM hotel.room where type_id=? ;";
+		int rowcount = jdbcTemplate.queryForObject(sql, Integer.class, id);
+		return rowcount;
+	}
 	
 }

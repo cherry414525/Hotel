@@ -14,4 +14,5 @@ public interface RoomTypeDao {
 	Integer addRoomType(RoomType roomtype);		//新增房型
 	Integer updateRoomType(Integer id,RoomType roomtype);	//修改房型
 	Integer deleteRoomType(Integer id);		//刪除房型
+	Integer GroupTypebyid(Integer id);
 }

@@ -33,14 +33,8 @@ public class RoomTypeService {
 	}
 	
 	public Integer addRoomtype(RoomType roomtype) {
-		
-		roomtype.setType_id(3);
-		roomtype.setName("經典四人房");
-		roomtype.setPrice(5000);
-		roomtype.setCapacity(4);
-		roomtype.setPhoto("");
+		System.out.println(roomtype);
 		return roomtypeDao.addRoomType(roomtype);
-		
 	}
 
 	public Integer updateRoomtype(RoomType roomtype) {
@@ -58,6 +52,8 @@ public class RoomTypeService {
 		return roomtypeDao.deleteRoomType(id);
 	}
 
-	
+	public Integer GroupTypebyid(Integer id) {
+		return roomtypeDao.GroupTypebyid(id);
+	}
 	
 }

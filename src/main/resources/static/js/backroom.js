@@ -82,7 +82,7 @@ $(document).ready(function() {
 	                                  '<td>' + roomtype.price + '</td>' +
 	                                  '<td>' + roomtype.capacity + '</td>' +
 	                                  '<td>' + roomtype.photo + '</td>' +
-	                                  '<td>' + roomtype.photo + '</td>' +
+	                                  '<td>' + roomtype.total + '</td>' +
 	                                  '<td><button class="btn btn-sm btn-primary update-btn">編輯</button></td>' +
 	                              	  '<td><button class="btn btn-sm btn-danger delete-btn"  >刪除</button></td>' +
 	                              '</tr>';
@@ -292,6 +292,66 @@ $(document).ready(function() {
             });
 			
 	 	});
+	 
+	 //--新增房型--------------------------------------------------------------
+		 $('#addroomtypeButton').on('click', function(e) {
+		    e.preventDefault();
+		
+		    // 获取输入的房型名稱、單晚價格、容納人數和圖片
+		    var roomTypeName = document.getElementById('inputRoomTypeName').value;
+		    var roomTypePrice = document.getElementById('inputRoomTypePrice').value;
+		    var roomTypeCapacity = document.getElementById('inputRoomTypeCapacity').value;
+		    var roomTypeImage = document.getElementById('inputRoomTypeImage').value;
+		
+		    // 构建要发送的数据对象
+		    var formData = {
+		        roomTypeName: roomTypeName,
+		        roomTypePrice: roomTypePrice,
+		        roomTypeCapacity: roomTypeCapacity,
+		        roomTypeImage: roomTypeImage
+		    };
+		
+		    // 发送 POST 请求
+		    fetch('/api/addroomtype', {
+		        method: 'POST',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        body: JSON.stringify(formData) // 将数据对象转为 JSON 字符串
+		    })
+		    .then(response => {
+		        if (response.ok) {
+		            // 如果响应状态码为 200-299，解析 JSON 数据
+		            return response.text(); // 返回文本数据
+		        } else {
+		            // 如果响应状态码不在 200-299 范围内，抛出错误
+		            throw new Error('新增房型失败');
+		        }
+		    })
+		    .then(message => {
+		        // 根据后端返回的消息来判断成功或失败
+		        if (message.startsWith('新增房型成功')) {
+		            console.log('新增房型成功:', message);
+		            alert('新增房型成功！');
+		            // 清空表单
+		            document.getElementById('inputRoomTypeName').value = '';
+		            document.getElementById('inputRoomTypePrice').value = '';
+		            document.getElementById('inputRoomTypeCapacity').value = '';
+		            document.getElementById('inputRoomTypeImage').value = '';
+		            // 关闭模态框
+		            $('#addRoomTypeModal').modal('hide');
+		             fetchRoomtypes();
+		            
+		        } else {
+		            throw new Error('新增房型失败');
+		        }
+		    })
+		    .catch(error => {
+		        // 处理错误情况
+		        console.error('新增房型失败:', error);
+		        alert('新增房型失败！请检查网络连接或重试。');
+		    });
+		});
 	 
 
 });

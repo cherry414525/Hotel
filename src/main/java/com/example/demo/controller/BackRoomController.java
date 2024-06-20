@@ -27,7 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.model.dto.RoomDto;
+import com.example.demo.model.dto.RoomTypeDto;
 import com.example.demo.model.dto.SearchRequest;
+import com.example.demo.model.dto.TypeDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.RoomType;
 import com.example.demo.service.RoomService;
@@ -182,10 +184,56 @@ public class BackRoomController {
 	 	
 	 	
 	 	@GetMapping("/roomtypes")
-		public List<RoomType>  findAllRoomtypes() {
+		public List<RoomTypeDto>  findAllRoomtypes() {
 	 		
 	 		List<RoomType> roomtypes = roomtypeService.findAllRoomtypes();
-	 		return roomtypes;
+	 		
+	 		 List<RoomTypeDto> roomtypeDtos = new ArrayList<>();
+
+		        for (RoomType roomtype : roomtypes) {
+		            // 統計多少房間
+		        	Integer count = roomtypeService.GroupTypebyid(roomtype.getType_id());
+		            
+		            
+		            // 建立 RoomtypeDTO 對象
+		            RoomTypeDto roomtypeDto = new RoomTypeDto();
+		            roomtypeDto.setType_id(roomtype.getType_id());
+		            roomtypeDto.setName(roomtype.getName());
+		            roomtypeDto.setPrice(roomtype.getPrice());
+		            roomtypeDto.setCapacity(roomtype.getCapacity());
+		            roomtypeDto.setPhoto(roomtype.getPhoto());
+		            roomtypeDto.setTotal(count);
+		            
+		            roomtypeDtos.add(roomtypeDto);
+		        }
+
+		        return roomtypeDtos;
+	 		
 	 	}
+	 	
+	 	@PostMapping("/addroomtype")
+		public String addRoomType(@RequestBody TypeDto typeDto) {
+		    try {
+		    	System.out.println("TTTT"+typeDto);
+		        // 從 request 中獲取房型
+		        String type_name = typeDto.getRoomTypeName();
+		        String type_price = typeDto.getRoomTypePrice();
+		        String type_capacity = typeDto.getRoomTypeCapacity();
+		        String type_photo = typeDto.getRoomTypeImage();
+		        
+		        RoomType roomType = new RoomType();
+		        roomType.setName(type_name);
+		        roomType.setPrice(Integer.parseInt(type_price));
+		        roomType.setCapacity(Integer.parseInt(type_capacity));
+		        roomType.setPhoto(type_photo);
+		        System.out.println(roomType);
+		        // 呼叫服務層的方法來新增房型
+		        roomtypeService.addRoomtype(roomType);
+		        
+		        return "新增房型成功"; // 返回成功訊息
+		    } catch (Exception e) {
+		        return "新增房型失敗: " + e.getMessage(); // 返回失敗訊息
+		    }
+		}
 
 }
