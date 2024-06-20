@@ -55,6 +55,10 @@ public class RoomService {
 		return roomDao.deleteRoom(id);
 	}
 
+
+	public List<Room> findRoomsByIdAndType( Integer id,Integer type) {
+		return roomDao.findRoomsByIdAndType( id,type);
+	}
 	
 	
 }

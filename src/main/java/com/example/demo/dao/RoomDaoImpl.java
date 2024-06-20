@@ -151,6 +151,10 @@ public class RoomDaoImpl implements RoomDao {
 		return null;
 	}
 
-	
+	@Override
+	public List<Room> findRoomsByIdAndType(Integer id, Integer type) {
+		String sql = "select room_id, type_id from room where type_id=? or room_id=?";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Room.class), type, id);
+	}
 	
 }

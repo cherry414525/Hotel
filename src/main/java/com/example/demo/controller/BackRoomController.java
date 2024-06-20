@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.dto.RoomDto;
+import com.example.demo.model.dto.SearchRequest;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.RoomType;
 import com.example.demo.service.RoomService;
@@ -58,17 +59,49 @@ public class BackRoomController {
 		
 		
 	}
+	
+	@GetMapping("/types")
+	public List<RoomType>  findAllTypes() {
+		List<RoomType> roomtypes = roomtypeService.findAllRoomtypes();
+		return roomtypes;
+	}
 
 	@PostMapping("/search")
-    public List<Room> searchRooms(@RequestBody SearchRequest searchRequest) {
+    public List<RoomDto> searchRooms(@RequestBody SearchRequest searchRequest) {
         // 從請求中獲取房間編號和房型
         String roomNumber = searchRequest.getRoomNumber();
         String roomType = searchRequest.getRoomType();
+		Integer type_id = roomtypeService.findRoomtypebyid(roomType);
+		
+		List<Room> rooms;
+		if(roomNumber.equals("")&& roomType.equals("")) {
+			rooms = roomService.findAllRooms();
+		}else if(roomNumber.equals("")) {		
+			rooms = roomService.findRoomsByIdAndType( 0, type_id);
+		}else if(roomType.equals("") ) {
+			
+			rooms = roomService.findRoomsByIdAndType( Integer.parseInt(roomNumber), 0);
+		} else {
+			rooms = roomService.findRoomsByIdAndType( Integer.parseInt(roomNumber), type_id);
+		}
+		
+       
+        List<RoomDto> roomDtos = new ArrayList<>();
 
-        List<Room> rooms = roomService.findAllRooms();
-
-        // 返回符合條件的房間列表
-        return rooms;
+        for (Room room : rooms) {
+            // 根據 room 的 type_id 找到對應的 RoomType
+            RoomType Type = roomtypeService.getRoomtype(room.getType_id());
+            
+            // 建立 RoomDTO 對象，將 Room 的資料和 RoomType 的 name 放入
+            RoomDto roomDto = new RoomDto();
+            roomDto.setRoom_id(room.getRoom_id());
+            roomDto.setType_name(Type.getName());
+            
+            roomDtos.add(roomDto);
+        }
+        System.out.println(roomDtos);
+        return roomDtos;
+        
     }
 	
 }

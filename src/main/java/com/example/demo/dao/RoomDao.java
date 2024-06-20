@@ -16,4 +16,5 @@ public interface RoomDao {
 	Integer updateRoom(Integer id,Room room);	//修改房間
 	Integer deleteRoom(Integer id);		//刪除房間
 	List<RoomAvailabilityDto> findRoomsBydate(String todayString, String tomorrowString);
+	List<Room> findRoomsByIdAndType(Integer id, Integer type);
 }

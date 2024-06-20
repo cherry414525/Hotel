@@ -35,6 +35,7 @@ $(document).ready(function() {
         fetch('/api/rooms')  // 發送 GET 請求到 /api/rooms
             .then(response => response.json())  // 解析 JSON 格式的回應
             .then(rooms => {
+				 console.log('全部:', rooms);
                 // 清空現有的房間列表
                 $('#room-management tbody').empty();
                 
@@ -60,7 +61,7 @@ $(document).ready(function() {
     // 搜尋按鈕點擊事件
     $('#searchButton').click(function(e) {
         e.preventDefault(); // 防止默認的表單提交行為
-
+ 		console.log('Search button clicked');
         // 獲取房間編號和房型值
         var roomNumber = $('#roomNumber').val();
         var roomType = $('#roomType').val();
@@ -79,18 +80,34 @@ $(document).ready(function() {
             },
             body: JSON.stringify(formData) // 將數據對象轉為 JSON 字符串
         };
-
+		
+		 console.log('Sending fetch request to /api/search');
         // 發送 Fetch 請求
-        fetch('/api/search', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                // 成功處理返回的數據
-                console.log('搜尋成功:', data);
-                // 可以根據返回的數據更新前端的房間列表或其他操作
-            })
-            .catch(error => {
-                // 處理錯誤情況
-                console.error('搜尋失敗:', error);
+    	fetch('/api/search', requestOptions)
+        .then(response => {
+            console.log('Response:', response); // 输出整个响应对象，用于调试
+            return response.json(); // 解析 JSON 格式的响应
+        })
+        .then(rooms => {
+            console.log('Rooms:', rooms); // 输出成功解析的房间数据，用于确认数据是否正确获取
+            // 清空現有的房間列表
+            $('#room-management tbody').empty();
+
+            // 將每個房間資料添加到表格中
+            rooms.forEach(room => {
+                var row = '<tr>' +
+                              '<td>' + room.room_id + '</td>' +
+                              '<td>' + room.type_name + '</td>' +
+                              '<td><button class="btn btn-sm btn-primary">編輯</button></td>' +
+                              '<td><button class="btn btn-sm btn-danger">刪除</button></td>' +
+                          '</tr>';
+                $('#room-management tbody').append(row);
             });
+
+        })
+        .catch(error => {
+            // 處理錯誤情況
+            console.error('搜尋失敗:', error);
+        });
     });
 });
