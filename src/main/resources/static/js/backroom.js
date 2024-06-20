@@ -20,7 +20,12 @@ $(document).ready(function() {
 	                        value: roomType.name,
 	                        text: roomType.name
 	                    }));
+	                    $('#addroomType').append($('<option>', {
+	                        value: roomType.name,
+	                        text: roomType.name
+	                    }));
 	                }); 
+	                
                 })
                 .catch(error => {
                     console.error('取得房型名稱時發生錯誤:', error);
