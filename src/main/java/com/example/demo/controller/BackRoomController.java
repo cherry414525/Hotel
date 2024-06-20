@@ -179,4 +179,13 @@ public class BackRoomController {
 	 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "修改房間失敗: " + e.getMessage(), e);
 	 		}
 	 	}
+	 	
+	 	
+	 	@GetMapping("/roomtypes")
+		public List<RoomType>  findAllRoomtypes() {
+	 		
+	 		List<RoomType> roomtypes = roomtypeService.findAllRoomtypes();
+	 		return roomtypes;
+	 	}
+
 }

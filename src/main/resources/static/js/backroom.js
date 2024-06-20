@@ -65,6 +65,36 @@ $(document).ready(function() {
     }
 
     fetchRooms();  // 取得房間資料
+    //--所有房型-------------------------------------------------------------   
+    	  // 獲取所有房間資料的函數
+	    function fetchRoomtypes() {
+	        fetch('/api/roomtypes')  // 發送 GET 請求到 /api/roomtypes
+	            .then(response => response.json())  // 解析 JSON 格式的回應
+	            .then(roomtypes => {
+					 
+	                // 清空現有的房間列表
+	                $('#room-type-management tbody').empty();
+	                
+	                // 將每個房間資料添加到表格中
+	                roomtypes.forEach(roomtype => {
+	                    var row = '<tr>' +
+	                                  '<td>' + roomtype.name + '</td>' +
+	                                  '<td>' + roomtype.price + '</td>' +
+	                                  '<td>' + roomtype.capacity + '</td>' +
+	                                  '<td>' + roomtype.photo + '</td>' +
+	                                  '<td>' + roomtype.photo + '</td>' +
+	                                  '<td><button class="btn btn-sm btn-primary update-btn">編輯</button></td>' +
+	                              	  '<td><button class="btn btn-sm btn-danger delete-btn"  >刪除</button></td>' +
+	                              '</tr>';
+	                    $('#room-type-management tbody').append(row);
+	                });
+	            })
+	            .catch(error => {
+	                console.error('取得房間資料時發生錯誤:', error);
+	            });
+	    }
+	
+	    fetchRoomtypes();  // 取得房間資料
     
     //--搜尋房間--------------------------------------------------------------
     // 搜尋按鈕點擊事件
@@ -263,4 +293,5 @@ $(document).ready(function() {
 			
 	 	});
 	 
+
 });
