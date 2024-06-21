@@ -117,6 +117,60 @@ $(document).ready(function() {
 			    });
 		});
     
+    	// 監聽修改會員按鈕的點擊事件
+		$('#editUserButton').on('click', function(e) {
+		    // 獲取輸入的會員資料
+		    var userId = document.getElementById('UserId').value;
+		    var userName = document.getElementById('UserName').value;
+		    var userBirthday = document.getElementById('UserBirthday').value;
+		    var userGender = document.getElementById('UserGender').value;
+		    var userPhone = document.getElementById('UserPhone').value;
+		    var userEmail = document.getElementById('UserEmail').value;
+		
+		    // 構建要發送的資料物件
+		    var formData = {
+		        user_id: userId,
+		        name: userName,
+		        birthday: userBirthday,
+		        gender: userGender,
+		        phone: userPhone,
+		        email: userEmail
+		    };
+		
+		    // 發送 PUT 請求更新會員資料
+		    fetch('/api/updateUser', {
+		            method: 'PUT',
+		            headers: {
+		                'Content-Type': 'application/json'
+		            },
+		            body: JSON.stringify(formData) // 將資料物件轉為 JSON 字串
+		        })
+		        .then(response => {
+		            if (response.ok) {
+		                // 如果响應狀態碼為 200-299，解析 JSON 數據
+		                return response.text(); // 返回文本數據
+		            } else {
+		                // 如果响應狀態碼不在 200-299 範圍內，拋出錯誤
+		                throw new Error('修改會員失敗');
+		            }
+		        })
+		        .then(message => {
+		            // 根據後端返回的訊息來判斷成功或失敗
+		            if (message.startsWith('修改會員成功')) {
+		                console.log('修改會員成功:', message);
+		                alert('修改會員成功！');
+		                $('#editUserModal').modal('hide'); // 關閉模態框
+		                fetchMembers(); // 重新加載會員資料
+		            } else {
+		                throw new Error('修改會員失敗');
+		            }
+		        })
+		        .catch(error => {
+		            // 處理錯誤情況
+		            console.error('修改會員失敗:', error);
+		            alert('修改會員失敗！請檢查網絡連接或重試。');
+		        });
+		});
     //--刪除會員------------------------------------------------------------
     	// 監聽刪除按鈕的點擊事件（事件委派）
 		$('#user-management tbody').on('click', '.delete-btn', function() {

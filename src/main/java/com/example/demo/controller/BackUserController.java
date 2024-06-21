@@ -29,6 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.demo.model.dto.AllUserDto;
 import com.example.demo.model.dto.RoomDto;
 import com.example.demo.model.dto.SearchUserDto;
+import com.example.demo.model.dto.UpdateUserDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.RoomType;
 import com.example.demo.model.po.User;
@@ -171,4 +172,42 @@ public class BackUserController {
         }
     }
 
+	 @PutMapping("/updateUser")
+	    public String updateUser(@RequestBody UpdateUserDto updateUserDto) {
+	        try {
+	            // 將 JSON 資料轉換成 User 物件
+	            String userId = updateUserDto.getUser_id();
+	            String name = updateUserDto.getName();
+	            String birthday = updateUserDto.getBirthday();
+	            
+	            String phone = updateUserDto.getPhone();
+	            String email = updateUserDto.getEmail();
+	            
+	            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		        Date birthDate = formatter.parse(birthday);
+	            
+		        String gender;
+		        if(updateUserDto.getGender().equals("女") ){
+			        gender = "female";
+		        }else {
+		        	 gender = "male";
+		        }
+		        
+	            // 建立 User 物件
+	            User user = new User();
+	            user.setUser_id(Integer.parseInt(userId)); 
+	            user.setName(name); 
+	            user.setBirthday(birthDate); 
+	            user.setGender(gender); 
+	            user.setPhone(phone); 
+	            user.setEmail(email); 
+
+	            // 	呼叫服務層的方法來更新會員
+	            userservice.updateUser(user);
+
+	            return "修改會員成功";
+	        } catch (Exception e) {
+	            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "修改會員失败: " + e.getMessage(), e);
+	        }
+	    }
 }
