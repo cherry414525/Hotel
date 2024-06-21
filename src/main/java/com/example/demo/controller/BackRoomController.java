@@ -30,6 +30,7 @@ import com.example.demo.model.dto.RoomDto;
 import com.example.demo.model.dto.RoomTypeDto;
 import com.example.demo.model.dto.SearchRequest;
 import com.example.demo.model.dto.TypeDto;
+import com.example.demo.model.dto.UpdateTypeDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.RoomType;
 import com.example.demo.service.RoomService;
@@ -211,6 +212,11 @@ public class BackRoomController {
 	 		
 	 	}
 	 	
+	 	@GetMapping("/roomtype/{roomTypeId}")
+	 	public RoomType getRoomType(@PathVariable("roomTypeId") Integer roomTypeId) {
+		 	return roomtypeService.getRoomtype(roomTypeId);
+	 	}
+	 	
 	 	@PostMapping("/addroomtype")
 		public String addRoomType(@RequestBody TypeDto typeDto) {
 		    try {
@@ -235,5 +241,42 @@ public class BackRoomController {
 		        return "新增房型失敗: " + e.getMessage(); // 返回失敗訊息
 		    }
 		}
+	 	
+	 	@DeleteMapping("/deleteRoomType/{roomtypeId}")
+	    public String deleteRoomType(@PathVariable("roomtypeId") Integer roomtypeId) {
+	        try {
+	        	
+	            // 呼叫服務層的方法來刪除房間
+	            roomtypeService.deleteRoomtype(roomtypeId);
+	            return "房型成功刪除";
+	        } catch (Exception e) {
+	            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "刪除房型失敗: " + e.getMessage(), e);
+	        }
+	    }
+	 	
+	 	@PutMapping("/updateRoomType")
+	 	public String updateRoomType(@RequestBody UpdateTypeDto updateTypeDto) {
+	 		try {
+		 		 // 從 request 中獲取房間編號和房型名稱
+	 			String type_id = updateTypeDto.getRoomTypeId();
+		        String type_name = updateTypeDto.getRoomTypeName();
+		        String type_price = updateTypeDto.getRoomTypePrice();
+		        String type_capacity = updateTypeDto.getRoomTypeCapacity();
+		        String type_photo = updateTypeDto.getRoomTypeImage();
+		        
+		        RoomType roomType = new RoomType();
+		        roomType.setType_id(Integer.parseInt(type_id));
+		        roomType.setName(type_name);
+		        roomType.setPrice(Integer.parseInt(type_price));
+		        roomType.setCapacity(Integer.parseInt(type_capacity));
+		        roomType.setPhoto(type_photo);
+		        
+		 		roomtypeService.updateRoomtype(roomType);
+		 		
+		 		return "修改房型成功";
+	 		} catch (Exception e) {
+	 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "修改房型失敗: " + e.getMessage(), e);
+	 		}
+	 	}
 
 }

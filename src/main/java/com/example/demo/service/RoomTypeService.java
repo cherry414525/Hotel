@@ -39,11 +39,6 @@ public class RoomTypeService {
 
 	public Integer updateRoomtype(RoomType roomtype) {
 		
-		roomtype.setType_id(3);
-		roomtype.setName("經典四人房");
-		roomtype.setPrice(5500);
-		roomtype.setCapacity(4);
-		roomtype.setPhoto("");
 		return roomtypeDao.updateRoomType(roomtype.getType_id(), roomtype);
 	}
 	

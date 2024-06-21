@@ -338,6 +338,46 @@
             </div>
         </div>
     </div>
+	
+	<!-- Modal - 修改房型 -->
+	<div class="modal fade" id="editRoomTypeModal" tabindex="-1" role="dialog" aria-labelledby="editRoomTypeModalLabel"
+	    aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="editRoomTypeModalLabel">修改房型</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <form>
+						<input type="hidden"  id="editRoomTypeId" >
+	                    <div class="form-group">
+	                        <label for="editRoomTypeName">房型名稱</label>
+	                        <input type="text" class="form-control" id="editRoomTypeName" placeholder="房型名稱">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="editRoomTypePrice">單晚價格</label>
+	                        <input type="number" class="form-control" id="editRoomTypePrice" placeholder="單晚價格">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="editRoomTypeCapacity">容納人數</label>
+	                        <input type="number" class="form-control" id="editRoomTypeCapacity" placeholder="人數">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="editRoomTypeImage">圖片</label>
+	                        <input type="text" class="form-control" id="editRoomTypeImage" placeholder="圖片">
+	                    </div>
+	                </form>
+	            </div>
+	            <div class="modal-footer">
+	                <button id="editRoomTypeButton" class="btn btn-primary">修改</button>
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 
 </body>
 

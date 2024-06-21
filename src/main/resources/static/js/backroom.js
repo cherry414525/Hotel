@@ -83,8 +83,8 @@ $(document).ready(function() {
 	                                  '<td>' + roomtype.capacity + '</td>' +
 	                                  '<td>' + roomtype.photo + '</td>' +
 	                                  '<td>' + roomtype.total + '</td>' +
-	                                  '<td><button class="btn btn-sm btn-primary update-btn">編輯</button></td>' +
-	                              	  '<td><button class="btn btn-sm btn-danger delete-btn"  >刪除</button></td>' +
+	                                  '<td><button class="btn btn-sm btn-primary update-btn" data-roomtype-id="' + roomtype.type_id + '">編輯</button></td>' +
+	                              	  '<td><button class="btn btn-sm btn-danger delete-btn" data-roomtype-id="' + roomtype.type_id + '">刪除</button></td>' +
 	                              '</tr>';
 	                    $('#room-type-management tbody').append(row);
 	                });
@@ -352,6 +352,107 @@ $(document).ready(function() {
 		        alert('新增房型失败！请检查网络连接或重试。');
 		    });
 		});
-	 
+	 //--刪除房型------------------------------------------------------------
+		// 監聽刪除按鈕的點擊事件（事件委派）
+		$('#room-type-management tbody').on('click', '.delete-btn', function() {
+		    var roomTypeId = $(this).data('roomtype-id');
+		    console.log('Delete room type with ID:', roomTypeId);
+		    if (confirm('確定要刪除這個房型嗎？ 請確認此房型並無房間!')) {
+		        fetch('/api/deleteRoomType/' + roomTypeId, {
+		            method: 'DELETE',
+		        })
+		        .then(response => {
+		            if (response.ok) {
+		                console.log('房型成功刪除');
+		                fetchRoomtypes();
+		            } else {
+		                throw new Error('刪除房型失敗');
+		            }
+		        })
+		        .catch(error => {
+		            console.error('刪除房型時發生錯誤:', error);
+		            alert('刪除房型失敗！請檢查是否存在房間。');
+		        });
+		    }
+		});
 
+	//--修改房型------------------------------------------------------------
+	
+		// 監聽修改按鈕的點擊事件（事件委派）
+		$('#room-type-management tbody').on('click', '.update-btn', function() {
+		    var roomTypeId = $(this).data('roomtype-id'); // 從按鈕的 data-roomtype-id 獲取房型ID
+		    // 根據房型ID獲取房型信息
+		    fetch('/api/roomtype/' + roomTypeId)
+		        .then(response => response.json())
+		        .then(roomtype => {
+		            // 將房型信息填充到修改房型模態框中
+		             $('#editRoomTypeId').val(roomTypeId);
+		            $('#editRoomTypeName').val(roomtype.name);
+		            $('#editRoomTypePrice').val(roomtype.price);
+		            $('#editRoomTypeCapacity').val(roomtype.capacity);
+		            $('#editRoomTypeImage').val(roomtype.photo);
+		
+		            // 顯示修改房型模態框
+		            $('#editRoomTypeModal').modal('show');
+		        })
+		        .catch(error => {
+		            console.error('獲取房型信息失敗:', error);
+		            alert('獲取房型信息失敗！請檢查網絡連接或重試。');
+		        });
+		});
+		
+		
+		$('#editRoomTypeButton').on('click', function(e) {
+		    // 獲取輸入的房型名稱、價格、容納人數和圖片
+		    var roomTypeId = document.getElementById('editRoomTypeId').value;
+		    var roomTypeName = document.getElementById('editRoomTypeName').value;
+		    var roomTypePrice = document.getElementById('editRoomTypePrice').value;
+		    var roomTypeCapacity = document.getElementById('editRoomTypeCapacity').value;
+		    var roomTypeImage = document.getElementById('editRoomTypeImage').value;
+		    
+		  
+		
+		    // 構建要發送的資料物件
+		    var formData = {
+		        roomTypeId: roomTypeId,
+		        roomTypeName: roomTypeName,
+		        roomTypePrice: roomTypePrice,
+		        roomTypeCapacity: roomTypeCapacity,
+		        roomTypeImage: roomTypeImage
+		    };
+		
+		    // 發送 PUT 請求
+		    fetch('/api/updateRoomType', {
+		        method: 'PUT',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        body: JSON.stringify(formData) // 將資料物件轉為 JSON 字串
+		    })
+		    .then(response => {
+		        if (response.ok) {
+		            // 如果响應狀態碼為 200-299，解析 JSON 數據
+		            return response.text(); // 返回文本數據
+		        } else {
+		            // 如果响應狀態碼不在 200-299 範圍內，拋出錯誤
+		            throw new Error('修改房型失敗');
+		        }
+		    })
+		    .then(message => {
+		        // 根據後端返回的訊息來判斷成功或失敗
+		        if (message.startsWith('修改房型成功')) {
+		            console.log('修改房型成功:', message);
+		            alert('修改房型成功！');
+		            $('#editRoomTypeModal').modal('hide'); // 關閉模態框
+		            fetchRoomtypes(); // 重新加載房型資料
+		        } else {
+		            throw new Error('修改房型失敗');
+		        }
+		    })
+		    .catch(error => {
+		        // 處理錯誤情況
+		        console.error('修改房型失敗:', error);
+		        alert('修改房型失敗！請檢查網絡連接或重試。');
+		    });
+		});
 });

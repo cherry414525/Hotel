@@ -1,0 +1,77 @@
+package com.example.demo.controller;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import javax.swing.text.DateFormatter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.example.demo.model.dto.AllUserDto;
+import com.example.demo.model.dto.RoomDto;
+import com.example.demo.model.po.Room;
+import com.example.demo.model.po.RoomType;
+import com.example.demo.model.po.User;
+import com.example.demo.service.UserService;
+
+
+
+@RestController
+@RequestMapping("/api")
+public class BackUserController {
+	@Autowired
+	private UserService userservice;
+	
+	@GetMapping("/members")
+	public List<AllUserDto>  findAll() {
+		List<User> users = userservice.findAllUsers();
+		List<AllUserDto> userDtos = new ArrayList<>();
+
+        for (User user : users) {	
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        String birthday = sdf.format(user.getBirthday());
+	        String gender;
+	        System.out.println(user.getGender());
+	        if(user.getGender().equals("female") ){
+		        gender = "女";
+	        }else {
+	        	 gender = "男";
+	        }
+			// 建立 UserDTO 對象，將 User 的資料放入
+			AllUserDto userDto = new AllUserDto();
+			userDto.setUser_id(user.getUser_id());
+			userDto.setName(user.getName());
+			userDto.setEmail(user.getEmail());
+			userDto.setBirthday(birthday);
+			userDto.setPhone(user.getPhone());
+			userDto.setGender(gender);
+            
+			userDtos.add(userDto);
+		}
+            
+          return userDtos;
+
+        
+		
+	}
+
+}
