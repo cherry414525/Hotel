@@ -79,6 +79,32 @@ public class BackUserController {
 		
 	}
 	
+	@GetMapping("/user/{user_id}")
+	public AllUserDto  finduser(@PathVariable("user_id") Integer user_id) {
+
+			User user = userservice.getUser(user_id);
+        	
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        String birthday = sdf.format(user.getBirthday());
+	       
+	        String gender;
+	        if(user.getGender().equals("female") ){
+		        gender = "女";
+	        }else {
+	        	 gender = "男";
+	        }
+			// 建立 UserDTO 對象，將 User 的資料放入
+			AllUserDto userDto = new AllUserDto();
+			userDto.setUser_id(user.getUser_id());
+			userDto.setName(user.getName());
+			userDto.setEmail(user.getEmail());
+			userDto.setBirthday(birthday);
+			userDto.setPhone(user.getPhone());
+			userDto.setGender(gender);
+                    
+          return userDto;
+	
+	}
 	
 	@PostMapping("/searchusers")
 	public List<AllUserDto>  findUsers(@RequestBody SearchUserDto searchUserDto) {

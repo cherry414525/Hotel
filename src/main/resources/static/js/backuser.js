@@ -93,6 +93,30 @@ $(document).ready(function() {
 
     
     //--修改會員------------------------------------------------------------
+    	// 監聽刪除按鈕的點擊事件（事件委派）
+	    $('#user-table tbody').on('click', '.update-btn', function() {
+			var userId = $(this).data('user-id');
+			// 根據會員ID獲取會員資料
+			fetch('/api/user/' + userId)
+			    .then(response => response.json())
+			    .then(user => {
+			        // 將房間信息填充到修改房間模態框中
+			         $('#UserId').val(user.user_id);
+					 $('#UserName').val(user.name);
+					 $('#UserBirthday').val(user.birthday);
+					 $('#UserGender').val(user.gender);
+					 $('#UserPhone').val(user.phone);
+					 $('#UserEmail').val(user.email);
+
+			        // 顯示修改會員模態框
+			        $('#editUserModal').modal('show');
+			    })
+			    .catch(error => {
+			        console.error('獲取會員失敗:', error);
+			        alert('獲取會員資料失敗！請檢查網絡連接或重試。');
+			    });
+		});
+    
     //--刪除會員------------------------------------------------------------
     	// 監聽刪除按鈕的點擊事件（事件委派）
 		$('#user-management tbody').on('click', '.delete-btn', function() {
