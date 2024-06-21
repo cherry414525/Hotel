@@ -59,5 +59,9 @@ public class UserService {
 	public Integer updateUserPassword(Integer id,User user) {
 		return userDao.updateUserPassword(id, user);
 	}
+
+	public List<User> getUsersByIdOrName(Integer id, String name) {
+		return userDao.getUsersByIdOrName(id, name);
+	}
 	
 }

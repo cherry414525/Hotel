@@ -14,4 +14,6 @@ public interface UserDao {
 	Integer updateUser(Integer id,User user);
 	Integer updateUserPassword(Integer id,User user);
 	Integer deleteUser(Integer id);
+	
+	List<User> getUsersByIdOrName(Integer id, String name);
 }

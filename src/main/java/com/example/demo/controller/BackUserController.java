@@ -28,6 +28,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.model.dto.AllUserDto;
 import com.example.demo.model.dto.RoomDto;
+import com.example.demo.model.dto.SearchUserDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.RoomType;
 import com.example.demo.model.po.User;
@@ -49,8 +50,60 @@ public class BackUserController {
         for (User user : users) {	
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	        String birthday = sdf.format(user.getBirthday());
+	       
 	        String gender;
-	        System.out.println(user.getGender());
+	        if(user.getGender().equals("female") ){
+		        gender = "女";
+	        }else {
+	        	 gender = "男";
+	        }
+			// 建立 UserDTO 對象，將 User 的資料放入
+			AllUserDto userDto = new AllUserDto();
+			userDto.setUser_id(user.getUser_id());
+			userDto.setName(user.getName());
+			userDto.setEmail(user.getEmail());
+			userDto.setBirthday(birthday);
+			userDto.setPhone(user.getPhone());
+			userDto.setGender(gender);
+            
+			userDtos.add(userDto);
+		}
+            
+          return userDtos;
+
+        
+		
+	}
+	
+	
+	@PostMapping("/searchusers")
+	public List<AllUserDto>  findUsers(@RequestBody SearchUserDto searchUserDto) {
+		
+		
+		String userid = searchUserDto.getUserId();
+		String username = searchUserDto.getUserName();
+		
+		
+		List<User> users ;
+		if(userid.equals("")&& username.equals("")) {
+			users = userservice.findAllUsers();
+		}else if(userid.equals("")) {
+			users = userservice.getUsersByIdOrName(0, username);
+		}else if (username.equals("")) {
+			users = userservice.getUsersByIdOrName(Integer.parseInt(userid), null);
+			
+		}else{
+			users = userservice.getUsersByIdOrName(Integer.parseInt(userid), username);
+		}
+		
+		
+		List<AllUserDto> userDtos = new ArrayList<>();
+
+        for (User user : users) {	
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        String birthday = sdf.format(user.getBirthday());
+	        String gender;
+	        
 	        if(user.getGender().equals("female") ){
 		        gender = "女";
 	        }else {

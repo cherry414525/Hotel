@@ -31,6 +31,67 @@ $(document).ready(function() {
     }
 
     fetchMembers();  // 取得會員資料
+    //--搜尋會員------------------------------------------------------------
+    	// 搜尋按鈕點擊事件
+		$('#searchButton').click(function(e) {
+		    e.preventDefault(); // 防止默認的表單提交行為
+		    console.log('搜尋按鈕點擊');
+		
+		    // 獲取會員編號和姓名值
+		    var userId = $('#userNumber').val();
+		    var userName = $('#userName').val();
+		
+		    // 建立要發送的數據對象
+		    var formData = {
+		        userId: userId,
+		        userName: userName
+		    };
+		
+		    // 設置 Fetch 請求的選項
+		    var requestOptions = {
+		        method: 'POST', // 使用 POST 方法
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        body: JSON.stringify(formData) // 將數據對象轉為 JSON 字符串
+		    };
+		
+		    console.log('發送 Fetch 請求到 /api/search-members');
+		    // 發送 Fetch 請求
+		    fetch('/api/searchusers', requestOptions)
+		    .then(response => {
+		        console.log('響應:', response); // 輸出整個響應對象，用於調試
+		        return response.json(); // 解析 JSON 格式的響應
+		    })
+		    .then(users => {
+		        console.log('會員:', users); // 輸出成功解析的會員數據，用於確認數據是否正確獲取
+		        // 清空現有的會員列表
+		        $('#user-management tbody').empty();
+		
+		        
+		        // 將每個會員資料添加到表格中
+                users.forEach(user => {
+                    var row = '<tr>' +
+                                  '<td>' + user.user_id+ '</td>' +
+                                  '<td>' + user.name + '</td>' +
+                                  '<td>' + user.birthday + '</td>' +
+                                  '<td>' + user.gender + '</td>' +
+                                  '<td>' + user.phone + '</td>' +
+                                  '<td>' + user.email + '</td>' +
+                                  '<td><button class="btn btn-sm btn-primary update-btn" data-member-id="' + user.user_id + '">編輯</button></td>' +
+                                  '<td><button class="btn btn-sm btn-danger delete-btn" data-member-id="' + user.user_id + '">刪除</button></td>' +
+                              '</tr>';
+                    $('#user-table tbody').append(row);
+                });
+		
+		    })
+		    .catch(error => {
+		        // 處理錯誤情況
+		        console.error('搜尋失敗:', error);
+		    });
+		});
+
     
     //--修改會員------------------------------------------------------------
+    //--刪除會員------------------------------------------------------------
 });

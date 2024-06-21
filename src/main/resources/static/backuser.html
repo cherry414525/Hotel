@@ -125,7 +125,7 @@
                     <div class="container">
                         <ul class=" nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#room-management">會員管理</a>
+                                <a class="nav-link active" data-toggle="tab" href="#user-management">會員管理</a>
                             </li>
                         </ul>
                     </div>
@@ -134,32 +134,32 @@
                     <div class="tab-content">
 
                         <!-- #sec1 - 會員列表 -->
-                        <div class="tab-pane fade show active pt-3" id="room-management">
+                        <div class="tab-pane fade show active pt-3" id="user-management">
                             <!-- 搜尋欄位 -->
                             <div class="container mt-3">
                                 <div class="border rounded p-4">
                                     <div class="row mb-4">
                                         <div class="col-md-2">
-                                            <label for="roomNumber" class="form-label">會員編號:</label>
+                                            <label for="userNumber" class="form-label">會員編號:</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" id="roomNumber"
+                                            <input type="number" id="userNumber"
                                                 class="form-control form-control-sm mb-3" placeholder="會員編號">
                                         </div>
                                     </div>
                                     <div class="row mb-4">
                                         <div class="col-md-2">
-                                            <label for="roomType" class="form-label">姓名:</label>
+                                            <label for="userName" class="form-label">姓名:</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" id="roomType" class="form-control form-control-sm mb-3"
+                                            <input type="text" id="userName" class="form-control form-control-sm mb-3"
                                                 placeholder="姓名">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5"></div> <!-- 空白占位 -->
                                         <div class="col-md-3">
-                                            <button class="btn btn-primary btn-block">搜尋</button>
+                                            <button id="searchButton" class="btn btn-primary btn-block">搜尋</button>
                                         </div>
                                     </div>
                                 </div>

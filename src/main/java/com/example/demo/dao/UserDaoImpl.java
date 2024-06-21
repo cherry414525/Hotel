@@ -37,6 +37,19 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	public List<User> getUsersByIdOrName(Integer id, String name) {
+        String sql = "SELECT user_id, name, birthday, gender, phone, email FROM user WHERE user_id=? OR name LIKE ?";
+        try {
+            // 使用 %name% 来作为 LIKE 操作的参数，即在 name 中包含特定字符串
+            String nameParam = "%" + name + "%";
+            List<User> users = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), id, nameParam);
+            return users;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+	@Override
 	public Integer addUser(User user) {
         String sql = "INSERT INTO user (user_id, name, birthday, gender, phone, email, salt, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
