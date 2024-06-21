@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/backbooking.js"></script>
     <style>
         * {
             font-family: Georgia, serif;
@@ -133,16 +134,16 @@
                     <div class="tab-content">
 
                         <!-- #sec3 - 訂單列表 -->
-                        <div class="tab-pane fade show active pt-3" id="order-management">
+                        <div class="tab-pane fade show active pt-3" id="booking-management">
                             <!-- 搜尋欄位 -->
                             <div class="container mt-3">
                                 <div class="border rounded p-4">
                                     <div class="row mb-4">
                                         <div class="col-md-2">
-                                            <label for="orderId" class="form-label">訂單編號:</label>
+                                            <label for="bookingId" class="form-label">訂單編號:</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" id="orderId"
+                                            <input type="number" id="bookingId"
                                                 class="form-control form-control-sm mb-3" placeholder="訂單編號">
                                         </div>
                                     </div>
@@ -151,7 +152,7 @@
                                             <label for="memberId" class="form-label">會員編號:</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" id="memberId"
+                                            <input type="number" id="memberId"
                                                 class="form-control form-control-sm mb-3" placeholder="會員編號">
                                         </div>
                                     </div>
@@ -201,12 +202,12 @@
     </main>
 
     <!-- 修改訂單的模態框 -->
-    <div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" aria-labelledby="editOrderModalLabel"
+    <div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" aria-labelledby="editbookingModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editOrderModalLabel">修改訂單資料</h5>
+                    <h5 class="modal-title" id="editbookingModalLabel">修改訂單資料</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -214,8 +215,8 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="orderId">訂單編號</label>
-                            <input type="number" class="form-control" id="orderId" value="1" readonly>
+                            <label for="bookingId">訂單編號</label>
+                            <input type="number" class="form-control" id="bookingId" value="1" readonly>
                         </div>
                         <div class="form-group">
                             <label for="roomNumber">房號</label>
@@ -238,8 +239,8 @@
                             <input type="date" class="form-control" id="checkOutDate" value="2024-07-05">
                         </div>
                         <div class="form-group">
-                            <label for="orderStatus">訂單狀態</label>
-                            <select class="form-control" id="orderStatus">
+                            <label for="bookingStatus">訂單狀態</label>
+                            <select class="form-control" id="bookingStatus">
                                 <option value="已完成">已完成</option>
                                 <option value="未完成">未完成</option>
                                 <option value="取消">取消</option>

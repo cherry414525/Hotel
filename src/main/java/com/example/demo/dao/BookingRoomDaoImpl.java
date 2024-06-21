@@ -165,6 +165,22 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 		}
 		return null;
 	}
+	
+
+	@Override
+	public List<Booking> findBookings() {
+		//查詢單筆訂單，依照boooking_id
+		String sql = "select booking_id, user_id, room_id, status,price,start_date, end_date,createdate,updatedate from booking ";
+		try {
+			
+			List<Booking> booking =  jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Booking.class));
+			
+			return booking;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public Integer addBooking(Booking booking) {

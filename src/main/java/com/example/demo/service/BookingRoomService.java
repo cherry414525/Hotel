@@ -43,4 +43,8 @@ public class BookingRoomService {
 	public Integer deleteBookingByUserId(Integer id) {
 		return bookingRoomDao.deleteBookingByUserId(id);
 	}
+	
+	public List<Booking> findBookings() {
+		return bookingRoomDao.findBookings();
+	}
 }
