@@ -60,4 +60,7 @@ public class BookingRoomService {
 		return bookingRoomDao.findBooking(id);
 	}
 	
+	public Integer updateBookingByBookingId(Integer id,Booking booking) {
+		return bookingRoomDao.updateBookingAllColumn(id,booking);
+	}
 }

@@ -34,6 +34,8 @@ import com.example.demo.model.dto.BookingRoomDto;
 import com.example.demo.model.dto.RoomDto;
 import com.example.demo.model.dto.SearchBookingDto;
 import com.example.demo.model.dto.SearchRequest;
+import com.example.demo.model.dto.UpdateBookingDto;
+import com.example.demo.model.dto.UpdateUserDto;
 import com.example.demo.model.po.Booking;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.RoomType;
@@ -163,6 +165,45 @@ public class BackBookingController {
             return "訂單成功刪除";
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "刪除訂單失敗: " + e.getMessage(), e);
+        }
+    }
+	
+	@PutMapping("updateBooking")
+    public String updateUser(@RequestBody UpdateBookingDto updatebookingDto) {
+        try {
+            // 將 JSON 資料轉換成 User 物件
+            String BookingId = updatebookingDto.getBookingId();
+            String roomId = updatebookingDto.getRoomId();
+			String userName = updatebookingDto.getUserName();
+			String price = updatebookingDto.getPrice();
+			String startDate = updatebookingDto.getStart_date();
+			String endDate = updatebookingDto.getEnd_date();
+			String status = updatebookingDto.getStatus();
+
+			
+			  
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	        Date StartDate = formatter.parse(startDate);
+	        Date EndDate = formatter.parse(endDate);
+	        
+	        User user = userservice.getUserByName(userName);
+	        Integer userid = user.getUser_id();
+			
+			Booking booking = new Booking();
+			booking.setBooking_id(Integer.parseInt(BookingId));
+			booking.setRoomId(Integer.parseInt(roomId));
+			booking.setUserId(userid);
+			booking.setPrice(Integer.parseInt(price));
+			booking.setStart_date(StartDate);
+			booking.setEnd_date(EndDate);
+			booking.setStatus(status);
+			
+			bookingroomService.updateBookingByBookingId(booking.getBooking_id(), booking);
+			
+			bookingroomService.updateBookingByBookingId(null, null);
+            return "修改訂單成功";
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "修改訂單失败: " + e.getMessage(), e);
         }
     }
 }

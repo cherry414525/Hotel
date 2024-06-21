@@ -16,4 +16,5 @@ public interface UserDao {
 	Integer deleteUser(Integer id);
 	
 	List<User> getUsersByIdOrName(Integer id, String name);
+	User getUserByName(String name);
 }

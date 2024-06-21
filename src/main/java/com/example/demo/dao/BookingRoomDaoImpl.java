@@ -264,4 +264,12 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 		
 	}
 	
+	@Override
+	public Integer updateBookingAllColumn(Integer id, Booking booking) {
+		
+		String sql = "update booking set booking_id = ?,user_id = ?, room_id = ?,price = ?,start_date= ?, end_date = ?   where booking_id = ?";
+		int rowcount = jdbcTemplate.update(sql,booking.getBooking_id(),booking.getUserId(),booking.getRoomId(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date(), id);
+		return rowcount;
+	}
+
 }

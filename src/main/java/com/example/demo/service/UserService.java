@@ -64,4 +64,8 @@ public class UserService {
 		return userDao.getUsersByIdOrName(id, name);
 	}
 	
+	public User getUserByName(String name) {
+		return userDao.getUserByName(name);
+	}
+	
 }

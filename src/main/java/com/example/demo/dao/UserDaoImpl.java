@@ -35,6 +35,18 @@ public class UserDaoImpl implements UserDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public User getUserByName(String name) {
+		String sql = "select user_id, name,birthday,gender,phone,email from user where name=?";
+		try {
+			User user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), name);
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public List<User> getUsersByIdOrName(Integer id, String name) {

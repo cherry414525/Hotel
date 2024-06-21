@@ -116,6 +116,48 @@ $(document).ready(function() {
 		                alert('獲取訂單資料失敗！請檢查網絡連接或重試。');
 	            });
 	    	});
+	    	
+	    	//送出修改訂單
+ 			$('#editBookingButton').click(function() {
+		        var bookingId = $('#BookingId').val();
+		        var roomId = $('#roomId').val();
+		        var userName = $('#UserName').val();
+		        var price = $('#totalAmount').val();
+		        var startDate = $('#checkInDate').val();
+		        var endDate = $('#checkOutDate').val();
+		        var status = $('#bookingStatus').val();
+		        
+		        var formData = {
+		            bookingId: bookingId,
+		            roomId: roomId,
+		            userName: userName,
+		            price: price,
+		            start_date: startDate,
+		            end_date: endDate,
+		            status: status
+		        };
+		        
+		        fetch('/api/updateBooking', {
+		            method: 'PUT',
+		            headers: {
+		                'Content-Type': 'application/json'
+		            },
+		            body: JSON.stringify(formData)
+		        })
+		        .then(response => {
+		            if (response.ok) {
+		                console.log('訂單更新成功');
+		                $('#editBookingModal').modal('hide');
+		                fetchBookings(); // Refresh bookings list
+		            } else {
+		                throw new Error('更新訂單失敗');
+		            }
+		        })
+		        .catch(error => {
+		            console.error('更新訂單時發生錯誤:', error);
+		            alert('更新訂單失敗！');
+		        });
+	    	});
 		//--刪除訂單------------------------------------------------------------
 			// 監聽刪除訂單按鈕的點擊事件（事件委派）
 			$('#booking-management tbody').on('click', '.delete-btn', function() {
@@ -139,5 +181,5 @@ $(document).ready(function() {
 			        });
 			    }
 			});
- 	
+			
 });

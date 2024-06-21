@@ -21,4 +21,5 @@ public interface BookingRoomDao {
 	List<Booking> findBookingsByBookingIdOrUserId(Integer id, Integer userId);
 	Integer deleteBookingByBooking(Integer id);
 	Booking findBooking(Integer id);
+	Integer updateBookingAllColumn(Integer id, Booking booking);
 }
