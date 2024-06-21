@@ -19,8 +19,8 @@ $(document).ready(function() {
                                   '<td>' + user.gender + '</td>' +
                                   '<td>' + user.phone + '</td>' +
                                   '<td>' + user.email + '</td>' +
-                                  '<td><button class="btn btn-sm btn-primary update-btn" data-member-id="' + user.user_id + '">編輯</button></td>' +
-                                  '<td><button class="btn btn-sm btn-danger delete-btn" data-member-id="' + user.user_id + '">刪除</button></td>' +
+                                  '<td><button class="btn btn-sm btn-primary update-btn" data-user-id="' + user.user_id + '">編輯</button></td>' +
+                                  '<td><button class="btn btn-sm btn-danger delete-btn" data-user-id="' + user.user_id + '">刪除</button></td>' +
                               '</tr>';
                     $('#user-table tbody').append(row);
                 });
@@ -78,8 +78,8 @@ $(document).ready(function() {
                                   '<td>' + user.gender + '</td>' +
                                   '<td>' + user.phone + '</td>' +
                                   '<td>' + user.email + '</td>' +
-                                  '<td><button class="btn btn-sm btn-primary update-btn" data-member-id="' + user.user_id + '">編輯</button></td>' +
-                                  '<td><button class="btn btn-sm btn-danger delete-btn" data-member-id="' + user.user_id + '">刪除</button></td>' +
+                                  '<td><button class="btn btn-sm btn-primary update-btn" data-user-id="' + user.user_id + '">編輯</button></td>' +
+                                  '<td><button class="btn btn-sm btn-danger delete-btn" data-user-id="' + user.user_id + '">刪除</button></td>' +
                               '</tr>';
                     $('#user-table tbody').append(row);
                 });
@@ -94,4 +94,26 @@ $(document).ready(function() {
     
     //--修改會員------------------------------------------------------------
     //--刪除會員------------------------------------------------------------
+    	// 監聽刪除按鈕的點擊事件（事件委派）
+		$('#user-management tbody').on('click', '.delete-btn', function() {
+		    var userId = $(this).data('user-id');
+		    console.log('刪除會員 ID:', userId);
+		    if (confirm('確定要刪除這個會員嗎？ 將刪除所有此會員的訂單!!!')) {
+		        fetch('/api/deleteUser/' + userId, {
+		            method: 'DELETE',
+		        })
+		        .then(response => {
+		            if (response.ok) {
+		                console.log('會員成功刪除');
+		                fetchMembers(); // 重新加載會員列表的函數，用於更新 UI
+		            } else {
+		                throw new Error('刪除會員失敗');
+		            }
+		        })
+		        .catch(error => {
+		            console.error('刪除會員時發生錯誤:', error);
+		            alert('刪除會員失敗！');
+		        });
+		    }
+		});
 });

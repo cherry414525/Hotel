@@ -196,5 +196,16 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 		return null;
 	}
 	
+	@Override
+	public Integer deleteBookingByUserId(Integer id) {
+		String sql = "delete from booking  where user_id = ?";
+		int rowcount = jdbcTemplate.update(sql, id);
+		if(rowcount == 1) {
+			return id;
+		}
+		return null;
+		
+	}
+	
 	
 }

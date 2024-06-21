@@ -32,6 +32,7 @@ import com.example.demo.model.dto.SearchUserDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.RoomType;
 import com.example.demo.model.po.User;
+import com.example.demo.service.BookingRoomService;
 import com.example.demo.service.UserService;
 
 
@@ -41,6 +42,9 @@ import com.example.demo.service.UserService;
 public class BackUserController {
 	@Autowired
 	private UserService userservice;
+	
+	@Autowired
+	private BookingRoomService bookingroomService;
 	
 	@GetMapping("/members")
 	public List<AllUserDto>  findAll() {
@@ -126,5 +130,19 @@ public class BackUserController {
         
 		
 	}
+	
+	@DeleteMapping("/deleteUser/{userId}")
+    public String deleteRoomType(@PathVariable("userId") Integer userId) {
+        try {
+        	//刪除該會員所有booking資料
+            bookingroomService.deleteBookingByUserId(userId);
+            // 呼叫服務層的方法來刪除會員
+            userservice.deleteUser(userId);
+            
+            return "會員成功刪除";
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "刪除會員失敗: " + e.getMessage(), e);
+        }
+    }
 
 }

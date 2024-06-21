@@ -39,4 +39,8 @@ public class BookingRoomService {
 		
 		return bookingRoomDao.updateBooking(id,booking);
 	}
+	
+	public Integer deleteBookingByUserId(Integer id) {
+		return bookingRoomDao.deleteBookingByUserId(id);
+	}
 }
