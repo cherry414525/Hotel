@@ -55,4 +55,9 @@ public class BookingRoomService {
 	public Integer deleteBookingByBookingId(Integer id) {
 		return bookingRoomDao.deleteBookingByBooking(id);
 	}
+	
+	public Booking findBooking(Integer id) {
+		return bookingRoomDao.findBooking(id);
+	}
+	
 }

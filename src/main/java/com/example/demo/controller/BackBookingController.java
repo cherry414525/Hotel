@@ -83,6 +83,31 @@ public class BackBookingController {
 		return bookingDtos;
 	}
 	
+	@GetMapping("/booking/{bookingId}")
+	public AllBookingRoomDto  findbooking(@PathVariable("bookingId") Integer bookingId) {
+		Booking booking = bookingroomService.findBooking(bookingId);
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
+			String	startDate = sdf.format(booking.getStart_date());
+			String	endDate = sdf.format(booking.getEnd_date());
+
+			
+			User user = userservice.getUser(booking.getUserId());
+			
+			// 建立 BookingDTO 對象，將 Booking 的資料放入
+			AllBookingRoomDto bookingDto = new AllBookingRoomDto();
+			bookingDto.setBookingId(booking.getBooking_id());
+			bookingDto.setRoomId(booking.getRoomId());
+			bookingDto.setUserName(user.getName());
+			bookingDto.setPrice(booking.getPrice());
+			bookingDto.setStart_date(startDate);
+			bookingDto.setEnd_date(endDate);
+			bookingDto.setStatus(booking.getStatus());
+			System.out.println(bookingDto);
+			return bookingDto;
+
+	}
+	
 	@PostMapping("/searchbookings")
     public List<AllBookingRoomDto> searchRooms(@RequestBody SearchBookingDto searchBookingDto) {
 		 String bookingId= searchBookingDto.getBookingId();
