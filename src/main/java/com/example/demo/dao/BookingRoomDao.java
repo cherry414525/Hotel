@@ -19,4 +19,5 @@ public interface BookingRoomDao {
 	Integer deleteBookingByUserId(Integer id);
 	List<Booking> findBookings();
 	List<Booking> findBookingsByBookingIdOrUserId(Integer id, Integer userId);
+	Integer deleteBookingByBooking(Integer id);
 }

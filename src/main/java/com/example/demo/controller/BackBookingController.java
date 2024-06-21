@@ -96,7 +96,7 @@ public class BackBookingController {
 	     }else if(userId.equals("")) {
 	    	 bookings = bookingroomService.findBookingsByBookingIdOrUserId(Integer.parseInt(bookingId), null);
 	     }else {
-	    	 bookings = bookingroomService.findBookings();
+	    	 bookings = bookingroomService.findBookingsByBookingIdOrUserId(Integer.parseInt(bookingId), Integer.parseInt(userId));
 	     }
 	     
 	     
@@ -112,8 +112,7 @@ public class BackBookingController {
 
 			
 			User user = userservice.getUser(booking.getUserId());
-			System.out.println(user);
-			System.out.println(user.getName());
+			
 			// 建立 BookingDTO 對象，將 Booking 的資料放入
 			AllBookingRoomDto bookingDto = new AllBookingRoomDto();
 			bookingDto.setBookingId(booking.getBooking_id());
@@ -130,4 +129,15 @@ public class BackBookingController {
         
     }
 	
+	@DeleteMapping("/deleteBooking/{bookingId}")
+    public String deleteRoomType(@PathVariable("bookingId") Integer bookingId) {
+        try {
+        	
+            // 呼叫服務層的方法來刪除訂單
+			bookingroomService.deleteBookingByBookingId(bookingId);
+            return "訂單成功刪除";
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "刪除訂單失敗: " + e.getMessage(), e);
+        }
+    }
 }

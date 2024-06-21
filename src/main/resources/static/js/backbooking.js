@@ -20,8 +20,8 @@ $(document).ready(function() {
 		                              '<td>' + booking.start_date + '</td>' +
 		                              '<td>' + booking.end_date + '</td>' +
 		                              '<td>' + booking.status + '</td>' +
-		                              '<td><button class="btn btn-sm btn-primary update-btn" data-booking-id="' + booking.booking_id + '">修改</button></td>' +
-		                              '<td><button class="btn btn-sm btn-danger delete-btn" data-booking-id="' + booking.booking_id + '">刪除</button></td>' +
+		                              '<td><button class="btn btn-sm btn-primary update-btn" data-booking-id="' + booking.bookingId + '">修改</button></td>' +
+		                              '<td><button class="btn btn-sm btn-danger delete-btn" data-booking-id="' + booking.bookingId + '">刪除</button></td>' +
 		                          '</tr>';
 		                $('#booking-management tbody').append(row);
 		            });
@@ -80,8 +80,8 @@ $(document).ready(function() {
 		                              '<td>' + booking.start_date + '</td>' +
 		                              '<td>' + booking.end_date + '</td>' +
 		                              '<td>' + booking.status + '</td>' +
-		                              '<td><button class="btn btn-sm btn-primary update-btn" data-booking-id="' + booking.booking_id + '">修改</button></td>' +
-		                              '<td><button class="btn btn-sm btn-danger delete-btn" data-booking-id="' + booking.booking_id + '">刪除</button></td>' +
+		                              '<td><button class="btn btn-sm btn-primary update-btn" data-booking-id="' + booking.bookingId + '">修改</button></td>' +
+		                              '<td><button class="btn btn-sm btn-danger delete-btn" data-booking-id="' + booking.bookingId + '">刪除</button></td>' +
 		                          '</tr>';
 		                $('#booking-management tbody').append(row);
 		            });
@@ -95,5 +95,27 @@ $(document).ready(function() {
 		//--修改訂單------------------------------------------------------------
 		
 		//--刪除訂單------------------------------------------------------------
+			// 監聽刪除訂單按鈕的點擊事件（事件委派）
+			$('#booking-management tbody').on('click', '.delete-btn', function() {
+			    var bookingId = $(this).data('booking-id');
+			    console.log('刪除訂單 ID:', bookingId);
+			    if (confirm('確定要刪除這個訂單嗎？')) {
+			        fetch('/api/deleteBooking/' + bookingId, {
+			            method: 'DELETE',
+			        })
+			        .then(response => {
+			            if (response.ok) {
+			                console.log('訂單成功刪除');
+			                fetchBookings(); // 重新加載訂單列表的函數，用於更新 UI
+			            } else {
+			                throw new Error('刪除訂單失敗');
+			            }
+			        })
+			        .catch(error => {
+			            console.error('刪除訂單時發生錯誤:', error);
+			            alert('刪除訂單失敗！');
+			        });
+			    }
+			});
  	
 });
