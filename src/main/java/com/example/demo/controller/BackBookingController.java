@@ -31,7 +31,12 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.demo.model.dto.AllBookingRoomDto;
 import com.example.demo.model.dto.BookingDto;
 import com.example.demo.model.dto.BookingRoomDto;
+import com.example.demo.model.dto.RoomDto;
+import com.example.demo.model.dto.SearchBookingDto;
+import com.example.demo.model.dto.SearchRequest;
 import com.example.demo.model.po.Booking;
+import com.example.demo.model.po.Room;
+import com.example.demo.model.po.RoomType;
 import com.example.demo.model.po.User;
 import com.example.demo.service.BookingRoomService;
 import com.example.demo.service.UserService;
@@ -62,6 +67,51 @@ public class BackBookingController {
 
 			
 			User user = userservice.getUser(booking.getUserId());
+			
+			// 建立 BookingDTO 對象，將 Booking 的資料放入
+			AllBookingRoomDto bookingDto = new AllBookingRoomDto();
+			bookingDto.setBookingId(booking.getBooking_id());
+			bookingDto.setRoomId(booking.getRoomId());
+			bookingDto.setUserName(user.getName());
+			bookingDto.setPrice(booking.getPrice());
+			bookingDto.setStart_date(startDate);
+			bookingDto.setEnd_date(endDate);
+			bookingDto.setStatus(booking.getStatus());
+			
+			bookingDtos.add(bookingDto);
+		}
+		return bookingDtos;
+	}
+	
+	@PostMapping("/searchbookings")
+    public List<AllBookingRoomDto> searchRooms(@RequestBody SearchBookingDto searchBookingDto) {
+		 String bookingId= searchBookingDto.getBookingId();
+	     String userId = searchBookingDto.getUserId();
+	     
+	     List<Booking> bookings;
+	     if(bookingId.equals("") && userId.equals("")) {
+	    	 bookings = bookingroomService.findBookings();
+	     }else if(bookingId.equals("")) {
+	    	 bookings = bookingroomService.findBookingsByBookingIdOrUserId(null, Integer.parseInt(userId));
+	     }else if(userId.equals("")) {
+	    	 bookings = bookingroomService.findBookingsByBookingIdOrUserId(Integer.parseInt(bookingId), null);
+	     }else {
+	    	 bookings = bookingroomService.findBookings();
+	     }
+	     
+	     
+		
+		
+		List<AllBookingRoomDto> bookingDtos = new ArrayList<>();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (Booking booking : bookings) {		
+			String	startDate = sdf.format(booking.getStart_date());
+			String	endDate = sdf.format(booking.getEnd_date());
+
+			
+			User user = userservice.getUser(booking.getUserId());
 			System.out.println(user);
 			System.out.println(user.getName());
 			// 建立 BookingDTO 對象，將 Booking 的資料放入
@@ -77,6 +127,7 @@ public class BackBookingController {
 			bookingDtos.add(bookingDto);
 		}
 		return bookingDtos;
-	}
+        
+    }
 	
 }

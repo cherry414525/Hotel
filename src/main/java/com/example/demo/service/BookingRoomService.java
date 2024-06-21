@@ -47,4 +47,8 @@ public class BookingRoomService {
 	public List<Booking> findBookings() {
 		return bookingRoomDao.findBookings();
 	}
+	
+	public List<Booking> findBookingsByBookingIdOrUserId(Integer id,Integer userId) {
+		return bookingRoomDao.findBookingsByBookingIdOrUserId(id,userId);
+	}
 }

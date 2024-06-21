@@ -18,4 +18,5 @@ public interface BookingRoomDao {
 	Integer deleteBooking(Integer id);		//刪除訂單
 	Integer deleteBookingByUserId(Integer id);
 	List<Booking> findBookings();
+	List<Booking> findBookingsByBookingIdOrUserId(Integer id, Integer userId);
 }
