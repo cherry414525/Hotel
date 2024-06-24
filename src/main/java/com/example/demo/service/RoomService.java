@@ -58,5 +58,8 @@ public class RoomService {
 		return roomDao.findRoomsByIdAndType( id,type);
 	}
 	
+	public List<Room> findRoombytype(Integer id) {
+		return roomDao.findAllRoomsbyType(id);
+	}
 	
 }

@@ -22,4 +22,5 @@ public interface BookingRoomDao {
 	Integer deleteBookingByBooking(Integer id);
 	Booking findBooking(Integer id);
 	Integer updateBookingAllColumn(Integer id, Booking booking);
+	List<Booking> checkupdatebooking(Integer booking_id, Integer roomtype_id, String start_date, String end_date);
 }

@@ -29,6 +29,11 @@ public class RoomDaoImpl implements RoomDao {
 		String sql = "select room_id, type_id from room";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Room.class));
 	}
+	@Override
+	public List<Room> findAllRoomsbyType(Integer type_id) {
+		String sql = "select room_id, type_id from room where type_id = ?";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Room.class), type_id);
+	}
 	
 	@Override
 	public List<RoomAvailabilityDto> findRoomsBydate(String start_date, String end_date) {

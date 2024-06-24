@@ -67,4 +67,8 @@ public class BookingRoomService {
 	public Integer addBooking(Booking booking) {
 		return bookingRoomDao.addBooking(booking);
 	}
+	
+	public List<Booking> checkupdatebooking(Integer booking_id, Integer roomtype_id, String start_date, String end_date) {
+		return bookingRoomDao.checkupdatebooking(booking_id,roomtype_id,start_date,end_date);
+	}
 }

@@ -135,15 +135,56 @@ public class BookingController {
         Date startDate = formatter.parse(startDateStr);
 		Date endDate = formatter.parse(endDateStr);
     	
+		//檢核日期區間
+		if(startDate.after(endDate)||startDate.equals(endDate)) {
+			
+			System.out.println("日期區間錯誤");
+			model.addAttribute("error", "日期區間錯誤");
+			return "redirect:/member/update/"+bookingid;
+		}
+		
+		//檢核房型是否有剩餘房間
+		Booking updatebooking = bookingRoomService.findBooking(bookingid);
+		Room room = roomService.getRoom(updatebooking.getRoomId());
+		//找出該房型已被預訂的房間
+		List<Booking> bookingList = bookingRoomService.checkupdatebooking(bookingid, room.getType_id(), startDateStr, endDateStr);
+		System.out.println("bookingList:"+bookingList);
+		List<Room> roomList = roomService.findRoombytype(room.getType_id());
+		System.out.println(roomList);
+		
+	
+		for(Booking b : bookingList) {
+			System.out.println("房間ID:"+b.getRoomId());
+			for(Room r : roomList) {
+				System.out.println("房間ID:"+r.getRoom_id());
+				if(b.getRoomId().equals(r.getRoom_id())) {
+					System.out.println("移除"+r.getRoom_id());
+					roomList.remove(r);
+					break;
+				}
+			}
+		}
+		
+		System.out.println("roomList:"+roomList);
+		if(roomList.size()==0) {
+			System.out.println("沒有剩餘房間");
+			model.addAttribute("error", "沒有剩餘房間");
+			return "redirect:/member/update/"+bookingid;
+		}
+				
+		
+		
+		
     	Booking booking=new Booking();
 		booking.setBooking_id(bookingid);
+		
 		booking.setStart_date(startDate);
 		booking.setEnd_date(endDate);
 		booking.setPrice(price);
 		
 		bookingRoomService.updateBooking(bookingid,booking);
         
-        return "redirect:/hotel"; 
+        return "redirect:/member";	 
     }
 	
 	

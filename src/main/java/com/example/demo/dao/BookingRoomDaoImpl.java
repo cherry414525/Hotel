@@ -294,4 +294,20 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
         
         return rowcount;
 	}
+	
+	@Override
+	public List<Booking> checkupdatebooking(Integer booking_id, Integer roomtype_id,String start_date, String end_date) {
+		/*
+		 * SELECT * FROM hotel.booking b
+			LEFT JOIN hotel.room r ON b.room_id = r.room_id
+			WHERE b.booking_id != 10 and r.type_id=1 AND b.start_date < '2024-06-25' 
+  			AND b.end_date > '2024-06-20' AND b.status <> '已取消' AND b.status <> '已退房';
+		 * 
+		 * */
+		String sql = "SELECT * FROM booking b "+
+					"LEFT JOIN room r ON b.room_id = r.room_id "+
+					"WHERE b.booking_id != ? and r.type_id=? AND b.start_date < ? "+
+					"AND b.end_date > ? AND b.status <> '已取消' AND b.status <> '已退房' ";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Booking.class),booking_id,roomtype_id,end_date,start_date);	
+	}
 }

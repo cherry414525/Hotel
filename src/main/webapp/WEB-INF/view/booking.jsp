@@ -113,7 +113,7 @@
                   <input type="text" class="form-control" id="roomType" name="roomType" value="${roomtype}" readonly>
                 </div>
                 <div class="form-group">
-                  <label for="start_date">入住時間</label>
+                  <label for="start_date">入住時間</label><small id="error" style="color:red"> ${error}</small>
                   <input type="date" class="form-control"  id="start_date" name="start_date" value="${start_date}" onchange="calculateDate()">
                 </div>
                 <div class="form-group">
@@ -188,6 +188,8 @@
             $('form').attr('action', '/booking/updatebooking/${bookingId}');
             var methodInput = document.querySelector('input[name="_method"]');
             methodInput.value = 'PUT';
+            
+            
         }
     });
 
@@ -225,6 +227,7 @@
         end_date.readOnly = false;
         
         $('#submitBtn').text('確認修改');
+        
         $('#cancelBtn').attr('href', '/member');
     }
   </script>
