@@ -173,8 +173,8 @@
                             <div class="card ">
                                 <div class="row no-gutters">
                                     <!-- 左半部分放置图片 -->
-                                    <div class="col-md-4" style="padding: 8px;">
-                                        <img src="../hotel_img/${roomtypeDto.photo}" class="card-img" alt="Your Image">
+                                    <div class="col-md-4" style="padding: 8px; ">
+                                        <img src="../hotel_img/${roomtypeDto.photo}" class="card-img"  style="height: 100%;" alt="Your Image">
                                     </div>
                                     <!-- 右半部分放置信息和按钮 -->
                                     <div class="col-md-8">
@@ -194,7 +194,7 @@
                                                     <!-- 總金額 -->
                                                     <div class="col-md-5 col-sm-7 mt-2 mt-md-2 d-flex align-items-center justify-content-end " >
                                                     <input type="hidden" id="price" value="${roomtypeDto.price}">
-                                                    總金額：<input type="number" id="totalPrice" value="${roomtypeDto.price}" readonly class="form-control w-50">
+                                                    <p id="stayDurationContainer" Style="padding-top: 15px" ></p>總金額：<input type="number" id="totalPrice" value="${roomtypeDto.price}" readonly class="form-control w-50">
                                                     </div>
                                                     <!-- 訂房按钮 -->
                                                     
@@ -309,7 +309,8 @@
 
                         // 在控制台打印入住到退房的天數
                         console.log("入住到退房的天數: " + stayDuration);
-
+                        
+                        
                         
                     }
 			
@@ -378,6 +379,7 @@
                         var totalPrice = price * stayDuration;
                         $(this).find('#totalPrice').val(totalPrice.toFixed(2)); // 将结果保留两位小数
                         
+                        $(this).find('#stayDurationContainer').text("共"+stayDuration+ "晚，" );
                         
                              
                     });
