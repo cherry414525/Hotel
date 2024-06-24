@@ -57,7 +57,7 @@ public class LoginController {
 	                // 密碼正確，將使用者設置為已登入狀態
 	                session.setAttribute("loggedInUser", user);
 	                session.setAttribute("loginStatus", true);
-	                return "redirect:/member"; // 登入成功，重定向到會員中心
+	                return "redirect:/hotel"; // 登入成功，重定向到會員中心
 	            } else {
 	                // 密碼不正確，返回登入頁面，顯示錯誤消息
 	                model.addAttribute("error", "密碼不正確");

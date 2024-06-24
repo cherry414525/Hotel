@@ -107,7 +107,7 @@ public class BookingController {
 			String message = "新增" + ((rowcount == 1)?"成功":"失敗");
 			System.out.print(rowcount);
 			model.addAttribute("message", message);
-			return "redirect:/hotel";
+			return "redirect:/member";
 		}catch (Exception e) {
 			System.out.print(e);
 			String message = "新增錯誤: ";
