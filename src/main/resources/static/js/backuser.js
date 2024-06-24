@@ -1,6 +1,25 @@
 // 當文件加載完成後執行渲染操作
 $(document).ready(function() {
+	//判斷是否登入
+		 function checkSession() {
+	    fetch('/api/checkSession')
+	        .then(response => response.json())
+	        .then(data => {
+	            if (data === true) {
+	                console.log('使用者已登錄');
+	                // 執行使用者已登錄時的相應操作
+	            } else {
+	                console.log('使用者未登錄');
+	                 window.location.href = 'backlogin.html';
+	                // 執行使用者未登錄時的相應操作
+	            }
+	        })
+	        .catch(error => {
+	            console.error('檢查會話時發生錯誤:', error);
+	        });
+		}
 	
+	checkSession();
  	// 獲取所有會員資料的函數
     function fetchMembers() {
         fetch('/api/members')  // 發送 GET 請求到 /api/members，這裡假設後端提供了這個 API

@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -198,18 +199,38 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	}
 	
 	@Override
-	public List<Booking> findBookingsByBookingIdOrUserId(Integer id, Integer userId) {
-		//查詢單筆訂單，依照boooking_id
-		String sql = "select booking_id, user_id, room_id, status,price,start_date, end_date,createdate,updatedate from booking where booking_id = ? or user_id = ?";
-		try {
-			
-			List<Booking> booking =  jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Booking.class), id, userId);
-			
-			return booking;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public List<Booking> findBookingsByBookingIdOrUserId(Integer id, Integer userId, String checkin, String status) {
+		// 建立基本的 SQL 查詢字串
+	    StringBuilder sql = new StringBuilder("SELECT booking_id, user_id, room_id, status, price, start_date, end_date, createdate, updatedate FROM booking WHERE 1=1");
+
+	    // 動態添加條件
+	    List<Object> params = new ArrayList<>();
+	    if (id != null) {
+	        sql.append(" AND booking_id = ?");
+	        params.add(id);
+	    }
+	    if (userId != null) {
+	        sql.append(" AND user_id = ?");
+	        params.add(userId);
+	    }
+	    if (checkin != null) {
+	        sql.append(" AND start_date = ?");
+	        params.add(checkin);
+	    }
+	    if (status != null) {
+	        sql.append(" AND status = ?");
+	        params.add(status);
+	    }
+	    
+	    try {
+	        // 使用 jdbcTemplate 執行查詢，傳遞參數並且將結果映射到 Booking 對象的 List 中
+	        List<Booking> bookings = jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<>(Booking.class), params.toArray());
+	        
+	        return bookings;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 
 	@Override
@@ -267,8 +288,8 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	@Override
 	public Integer updateBookingAllColumn(Integer id, Booking booking) {
 		
-		String sql = "update booking set booking_id = ?,user_id = ?, room_id = ?,price = ?,start_date= ?, end_date = ?   where booking_id = ?";
-		int rowcount = jdbcTemplate.update(sql,booking.getBooking_id(),booking.getUserId(),booking.getRoomId(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date(), id);
+		String sql = "update booking set booking_id = ?,user_id = ?, room_id = ?,price = ?,start_date= ?, end_date = ?,status = ?   where booking_id = ?";
+		int rowcount = jdbcTemplate.update(sql,booking.getBooking_id(),booking.getUserId(),booking.getRoomId(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date(),booking.getStatus(), id);
 		return rowcount;
 	}
 

@@ -43,6 +43,8 @@ import com.example.demo.model.po.User;
 import com.example.demo.service.BookingRoomService;
 import com.example.demo.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 
 @RestController
@@ -54,6 +56,7 @@ public class BackBookingController {
 	
 	@Autowired
 	private UserService userservice;
+	
 	
 	@GetMapping("/bookings")
 	public List<AllBookingRoomDto>  findAll() {
@@ -114,16 +117,31 @@ public class BackBookingController {
     public List<AllBookingRoomDto> searchRooms(@RequestBody SearchBookingDto searchBookingDto) {
 		 String bookingId= searchBookingDto.getBookingId();
 	     String userId = searchBookingDto.getUserId();
+	     String checkin = searchBookingDto.getCheckIn();
+	     String status = searchBookingDto.getStatus(); 
+	     
 	     
 	     List<Booking> bookings;
-	     if(bookingId.equals("") && userId.equals("")) {
+	     if(bookingId.equals("") && userId.equals("") && checkin.equals("") && status.equals("")) {
 	    	 bookings = bookingroomService.findBookings();
-	     }else if(bookingId.equals("")) {
-	    	 bookings = bookingroomService.findBookingsByBookingIdOrUserId(null, Integer.parseInt(userId));
-	     }else if(userId.equals("")) {
-	    	 bookings = bookingroomService.findBookingsByBookingIdOrUserId(Integer.parseInt(bookingId), null);
+	     }else if(bookingId.equals("") || userId.equals("") || checkin.equals("") || status.equals("")) {
+	    	 String c;
+	    	 String d;
+	    	 if(checkin.equals("") ) { c=null; }else { c=checkin; }
+	    	 if(status.equals("") ) { d=null; }else { d=status; }
+	    	 
+	    	 if (bookingId.equals("") && userId.equals("")) {
+	    		 bookings = bookingroomService.findBookingsByBookingIdOrUserId(null, null, c, d);
+	    	 } else if (bookingId.equals("")) {
+		    	 bookings = bookingroomService.findBookingsByBookingIdOrUserId(null, Integer.parseInt(userId), c, d);
+	    	 }else if(userId.equals("")) {
+	    		 bookings = bookingroomService.findBookingsByBookingIdOrUserId(Integer.parseInt(bookingId), null, c, d);
+	    	 }else {
+	    		 bookings = bookingroomService.findBookingsByBookingIdOrUserId(Integer.parseInt(bookingId), Integer.parseInt(userId), c, d);
+	    	 }
+ 
 	     }else {
-	    	 bookings = bookingroomService.findBookingsByBookingIdOrUserId(Integer.parseInt(bookingId), Integer.parseInt(userId));
+	    	 bookings = bookingroomService.findBookingsByBookingIdOrUserId(Integer.parseInt(bookingId), Integer.parseInt(userId), checkin, status);
 	     }
 	     
 	     
@@ -179,9 +197,8 @@ public class BackBookingController {
 			String startDate = updatebookingDto.getStart_date();
 			String endDate = updatebookingDto.getEnd_date();
 			String status = updatebookingDto.getStatus();
-
 			
-			  
+  
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        Date StartDate = formatter.parse(startDate);
 	        Date EndDate = formatter.parse(endDate);
@@ -200,7 +217,7 @@ public class BackBookingController {
 			
 			bookingroomService.updateBookingByBookingId(booking.getBooking_id(), booking);
 			
-			bookingroomService.updateBookingByBookingId(null, null);
+			
             return "修改訂單成功";
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "修改訂單失败: " + e.getMessage(), e);

@@ -1,5 +1,26 @@
 // 當文件加載完成後執行渲染操作
 $(document).ready(function() {
+		//判斷是否登入
+		 function checkSession() {
+	    fetch('/api/checkSession')
+	        .then(response => response.json())
+	        .then(data => {
+	            if (data === true) {
+	                console.log('使用者已登錄');
+	                // 執行使用者已登錄時的相應操作
+	            } else {
+	                console.log('使用者未登錄');
+	                 window.location.href = 'backlogin.html';
+	                // 執行使用者未登錄時的相應操作
+	            }
+	        })
+	        .catch(error => {
+	            console.error('檢查會話時發生錯誤:', error);
+	        });
+		}
+	
+	checkSession();
+	
 		// 獲取所有訂單資料的函數
 		function fetchBookings() {
 		    fetch('/api/bookings')  // 發送 GET 請求到 /api/bookings，假設後端提供了這個 API
@@ -42,11 +63,15 @@ $(document).ready(function() {
 		        // 獲取訂單編號和會員編號值
 		        var bookingId = $('#bookingId').val();
 		        var userId = $('#userId').val();
+		        var checkIn = $('#searchCheckIn').val();
+		        var status = $('#searchStatus').val();
 		
 		        // 建立要發送的數據對象
 		        var formData = {
 		            bookingId: bookingId,
-		            userId: userId
+		            userId: userId,
+		            checkIn: checkIn,
+		            status: status
 		        };
 		
 		        // 設置 Fetch 請求的選項

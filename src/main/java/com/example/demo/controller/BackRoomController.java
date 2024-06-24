@@ -36,6 +36,8 @@ import com.example.demo.model.po.RoomType;
 import com.example.demo.service.RoomService;
 import com.example.demo.service.RoomTypeService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/api")
 public class BackRoomController {
@@ -45,6 +47,12 @@ public class BackRoomController {
 	
 	@Autowired
 	private RoomTypeService roomtypeService;
+	
+	@GetMapping("/checkSession")
+    public boolean checkSession(HttpSession session) {
+        Boolean managerStatus = (Boolean) session.getAttribute("managerStatus");
+        return managerStatus != null && managerStatus;
+    }
 	
 	@GetMapping("/rooms")
 	public List<RoomDto>  findAll() {

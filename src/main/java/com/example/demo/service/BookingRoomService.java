@@ -48,8 +48,8 @@ public class BookingRoomService {
 		return bookingRoomDao.findBookings();
 	}
 	
-	public List<Booking> findBookingsByBookingIdOrUserId(Integer id,Integer userId) {
-		return bookingRoomDao.findBookingsByBookingIdOrUserId(id,userId);
+	public List<Booking> findBookingsByBookingIdOrUserId(Integer id,Integer userId,String checkin,String status) {
+		return bookingRoomDao.findBookingsByBookingIdOrUserId(id,userId,checkin,status);
 	}
 	
 	public Integer deleteBookingByBookingId(Integer id) {

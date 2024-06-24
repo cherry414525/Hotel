@@ -107,7 +107,7 @@
                 <a class="nav-link active" href="backbooking.html">訂單管理</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">登出</a>
+                <a class="nav-link" href="/backlogout">登出</a>
             </li>
         </ul>
     </div>
@@ -156,6 +156,29 @@
                                                 class="form-control form-control-sm mb-3" placeholder="會員編號">
                                         </div>
                                     </div>
+									<div class="row mb-4">
+									     <div class="col-md-2">
+									         <label for="searchCheckIn" class="form-label">入住日期:</label>
+									     </div>
+									     <div class="col-md-6">
+									          <input type="date" id="searchCheckIn" class="form-control form-control-sm mb-3">
+									     </div>
+									 </div>
+									 <div class="row mb-4">
+									      <div class="col-md-2">
+									          <label for="searchStatus" class="form-label">訂單狀態:</label>
+									      </div>
+									       <div class="col-md-6">
+									            <select id="searchStatus" class="form-control form-control-sm mb-3">
+									                <option value="">選擇狀態</option>
+									                <option value="已訂房">已訂房</option>
+									                <option value="已入住">已入住</option>
+									                <option value="已退房">已退房</option>
+									                <option value="未入住">未入住</option>
+									                <option value="已取消">已取消</option>
+									            </select>
+									       </div>
+									</div>
                                     <div class="row">
                                         <div class="col-md-5"></div> <!-- 空白占位 -->
                                         <div class="col-md-3">
@@ -240,7 +263,13 @@
                         </div>
                         <div class="form-group">
                             <label for="bookingStatus">訂單狀態</label>
-                            <input type="text" class="form-control" id="bookingStatus"  value="已訂房">
+							<select class="form-control" id="bookingStatus">
+							        <option value="已訂房">已訂房</option>
+							        <option value="已入住">已入住</option>
+							        <option value="已退房">已退房</option>
+							        <option value="未入住">未入住</option>
+							        <option value="已取消">已取消</option>
+							    </select>
                         </div>
                     </form>
                 </div>

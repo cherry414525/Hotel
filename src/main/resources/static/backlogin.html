@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台管理登入-Starry Hotel</title>
+    <link rel="icon" href="../hotel_img/icon-hotel.webp">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="./js/backlogin.js"></script>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            /* 背景色 */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            /* 登入框最大寬度 */
+            margin-top: 100px;
+            /* 與頂部間距 */
+        }
+
+        .card {
+            border: none;
+            /* 卡片無邊框 */
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            /* 輕微陰影 */
+        }
+
+        .card-header {
+            background-color: #ffffff;
+            /* 卡片頭部背景色 */
+            border-bottom: none;
+            /* 卡片頭部無底部邊框 */
+            text-align: center;
+            /* 文字置中 */
+            padding: 1.5rem 0;
+            /* 上下內邊距 */
+        }
+
+        .card-body {
+            padding: 2rem;
+            /* 主體內邊距 */
+        }
+
+        .form-control {
+            border-radius: 0;
+            /* 輸入框無圓角 */
+        }
+
+        .forgot-password {
+            font-size: 0.9rem;
+            /* 忘記密碼字體大小 */
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            /* 主按鈕背景色 */
+            border: none;
+            /* 主按鈕無邊框 */
+            width: 100%;
+            /* 主按鈕寬度100% */
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            /* 滑鼠懸停時的按鈕背景色 */
+        }
+
+        .create-account {
+            text-align: center;
+            /* 創建帳號連結置中 */
+            margin-top: 1rem;
+            /* 上邊距 */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>管理員登入</h3>
+            </div>
+            <div class="card-body">
+               
+                    <div class="form-group">
+                        <label for="loginEmail">Email 地址</label>
+                        <input type="email" class="form-control" id="loginEmail" name="email"
+                            aria-describedby="emailHelp" placeholder="請輸入 Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">密碼</label>
+                        <input type="password" class="form-control" id="loginPassword" name="password"
+                            placeholder="請輸入密碼" required>
+                    </div>
+                    <div class="form-group text-right">
+                        <a href="#" class="forgot-password" data-toggle="modal"
+                            data-target="#forgotPasswordModal">忘記密碼?</a>
+                    </div>
+                    <button id="loginButton" class="btn btn-primary">登入</button>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog"
+        aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">忘記密碼</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   
+                        <div class="form-group">
+                            <label for="forgotPasswordEmail">Email 地址</label>
+                            <input type="email" class="form-control" id="forgotPasswordEmail" name="email"
+                                placeholder="輸入註冊時使用的 Email" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">寄送</button>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

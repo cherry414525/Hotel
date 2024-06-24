@@ -15,5 +15,8 @@ import lombok.NoArgsConstructor;
 public class SearchBookingDto{
 	 private String bookingId;
 	    private String userId;
+	    private String checkIn;
+	    private String status;
+	    
 	   
 }
