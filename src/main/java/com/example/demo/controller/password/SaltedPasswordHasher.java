@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.password;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.demo.controller.password.SaltedPasswordHasher;
 import com.example.demo.model.dto.AllBookingRoomDto;
 import com.example.demo.model.dto.BookingDto;
 import com.example.demo.model.dto.BookingRoomDto;

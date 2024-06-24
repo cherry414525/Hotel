@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.example.demo.controller.password.SaltedPasswordHasher;
 import com.example.demo.model.dto.BookingRoomDto;
 import com.example.demo.model.dto.PasswordDto;
 import com.example.demo.model.dto.UserUpdateDto;

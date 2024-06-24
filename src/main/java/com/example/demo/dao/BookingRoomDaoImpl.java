@@ -233,15 +233,7 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 	    }
 	}
 
-	@Override
-	public Integer addBooking(Booking booking) {
-		String sql = "INSERT INTO booking (booking_id,user_id, room_id,price,start_date, end_date,status) VALUES (?, ?, ?, ?,?,?,?)";
-        
-        // 執行 SQL 新增語句
-        int rowcount = jdbcTemplate.update(sql,booking.getBooking_id(),booking.getUserId(),booking.getRoomId(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date(),booking.getStatus());
-        
-        return rowcount;
-	}
+	
 
 	@Override
 	public Integer updateBooking(Integer id, Booking booking) {
@@ -293,4 +285,13 @@ public class BookingRoomDaoImpl implements BookingRoomDao {
 		return rowcount;
 	}
 
+	@Override
+	public Integer addBooking(Booking booking) {
+		String sql = "INSERT INTO booking (booking_id,user_id, room_id, status,price,start_date, end_date) VALUES (?, ?, ?, ?,?,?,?)";
+        
+        // 執行 SQL 新增語句
+        int rowcount = jdbcTemplate.update(sql,booking.getBooking_id(),booking.getUserId(),booking.getRoomId(),booking.getStatus(),booking.getPrice(),booking.getStart_date(),booking.getEnd_date());
+        
+        return rowcount;
+	}
 }

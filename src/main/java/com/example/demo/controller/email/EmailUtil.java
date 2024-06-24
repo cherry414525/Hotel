@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.email;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;

@@ -26,7 +26,6 @@ import com.example.demo.model.dto.BookingDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.User;
 import com.example.demo.service.BookingRoomService;
-import com.example.demo.service.BookingService;
 import com.example.demo.service.RoomService;
 import com.example.demo.service.RoomTypeService;
 
@@ -37,8 +36,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/booking")
 public class BookingController {
 	
-	@Autowired
-	private BookingService bookingService;
+
 	
 	@Autowired
 	private BookingRoomService bookingRoomService;
@@ -105,7 +103,7 @@ public class BookingController {
 			 booking.setStatus("已訂房");
 			 
 			 System.out.println(booking);
-			Integer rowcount = bookingService.addBooking(booking);
+			Integer rowcount = bookingRoomService.addBooking(booking);
 			String message = "新增" + ((rowcount == 1)?"成功":"失敗");
 			System.out.print(rowcount);
 			model.addAttribute("message", message);

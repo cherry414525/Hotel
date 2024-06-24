@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.po.Booking;
+import com.example.demo.controller.email.SSLEmail;
+import com.example.demo.controller.password.SaltedPasswordHasher;
 import com.example.demo.model.dto.BookingDto;
 import com.example.demo.model.dto.UserDto;
 import com.example.demo.model.po.Room;
 import com.example.demo.model.po.User;
-import com.example.demo.service.BookingService;
 import com.example.demo.service.RoomService;
 import com.example.demo.service.UserService;
 

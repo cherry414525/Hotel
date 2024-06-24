@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.BookingDao;
+
 import com.example.demo.dao.BookingRoomDao;
 import com.example.demo.model.dto.BookingRoomDto;
 import com.example.demo.model.po.Booking;
@@ -62,5 +62,9 @@ public class BookingRoomService {
 	
 	public Integer updateBookingByBookingId(Integer id,Booking booking) {
 		return bookingRoomDao.updateBookingAllColumn(id,booking);
+	}
+	
+	public Integer addBooking(Booking booking) {
+		return bookingRoomDao.addBooking(booking);
 	}
 }
