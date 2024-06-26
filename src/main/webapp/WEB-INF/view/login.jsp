@@ -264,11 +264,22 @@
                  $('#forgotPasswordModal').modal('hide'); 
                  $('#resetPasswordModal').modal('show');
             	Swal.fire({
-                    title: '驗證碼錯誤',
+                    title: '確認密碼不相同',
                     icon: 'warning',
                     confirmButtonText: 'OK'
                   });
             	 ${ sessionScope.resetPasseord = "" };
+            }else if(resetPasseord=='密碼不可小於6碼'){
+
+	           	 $('#otpVerificationModal').modal('hide'); 
+	             $('#forgotPasswordModal').modal('hide'); 
+	             $('#resetPasswordModal').modal('show');
+	           	Swal.fire({
+	                   title: '密碼不可小於6碼',
+	                   icon: 'warning',
+	                   confirmButtonText: 'OK'
+	                 });
+	           	 ${ sessionScope.resetPasseord = "" };
             }else if(resetPasseord=='更新成功') {
             	 $('#otpVerificationModal').modal('hide'); 
                  $('#forgotPasswordModal').modal('hide'); 

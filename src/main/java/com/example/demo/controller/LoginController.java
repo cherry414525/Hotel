@@ -224,6 +224,9 @@ public class LoginController {
 	    if (!newPassword.equals(confirmPassword)) {
 	    	session.setAttribute("resetPasseord","確認密碼不相同");
 	        return "redirect:/login"; // 如果密碼不匹配，返回重設密碼表單頁面
+	    }else if(newPassword.length() < 6) {
+	    	session.setAttribute("resetPasseord","密碼不可小於6碼");
+	        return "redirect:/login"; // 如果密碼不匹配，返回重設密碼表單頁面
 	    }
 	    Optional<User> existingUser = userService.getUserByEmail(email);
 	    if (existingUser.isPresent()) {

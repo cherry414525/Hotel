@@ -139,14 +139,17 @@ public class BookingController {
 		session.removeAttribute("errordate");
 		session.removeAttribute("errorroom");
 		
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today=sdf.format(new Date());
 		//檢核日期區間
 		if(startDate.after(endDate)||startDate.equals(endDate)) {
 			
 			model.addAttribute("error", "日期區間錯誤");
 			session.setAttribute("errordate", "日期區間錯誤");
 			return "redirect:/member/update/"+bookingid;
-		}else if(startDate.before(new Date())) {
+		}else if(startDate.before(new Date()) && !(startDateStr.equals(today)) ) {
+			System.out.println(startDate.before(new Date()));
+			System.out.println((startDate.equals(new Date())));
 			session.setAttribute("errordate", "入住日期不可小於今天");
 			return "redirect:/member/update/"+bookingid;
 		}
