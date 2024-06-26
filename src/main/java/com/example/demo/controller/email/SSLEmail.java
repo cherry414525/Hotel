@@ -25,7 +25,7 @@ public class SSLEmail {
 	   Use Authentication: Yes
 	   Port for SSL: 465
 	 */
-	 public static void sendEmail(String toEmail) {
+	 public static void sendEmail(String toEmail,String OTP) {
 	        final String fromEmail = "abcdefg8756@gmail.com"; // 你的 Gmail 地址
 	        final String password = "hpyi alxu dsrh apyz"; // 你的 Gmail 应用程序密码
 
@@ -47,7 +47,7 @@ public class SSLEmail {
 	        System.out.println("Session created");
 
 	        // 调用 EmailUtil 类中的 sendEmail 方法发送邮件
-	        EmailUtil.sendEmail(session, toEmail, "Starry Hotel 會員密碼重設", "您的預設密碼已更改為123456"+"，登入後請重設密碼。");
+	        EmailUtil.sendEmail(session, toEmail, "Starry Hotel 會員密碼重設", "您的驗證碼為"+OTP+"，請在1分鐘進行驗證。");
 	    }
 
 }

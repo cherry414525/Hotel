@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.po.Booking;
 import com.example.demo.controller.email.SSLEmail;
+import com.example.demo.controller.password.OTP;
 import com.example.demo.controller.password.SaltedPasswordHasher;
 import com.example.demo.model.dto.BookingDto;
 import com.example.demo.model.dto.UserDto;
@@ -167,13 +168,17 @@ public class LoginController {
 	    return "redirect:/hotel";
 	}
 	
+	
 	@GetMapping("/forgotPassword")
-	public String forgotPassword(@RequestParam("email") String email, Model model) {
+	public String forgotPassword(@RequestParam("email") String email, Model model, HttpSession session) {
 		System.out.println(email);
-		
-		SSLEmail.sendEmail(email);
+		session.removeAttribute("otp");
+		String otp=OTP.generateOTP();
+		session.setAttribute("otpPassword", otp);
+		SSLEmail.sendEmail(email,otp);
 		 Optional<User> existingUser = userService.getUserByEmail(email);
 	        if (existingUser.isPresent()) {
+	        	System.out.print(otp);
 	            User user = existingUser.get();
 	            String salt = SaltedPasswordHasher.generateSalt();
 		        String hashedPassword = SaltedPasswordHasher.hashPassword("123456", salt);
@@ -181,11 +186,60 @@ public class LoginController {
 	            user.setPassword(hashedPassword);
 		        
 	            userService.updateUserPassword(user.getUser_id(),user);
+	            session.setAttribute("otp", true);
+	           
 	            model.addAttribute("message", "密碼已發送至您的郵箱");
 	            
+	        }else {
+	        	session.setAttribute("otp",false);
 	        }
 		return "redirect:/login";
 	}
 	
+	@PostMapping("/verifyOTP")
+    public String verifyOTP(@RequestParam("otp") String votp,HttpSession session) {
+		
+		String sessionOTP = (String) session.getAttribute("otpPassword");
+		System.out.println("otp"+sessionOTP);
+		System.out.println("votp"+votp);
+		if (sessionOTP != null && sessionOTP.equals(votp)) {
+			System.out.println("成功");
+			session.setAttribute("otpcheck", true);
+        } else {
+        	System.out.println("失敗");
+        	session.setAttribute("otpcheck", false);
+             
+        }
+		return "redirect:/login";
+
+	}
+	
+	@PostMapping("/resetPassword")
+	public String resetPassword(@RequestParam("email") String email,
+	                            @RequestParam("newPassword") String newPassword,
+	                            @RequestParam("confirmPassword") String confirmPassword,
+	                            Model model,HttpSession session) {
+
+	    // 在這裡進行密碼驗證和邏輯處理
+	    if (!newPassword.equals(confirmPassword)) {
+	    	session.setAttribute("resetPasseord","確認密碼不相同");
+	        return "redirect:/login"; // 如果密碼不匹配，返回重設密碼表單頁面
+	    }
+	    Optional<User> existingUser = userService.getUserByEmail(email);
+	    if (existingUser.isPresent()) {
+            User user = existingUser.get();
+            String salt = SaltedPasswordHasher.generateSalt();
+	        String hashedPassword = SaltedPasswordHasher.hashPassword(newPassword, salt);
+            user.setSalt(salt);
+            user.setPassword(hashedPassword);
+	        
+            userService.updateUserPassword(user.getUser_id(),user);
+            session.setAttribute("resetPasseord", "更新成功");
+	    }
+	    // TODO: 這裡需要根據業務邏輯重設密碼，例如更新資料庫中使用者的密碼
+
+	    // 重設密碼成功後，可以跳轉到登錄頁面或其他頁面
+	    return "redirect:/login"; // 重定向到登錄頁面
+	}
 	
 }
