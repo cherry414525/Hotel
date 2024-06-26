@@ -180,15 +180,9 @@ public class LoginController {
 	        if (existingUser.isPresent()) {
 	        	System.out.print(otp);
 	            User user = existingUser.get();
-	            String salt = SaltedPasswordHasher.generateSalt();
-		        String hashedPassword = SaltedPasswordHasher.hashPassword("123456", salt);
-	            user.setSalt(salt);
-	            user.setPassword(hashedPassword);
-		        
-	            userService.updateUserPassword(user.getUser_id(),user);
+
 	            session.setAttribute("otp", true);
 	           
-	            model.addAttribute("message", "密碼已發送至您的郵箱");
 	            
 	        }else {
 	        	session.setAttribute("otp",false);

@@ -220,6 +220,26 @@
             $('.navbar-nav>li>a').on('click', function () {
                 $('.navbar-collapse').collapse('hide');
             });
+            
+         // 偵測點擊事件並顯示警告訊息
+            $('#sendOTPButton').click(function () {
+                // 顯示 SweetAlert 等待訊息
+                Swal.fire({
+                    title: '請稍候',
+                    html: '寄送中...',
+                    allowOutsideClick: false,
+                    showConfirmButton: false
+                });
+
+                // 模擬等待10秒後關閉 SweetAlert
+                setTimeout(function () {
+                    Swal.close();
+                    // 這裡可以添加其他的 JavaScript 操作
+                }, 10000); // 10秒
+            });
+
+            
+            
             console.log("${sessionScope.otp}");
             // 判断是否有 OTP 值，如果有则显示 OTP 验证模态框
             var otpValue = '${sessionScope.otp}'; // 获取服务器端传递的 OTP 值
