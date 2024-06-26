@@ -1,0 +1,18 @@
+前台
+1.登入加驗證碼
+2.忘記密碼改OTP方式
+
+3.確認訂房串金流(成功才寫入訂單)
+4.登入串Qauth2 (gmail)
+5.分已入住訂單、與未入住訂單
+
+
+後台
+1.會員不可刪除(改註銷欄位)
+
+reCAPTCHA v3
+金鑰:6LcYzQAqAAAAAOeW1oMZYQlURzF112WhpGGWwnSy
+密鑰:6LcYzQAqAAAAAGDUH9J00ZYB2schAFFrna3fFo8w
+reCAPTCHA v2
+金鑰:6Ldt1AAqAAAAABaU8u4HVeqET4rpC088AXTLbWdu
+密鑰:6Ldt1AAqAAAAAAMrrJxv934frhZwL5vlWjgiKC3I

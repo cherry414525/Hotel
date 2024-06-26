@@ -1,0 +1,391 @@
+                                                   
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Hotel後台管理</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Include SweetAlert CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+	<!-- Include SweetAlert JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+	<!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/backroom.js"></script>
+    <style>
+        * {
+            font-family: Georgia, serif;
+        }
+
+        /* Custom CSS */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            /* 調整 sidebar 寬度 */
+        }
+
+        .sidebar h1 {
+            padding: 10px 20px;
+            display: block;
+            text-align: left;
+            /* 將文字置左 */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .nav-link {
+            padding: 10px 20px;
+            display: block;
+            text-align: left;
+            /* 將文字置左 */
+            font-weight: bold;
+            color: #333;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            /* 將主要內容區域 margin-left 設為 sidebar 的寬度 */
+            padding: 20px;
+        }
+		.img-size {
+		    width: 100px;
+		    height: auto;
+		}
+        .custom-border {
+            border: 2px solid #1f2730;
+            /* 藍色實線邊框 */
+            border-radius: 0.5rem;
+            /* 圓角 */
+            padding: 1rem;
+            /* 內邊距 */
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                /* 在小型設備上讓 sidebar 佔滿整個寬度 */
+                position: static;
+                /* 移除固定定位 */
+                padding-top: 15px;
+                /* 調整 padding */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Tabs -->
+    <div class="sidebar">
+        <h1>Starry</h1>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="backroom.html">房間管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="backuser.html">會員管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="backbooking.html">訂單管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/backlogout">登出</a>
+            </li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- Main Content -->
+                <div class="col-12 col-md-9 main-content">
+                    <header class="pt-3">
+                        <h1 class="text-center">房間管理系統</h1>
+                    </header>
+
+                    <div class="container">
+                        <ul class=" nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#room-management">房間管理</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#room-type-management">房型管理</a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+
+                        <!-- #sec1 - 房間管理 -->
+                        <div class="tab-pane fade show active pt-3" id="room-management">
+                            <!-- 搜尋欄位 -->
+                            <div class="container mt-3">
+                                <div class="border rounded p-4">
+                                    <div class="row mb-4">
+                                        <div class="col-md-2">
+                                            <label for="roomNumber" class="form-label">房間編號:</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="number" id="roomNumber"
+                                                class="form-control form-control-sm mb-3" placeholder="房間編號">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-2">
+                                            <label for="roomType" class="form-label">房型:</label>
+                                        </div>
+                                        <div class="col-md-6">
+									        <select id="roomType" class="form-control form-control-sm mb-3">
+									            <!-- 下拉選單選項會在 JavaScript 中動態填充 -->
+									        </select>
+									    </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5"></div> <!-- 空白占位 -->
+                                        <div class="col-md-3">
+                                             <button id="searchButton" class="btn btn-primary btn-block">搜尋</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container mt-3">
+                                <div class="shadow p-3 mb-5 bg-white rounded"> <!-- 使用 Bootstrap 的陰影和圓角類別 -->
+                                    <div class="table-responsive">
+                                        <h2>房間列表</h2>
+                                        <table class="table table-bordered">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">房間編號</th>
+                                                    <th scope="col">類型</th>
+                                                    <th scope="col">管理</th>  
+                                                    <th scope="col">刪除</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                            </tbody>
+                                        </table>
+                                        <button class="btn btn-success" data-toggle="modal"
+                                            data-target="#addRoomModal">新增房間</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- #sec2 - 房型管理 -->
+                        <div class="tab-pane fade pt-3" id="room-type-management">
+                            
+
+                            <div class="container mt-3">
+                                <div class="shadow p-3 mb-5 bg-white rounded"> <!-- 使用 Bootstrap 的陰影和圓角類別 -->
+                                    <h2 class="mb-3">房型列表</h2>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">房型名稱</th>
+                                                    <th scope="col">單晚價格</th>
+                                                    <th scope="col">容納人數</th>
+                                                    <th scope="col">圖片</th>
+                                                    <th scope="col">房間總數</th>
+                                                    <th scope="col">管理</th>  
+                                                    <th scope="col">刪除</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               
+                                                <!-- 可以根據需要添加更多類型的行 -->
+                                            </tbody>
+                                        </table>
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#addRoomTypeModal">新增房型</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal - 新增房間 -->
+    <div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="addRoomModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRoomModalLabel">新增房間</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="addRoomNumber">房間編號</label>
+                            <input type="number" class="form-control" id="addRoomNumber" placeholder="房間編號">
+                        </div>
+                        <div class="form-group">
+                            <label for="addroomType">房型</label>
+                            <select class="form-control" id="addroomType">
+                                <!-- 下拉選單選項會在 JavaScript 中動態填充 -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="addroomButton" class="btn btn-primary">新增</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal - 修改房間 -->
+	<div class="modal fade" id="editRoomModal" tabindex="-1" role="dialog" aria-labelledby="editRoomModalLabel"
+	    aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="editRoomModalLabel">修改房間</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <form>
+	                    <div class="form-group">
+	                        <label for="editRoomNumber">房間編號</label>
+	                        <input type="number" class="form-control" id="editRoomNumber" placeholder="房間編號" readonly>
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="editRoomType">房型</label>
+	                        <select class="form-control" id="editRoomType">
+	                            <!-- 下拉選單選項會在 JavaScript 中動態填充 -->
+	                        </select>
+	                    </div>
+	                </form>
+	            </div>
+	            <div class="modal-footer">
+	                <button id="editRoomButton" class="btn btn-primary">修改</button>
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	    
+    <!-- Modal - 新增房型 -->
+    <div class="modal fade" id="addRoomTypeModal" tabindex="-1" role="dialog" aria-labelledby="addRoomTypeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRoomTypeModalLabel">新增房型</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputRoomTypeName">房型名稱</label>
+                            <input type="text" class="form-control" id="inputRoomTypeName" placeholder="房型名稱">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRoomTypePrice">單晚價格</label>
+                            <input type="number" class="form-control" id="inputRoomTypePrice" placeholder="單晚價格">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRoomTypeCapacity">容納人數</label>
+                            <input type="number" class="form-control" id="inputRoomTypeCapacity" placeholder="人數">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRoomTypeImage">圖片</label>
+                            <input type="text" class="form-control" id="inputRoomTypeImage" placeholder="圖片">
+                        </div>
+                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="addroomtypeButton"  class="btn btn-primary">新增</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<!-- Modal - 修改房型 -->
+	<div class="modal fade" id="editRoomTypeModal" tabindex="-1" role="dialog" aria-labelledby="editRoomTypeModalLabel"
+	    aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="editRoomTypeModalLabel">修改房型</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <form>
+						<input type="hidden"  id="editRoomTypeId" >
+	                    <div class="form-group">
+	                        <label for="editRoomTypeName">房型名稱</label>
+	                        <input type="text" class="form-control" id="editRoomTypeName" placeholder="房型名稱">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="editRoomTypePrice">單晚價格</label>
+	                        <input type="number" class="form-control" id="editRoomTypePrice" placeholder="單晚價格">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="editRoomTypeCapacity">容納人數</label>
+	                        <input type="number" class="form-control" id="editRoomTypeCapacity" placeholder="人數">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="editRoomTypeImage">圖片</label>
+	                        <input type="text" class="form-control" id="editRoomTypeImage" placeholder="圖片">
+	                    </div>
+	                </form>
+	            </div>
+	            <div class="modal-footer">
+	                <button id="editRoomTypeButton" class="btn btn-primary">修改</button>
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+</body>
+
+</html>

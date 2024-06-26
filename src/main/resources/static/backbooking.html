@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Hotel後台管理</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Include SweetAlert CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+	<!-- Include SweetAlert JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+	<!-- 引入 xlsx 庫 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+	<!--繪圖	-->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<!-- 引入 Bootstrap JS 和 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/backbooking.js"></script>
+    <style>
+        * {
+            font-family: Georgia, serif;
+        }
+
+        /* 自訂 CSS */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            /* 調整 sidebar 寬度 */
+        }
+
+        .sidebar h1 {
+            padding: 10px 20px;
+            display: block;
+            text-align: left;
+            /* 將文字置左 */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .nav-link {
+            padding: 10px 20px;
+            display: block;
+            text-align: left;
+            /* 將文字置左 */
+            font-weight: bold;
+            color: #333;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            /* 將主要內容區域 margin-left 設為 sidebar 的寬度 */
+            padding: 20px;
+        }
+
+        .custom-border {
+            border: 2px solid #1f2730;
+            /* 藍色實線邊框 */
+            border-radius: 0.5rem;
+            /* 圓角 */
+            padding: 1rem;
+            /* 內邊距 */
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                /* 在小型設備上讓 sidebar 佔滿整個寬度 */
+                position: static;
+                /* 移除固定定位 */
+                padding-top: 15px;
+                /* 調整 padding */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 導航選項卡 -->
+    <div class="sidebar">
+        <h1>Starry</h1>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="backroom.html">房間管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="backuser.html">會員管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="backbooking.html">訂單管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/backlogout">登出</a>
+            </li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- 主要內容 -->
+                <div class="col-12 col-md-9 main-content">
+                    <header class="pt-3">
+                        <h1 class="text-center">訂單管理系統</h1>
+                    </header>
+
+                    <div class="container">
+                        <ul class=" nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#order-management">訂單管理</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 分頁內容 -->
+                    <div class="tab-content">
+
+                        <!-- #sec3 - 訂單列表 -->
+                        <div class="tab-pane fade show active pt-3" id="booking-management">
+                            <!-- 搜尋欄位 -->
+                            <div class="container mt-3">
+                                <div class="border rounded p-4">
+                                    <div class="row mb-4">
+                                        <div class="col-md-2">
+                                            <label for="bookingId" class="form-label">訂單編號:</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="number" id="bookingId"
+                                                class="form-control form-control-sm mb-3" placeholder="訂單編號">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-md-2">
+                                            <label for="userId" class="form-label">會員編號:</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="number" id="userId"
+                                                class="form-control form-control-sm mb-3" placeholder="會員編號">
+                                        </div>
+                                    </div>
+									<div class="row mb-4">
+									     <div class="col-md-2">
+									         <label for="searchCheckIn" class="form-label">入住日期:</label>
+									     </div>
+									     <div class="col-md-6">
+									          <input type="date" id="searchCheckIn" class="form-control form-control-sm mb-3">
+									     </div>
+									 </div>
+									 <div class="row mb-4">
+									      <div class="col-md-2">
+									          <label for="searchStatus" class="form-label">訂單狀態:</label>
+									      </div>
+									       <div class="col-md-6">
+									            <select id="searchStatus" class="form-control form-control-sm mb-3">
+									                <option value="">選擇狀態</option>
+									                <option value="已訂房">已訂房</option>
+									                <option value="已入住">已入住</option>
+									                <option value="已退房">已退房</option>
+									                <option value="未入住">未入住</option>
+									                <option value="已取消">已取消</option>
+									            </select>
+									       </div>
+									</div>
+                                    <div class="row">
+                                        <div class="col-md-5"></div> <!-- 空白占位 -->
+                                        <div class="col-md-3">
+                                            <button id="searchButton" class="btn btn-primary btn-block">搜尋</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container mt-3">
+                                <div class="shadow p-3 mb-5 bg-white rounded"> <!-- 使用 Bootstrap 的陰影和圓角類別 -->
+                                    <div class="table-responsive">
+										
+										<div class="container d-flex">
+										      	<h2>訂單列表 </h2>
+										        <button id="exportExcelButton" class="btn btn-success m-2">匯出 Excel</button>
+										 </div>					
+                                        <table class="table table-bordered">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">訂單編號</th>
+                                                    <th scope="col">房號</th>
+                                                    <th scope="col">會員姓名</th>
+                                                    <th scope="col">總金額</th>
+                                                    <th scope="col">入住日期</th>
+                                                    <th scope="col">退房日期</th>
+                                                    <th scope="col">訂單狀態</th>
+                                                    <th scope="col">修改</th>
+                                                    <th scope="col">刪除</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                   
+                                                </tr>
+                                                <!-- 其他訂單項目將在這裡列出 -->
+                                            </tbody>
+                                        </table>
+                                        <!-- 如果需要，添加用於新增訂單的按鈕 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<div class="container">
+						<h1>訂單統計</h1>
+						<canvas id="myChart"></canvas>
+					</div>
+                </div>
+            </div>
+		</div>
+		
+    </main>
+
+    <!-- 修改訂單的模態框 -->
+    <div class="modal fade" id="editBookingModal" tabindex="-1" role="dialog" aria-labelledby="editbookingModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editbookingModalLabel">修改訂單資料</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="BookingId">訂單編號</label>
+                            <input type="text" class="form-control" id="BookingId" value="1" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomNumber">房號</label>
+                            <input type="text" class="form-control" id="roomId" value="101">
+                        </div>
+                        <div class="form-group">
+                            <label for="UserName">會員姓名</label>
+                            <input type="text" class="form-control" id="UserName" value="王小明" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalAmount">總金額</label>
+                            <input type="text" class="form-control" id="totalAmount" value="$2000">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkInDate">入住日期</label>
+                            <input type="date" class="form-control" id="checkInDate" value="2024-07-01">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkOutDate">退房日期</label>
+                            <input type="date" class="form-control" id="checkOutDate" value="2024-07-05">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookingStatus">訂單狀態</label>
+							<select class="form-control" id="bookingStatus">
+							        <option value="已訂房">已訂房</option>
+							        <option value="已入住">已入住</option>
+							        <option value="已退房">已退房</option>
+							        <option value="未入住">未入住</option>
+							        <option value="已取消">已取消</option>
+							    </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="editBookingButton" class="btn btn-primary">保存修改</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
